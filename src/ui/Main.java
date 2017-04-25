@@ -9,12 +9,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.swing.border.Border;
-import java.awt.*;
 
 /**
  * @author Micha Heiß
@@ -58,6 +55,12 @@ public class Main extends Application{
                 render();
             }
         });
+        primaryStage.maximizedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                render();
+            }
+        });
 
 
         /*
@@ -85,6 +88,18 @@ public class Main extends Application{
 
                 originX += deltaX;
                 originY += deltaY;
+
+                // TODO change width and height from constant to 'Spielplan' values
+                int width = 1920;
+                int height = 1080;
+                if(originX-width/2 > 50 || (originX+width/2) < (canvas.getWidth()-50)){
+                    // reset
+                    originX -= deltaX;
+                }
+                if(originY-height/2 > 50 || (originY+height/2) < (canvas.getHeight()-50)){
+                    // reset
+                    originY -= deltaY;
+                }
 
                 dragStartX += deltaX;
                 dragStartY += deltaY;
