@@ -7,5 +7,6 @@ public enum HimmelsrichtungT {
     NORD,
     OST,
     SUED,
-    WEST
+    WEST,
+    STOP
 }
