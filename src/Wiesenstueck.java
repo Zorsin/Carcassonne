@@ -33,4 +33,18 @@ public class Wiesenstueck extends Landschaftsteil {
         return offeneHalbKanten;
     }
 
+    public void rotate(boolean direction){
+        //TODO REMOVE
+        String vorher = "Wiese vorher: ";
+        String nachher = "Wiese nachher: ";
+        for(int i = 0; i<offeneHalbKanten.length;i++){
+            vorher += offeneHalbKanten[i] +" ";
+            offeneHalbKanten[i] = direction ? offeneHalbKanten[i].next() : offeneHalbKanten[i].prev();
+            nachher += offeneHalbKanten[i] + " ";
+        }
+
+//        System.out.println(vorher);
+//        System.out.println(nachher);
+    }
+
 }

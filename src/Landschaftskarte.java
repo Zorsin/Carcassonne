@@ -9,74 +9,63 @@ import java.util.Set;
  * @author SWirries
  */
 public class Landschaftskarte {
-    Wiesenstueck[] wiestenstuecke = null;
-    Stadtteil[] stadtteile = null;
-    Strassenabschnitt[] strassenabschnitte = null;
-    Kloster kloster = null;
+    private Wiesenstueck[] wiestenstuecke = null;
+    private Stadtteil[] stadtteile = null;
+    private Strassenabschnitt[] strassenabschnitte = null;
+    private Kloster kloster = null;
+    private String name = "";
 
-    ArrayList<Wiese> wiesen;
-
-    public Landschaftskarte(Wiesenstueck[] wiestenstuecke, Kloster kloster) {
+    public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Kloster kloster) {
         this.wiestenstuecke = wiestenstuecke;
         this.kloster = kloster;
+        this.name = name;
     }
 
-    public Landschaftskarte(Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte, Kloster kloster) {
+    public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte, Kloster kloster) {
         this.wiestenstuecke = wiestenstuecke;
         this.strassenabschnitte = strassenabschnitte;
         this.kloster = kloster;
+        this.name = name;
     }
 
-    public Landschaftskarte(Stadtteil[] stadtteile) {
+    public Landschaftskarte(String name, Stadtteil[] stadtteile) {
         this.stadtteile = stadtteile;
+        this.name = name;
     }
 
-    public Landschaftskarte(Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile, Strassenabschnitt[] strassenabschnitte) {
+    public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile, Strassenabschnitt[] strassenabschnitte) {
         this.wiestenstuecke = wiestenstuecke;
         this.stadtteile = stadtteile;
         this.strassenabschnitte = strassenabschnitte;
+        this.name = name;
     }
 
-    public Landschaftskarte(Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile) {
+    public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile) {
         this.wiestenstuecke = wiestenstuecke;
         this.stadtteile = stadtteile;
+        this.name = name;
     }
 
-    public Landschaftskarte(Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte) {
+    public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte) {
         this.wiestenstuecke = wiestenstuecke;
         this.strassenabschnitte = strassenabschnitte;
+        this.name = name;
     }
 
     public Wiesenstueck[] getWiestenstuecke() {
         return wiestenstuecke;
     }
 
-    public void setWiestenstuecke(Wiesenstueck[] wiestenstuecke) {
-        this.wiestenstuecke = wiestenstuecke;
-    }
-
     public Stadtteil[] getStadtteile() {
         return stadtteile;
-    }
-
-    public void setStadtteile(Stadtteil[] stadtteile) {
-        this.stadtteile = stadtteile;
     }
 
     public Strassenabschnitt[] getStrassenabschnitte() {
         return strassenabschnitte;
     }
 
-    public void setStrassenabschnitte(Strassenabschnitt[] strassenabschnitte) {
-        this.strassenabschnitte = strassenabschnitte;
-    }
-
     public Kloster getKloster() {
         return kloster;
-    }
-
-    public void setKloster(Kloster kloster) {
-        this.kloster = kloster;
     }
 
     public void addNeighbor(Landschaftskarte landschaftskarte, HimmelsrichtungT himmelsrichtungT){
@@ -165,16 +154,20 @@ public class Landschaftskarte {
             }
             if(bNordOst == bSuedOst && bNordWest == bSuedWest){
                 wiesenOk = true;
-                if(wsSuedOst.equals(wsSuedWest) || wsNordOst.equals(wsNordWest)) {
-                    wiesenstueckSet1.add(wsSuedOst);
-                    wiesenstueckSet1.add(wsSuedWest);
-                    wiesenstueckSet1.add(wsNordOst);
-                    wiesenstueckSet1.add(wsNordWest);
-                }else {
-                    wiesenstueckSet1.add(wsSuedOst);
-                    wiesenstueckSet2.add(wsSuedWest);
-                    wiesenstueckSet1.add(wsNordOst);
-                    wiesenstueckSet2.add(wsNordWest);
+                try {
+                    //Es können NullPointer aufteten wenn die Karten keine Wiesen an den Positionen haben.
+                    if(wsSuedOst.equals(wsSuedWest) || wsNordOst.equals(wsNordWest)) {
+                        wiesenstueckSet1.add(wsSuedOst);
+                        wiesenstueckSet1.add(wsSuedWest);
+                        wiesenstueckSet1.add(wsNordOst);
+                        wiesenstueckSet1.add(wsNordWest);
+                    }else {
+                        wiesenstueckSet1.add(wsSuedOst);
+                        wiesenstueckSet2.add(wsSuedWest);
+                        wiesenstueckSet1.add(wsNordOst);
+                        wiesenstueckSet2.add(wsNordWest);
+                    }
+                } catch (Exception e) {
                 }
             }
 //            else System.out.println("SW"+bSuedWest+" SO"+bSuedOst);
@@ -189,14 +182,18 @@ public class Landschaftskarte {
             boolean bSued = false;
             if (abschnitteNord != null) {
                 for(Strassenabschnitt strNord : abschnitteNord){
-                    bSued = Arrays.asList(strNord.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.SUED) >=0;
-                    if(bSued) strassenabschnittSet.add(strNord);
+                    if (!bSued) {
+                        bSued = Arrays.asList(strNord.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.SUED) >=0;
+                        if (bSued) strassenabschnittSet.add(strNord);
+                    }
                 }
             }
             if (abschnitteSued != null) {
                 for(Strassenabschnitt strSued : abschnitteSued){
-                    bNord = Arrays.asList(strSued.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.NORD) >=0;
-                    if(bNord) strassenabschnittSet.add(strSued);
+                    if (!bNord){
+                        bNord = Arrays.asList(strSued.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.NORD) >=0;
+                        if (bNord) strassenabschnittSet.add(strSued);
+                    }
                 }
             }
 
@@ -310,20 +307,24 @@ public class Landschaftskarte {
             }
             if(bOstSued == bWestSued && bOstNord == bWestNord){
                 wiesenOk = true;
-              if (wsOstNord.equals(wsOstSued) || wsWestNord.equals(wsWestSued)){
-                  wiesenstueckSet1.add(wsOstNord);
-                  wiesenstueckSet1.add(wsOstSued);
-                  wiesenstueckSet1.add(wsWestNord);
-                  wiesenstueckSet1.add(wsWestSued);
-              }else {
-                  wiesenstueckSet1.add(wsOstNord);
-                  wiesenstueckSet2.add(wsOstSued);
-                  wiesenstueckSet1.add(wsWestNord);
-                  wiesenstueckSet2.add(wsWestSued);
-              }
+                //Es koennen NullPointer auftreten wenn keien Wiesen an diesen Kanten
+                try {
+                    if (wsOstNord.equals(wsOstSued) || wsWestNord.equals(wsWestSued)){
+                        wiesenstueckSet1.add(wsOstNord);
+                        wiesenstueckSet1.add(wsOstSued);
+                        wiesenstueckSet1.add(wsWestNord);
+                        wiesenstueckSet1.add(wsWestSued);
+                    }else {
+                        wiesenstueckSet1.add(wsOstNord);
+                        wiesenstueckSet2.add(wsOstSued);
+                        wiesenstueckSet1.add(wsWestNord);
+                        wiesenstueckSet2.add(wsWestSued);
+                    }
+                } catch (Exception e) {
+                }
 
             }
-            else System.out.println("SW"+bOstSued+" SO"+bOstSued);
+//            else System.out.println("SW"+bOstSued+" SO"+bOstSued);
 
         }else{
 //            System.out.println("Wiesen NULL");
@@ -335,14 +336,18 @@ public class Landschaftskarte {
             boolean bWest = false;
             if (abschnitteOst != null) {
                 for(Strassenabschnitt strOst : abschnitteOst){
-                    bWest = Arrays.asList(strOst.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.WEST) >=0;
-                    if (bWest) strassenabschnittSet.add(strOst);
+                    if (!bWest) {
+                        bWest = Arrays.asList(strOst.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.WEST) >=0;
+                        if (bWest) strassenabschnittSet.add(strOst);
+                    }
                 }
             }
             if (abschnitteWest != null) {
                 for(Strassenabschnitt strWest : abschnitteWest){
-                    bOst = Arrays.asList(strWest.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.OST) >=0;
-                    if (bOst) strassenabschnittSet.add(strWest);
+                    if (!bOst) {
+                        bOst = Arrays.asList(strWest.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.OST) >=0;
+                        if (bOst) strassenabschnittSet.add(strWest);
+                    }
                 }
             }
             if(bOst == bWest){
@@ -465,4 +470,28 @@ public class Landschaftskarte {
         System.out.println("Strasse: "+ mainStrasse.getAnzahlStrassenabschnitte());
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " Typ "+name.toUpperCase();
+    }
+
+    public void rotate(boolean direction, int cout){
+        for (int i = 0; i<cout;i++) {
+            if(strassenabschnitte != null) {
+                for(Strassenabschnitt str : strassenabschnitte){
+                    str.rotate(direction);
+                }
+            }
+            if(stadtteile != null) {
+                for(Stadtteil sdt : stadtteile){
+                    sdt.rotate(direction);
+                }
+            }
+            if (wiestenstuecke != null) {
+                for(Wiesenstueck stk : wiestenstuecke){
+                    stk.rotate(direction);
+                }
+            }
+        }
+    }
 }

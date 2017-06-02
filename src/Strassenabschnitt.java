@@ -27,17 +27,26 @@ public class Strassenabschnitt extends Landschaftsteil {
     }
 
     public HimmelsrichtungT[] getHimmelsrichtungenT(){
-        if(startRichtung != HimmelsrichtungT.STOP && endRichtung != HimmelsrichtungT.STOP){
+//        if(startRichtung != HimmelsrichtungT.STOP && endRichtung != HimmelsrichtungT.STOP){
             return new HimmelsrichtungT[]{startRichtung,endRichtung};
-        }else if(startRichtung != HimmelsrichtungT.STOP){
-            return new HimmelsrichtungT[]{startRichtung};
-        }else {
-            return new HimmelsrichtungT[]{endRichtung};
-        }
+//        }else if(startRichtung != HimmelsrichtungT.STOP){
+//            return new HimmelsrichtungT[]{startRichtung};
+//        }else {
+//            return new HimmelsrichtungT[]{endRichtung};
+//        }
 
     }
 
     public void setStrasse(Strasse strasse) {
         this.strasse = strasse;
+    }
+
+    public void rotate(boolean direction){
+        //TODO REMOVE
+//        System.out.println("Strasse vorher: "+startRichtung + " " +endRichtung);
+        startRichtung = direction ? startRichtung.next() : startRichtung.prev();
+        endRichtung = direction ? endRichtung.next() : endRichtung.prev();
+//        System.out.println("Strasse nachher: "+startRichtung + " " +endRichtung);
+
     }
 }

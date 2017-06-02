@@ -33,4 +33,18 @@ public class Stadtteil extends Landschaftsteil {
     public HimmelsrichtungT[] getOffeneKanten() {
         return offeneKanten;
     }
+
+    public void rotate(boolean direction){
+        //TODO REMOVE
+        String vorher = "Stadt vorher: ";
+        String nachher = "Stadt nachher: ";
+        for(int i = 0; i<offeneKanten.length;i++){
+            vorher += offeneKanten[i] +" ";
+            offeneKanten[i] = direction ? offeneKanten[i].next() : offeneKanten[i].prev();
+            nachher += offeneKanten[i] + " ";
+        }
+
+//        System.out.println(vorher);
+//        System.out.println(nachher);
+    }
 }
