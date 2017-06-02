@@ -11,11 +11,12 @@ public class Stadt {
     boolean abgeschlossen = false;
     boolean besetzt = false;
 
+    public Stadt() {
+        //nur zur Vermeidung von NullPointerEx
+    }
+
     public Stadt(ArrayList<Stadtteil> stadtteile) {
         this.stadtteile = stadtteile;
-        for(Stadtteil s: stadtteile){
-            s.setStadt(this);
-        }
     }
 
     public Stadt (Stadtteil stadtteil){
@@ -24,7 +25,6 @@ public class Stadt {
 
     public void addStadteil(Stadtteil stadtteil){
         stadtteile.add(stadtteil);
-        stadtteil.setStadt(this);
     }
 
     public boolean removeStadtteil(Stadtteil stadtteil){
@@ -82,6 +82,13 @@ public class Stadt {
         abgeschlossen = b;
     }
 
+    public boolean contains(Stadtteil stadtteil){
+        return stadtteile.contains(stadtteil);
+    }
+
+    public ArrayList<Stadtteil> getStadtteile() {
+        return stadtteile;
+    }
 
     public boolean isAbgeschlossen() {
         return abgeschlossen;

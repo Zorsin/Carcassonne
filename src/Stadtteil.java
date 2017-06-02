@@ -11,6 +11,7 @@ public class Stadtteil extends Landschaftsteil {
     public Stadtteil(boolean wappen, HimmelsrichtungT[] offeneKanten) {
         this.wappen = wappen;
         this.offeneKanten = offeneKanten;
+        stadt = new Stadt(this);
     }
 
     @Override

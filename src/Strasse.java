@@ -11,6 +11,10 @@ public class Strasse {
     boolean abgeschlossen = false;
     boolean besetzt = false;
 
+    public Strasse() {
+        //nur zur Vermeidung von NullPointerEx
+    }
+
     public Strasse(ArrayList<Strassenabschnitt> strassenabschnitte) {
         this.strassenabschnitte = strassenabschnitte;
     }
@@ -61,5 +65,13 @@ public class Strasse {
         //TODO Wert berechnen -> getTotalWert
         //TODO Wert auf Punktekonto des Spielers gutschreiben über Gefolgsmann. Berechnung bei mehreren Männern beachten!
         //TODO Gefolgsleute wieder freigeben -> gefolgsmann.setRolle(RolleT.FREI)
+    }
+
+    public ArrayList<Strassenabschnitt> getStrassenabschnitte() {
+        return strassenabschnitte;
+    }
+
+    public boolean contains(Strassenabschnitt strassenabschnitt){
+        return strassenabschnitte.contains(strassenabschnitt);
     }
 }

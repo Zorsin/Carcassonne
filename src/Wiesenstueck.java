@@ -15,9 +15,14 @@ public class Wiesenstueck extends Landschaftsteil {
         return wiese;
     }
 
+    public void setWiese(Wiese wiese) {
+        this.wiese = wiese;
+    }
+
     public Wiesenstueck(HalbKantenT[] offeneHalbKanten, Stadtteil[] angrenzendeStadteile) {
         this.offeneHalbKanten = offeneHalbKanten;
         this.angrenzendeStadteile = angrenzendeStadteile;
+        wiese = new Wiese(this);
     }
 
     public Stadtteil[] getAngrenzendeStadteile() {
@@ -28,10 +33,4 @@ public class Wiesenstueck extends Landschaftsteil {
         return offeneHalbKanten;
     }
 
-    public boolean hasNordSeite(){
-        boolean value = false;
-        value = Arrays.asList(offeneHalbKanten).indexOf(HalbKantenT.NordOst) >= 0;
-
-        return value;
-    }
 }

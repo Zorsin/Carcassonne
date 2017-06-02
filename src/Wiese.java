@@ -14,6 +14,10 @@ public class Wiese {
     boolean abgeschlossen = false;
     boolean besetzt = false;
 
+    public Wiese() {
+        //nur zur Vermeidung von NullPointerEx
+    }
+
     public Wiese(ArrayList<Wiesenstueck> wiesenstuecke) {
         this.wiesenstuecke = wiesenstuecke;
     }
@@ -34,6 +38,10 @@ public class Wiese {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean contains(Wiesenstueck wiesenstueck){
+        return wiesenstuecke.contains(wiesenstueck);
     }
 
     public int getAnzahlWiesenstuecke(){
@@ -57,7 +65,8 @@ public class Wiese {
             Stadtteil[] teile = w.getAngrenzendeStadteile();
             if(teile != null){
                 for(Stadtteil s : teile){
-                    if(s.getStadt().isAbgeschlossen()) staete.add(s.getStadt());
+                    //TODO Anpassen
+//                    if(s.getStadt().isAbgeschlossen()) staete.add(s.getStadt());
                 }
             }
         }
@@ -65,6 +74,10 @@ public class Wiese {
 
 
         return totalWert;
+    }
+
+    public ArrayList<Wiesenstueck> getWiesenstuecke() {
+        return wiesenstuecke;
     }
 
     private void checkAbgeschlossen(){
