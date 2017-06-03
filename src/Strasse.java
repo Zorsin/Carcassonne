@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 07.05.2017
@@ -25,6 +26,7 @@ public class Strasse {
 
     public void addStrassenabschnitt(Strassenabschnitt strassenabschnitt){
         strassenabschnitte.add(strassenabschnitt);
+        checkAbgeschlossen();
     }
 
     public boolean removeStrassenabschnitt(Strassenabschnitt strassenabschnitt){
@@ -62,6 +64,17 @@ public class Strasse {
 
     private void checkAbgeschlossen(){
         //TODO Prüfen ob Abgeschlossen ist -> abgeschlossen = true
+        int stopCount = 0;
+        for(Strassenabschnitt str : strassenabschnitte){
+            boolean hasStop =  Arrays.asList(str.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.STOP) >=0;
+            if (hasStop) stopCount++;
+            if (stopCount >= 2) {
+                abgeschlossen = true;
+                System.out.println("Strasse abgeschlossen");
+                break;
+            }
+        }
+        if (!abgeschlossen) System.out.println("nicht abgeschlossen");
         //TODO Wert berechnen -> getTotalWert
         //TODO Wert auf Punktekonto des Spielers gutschreiben über Gefolgsmann. Berechnung bei mehreren Männern beachten!
         //TODO Gefolgsleute wieder freigeben -> gefolgsmann.setRolle(RolleT.FREI)
@@ -73,5 +86,9 @@ public class Strasse {
 
     public boolean contains(Strassenabschnitt strassenabschnitt){
         return strassenabschnitte.contains(strassenabschnitt);
+    }
+
+    public boolean isAbgeschlossen() {
+        return abgeschlossen;
     }
 }

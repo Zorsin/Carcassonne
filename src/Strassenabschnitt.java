@@ -27,14 +27,7 @@ public class Strassenabschnitt extends Landschaftsteil {
     }
 
     public HimmelsrichtungT[] getHimmelsrichtungenT(){
-//        if(startRichtung != HimmelsrichtungT.STOP && endRichtung != HimmelsrichtungT.STOP){
-            return new HimmelsrichtungT[]{startRichtung,endRichtung};
-//        }else if(startRichtung != HimmelsrichtungT.STOP){
-//            return new HimmelsrichtungT[]{startRichtung};
-//        }else {
-//            return new HimmelsrichtungT[]{endRichtung};
-//        }
-
+        return new HimmelsrichtungT[]{startRichtung,endRichtung};
     }
 
     public void setStrasse(Strasse strasse) {

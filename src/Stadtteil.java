@@ -43,7 +43,7 @@ public class Stadtteil extends Landschaftsteil {
             offeneKanten[i] = direction ? offeneKanten[i].next() : offeneKanten[i].prev();
             nachher += offeneKanten[i] + " ";
         }
-
+        stadt.replaceOffeneKanten(offeneKanten);
 //        System.out.println(vorher);
 //        System.out.println(nachher);
     }

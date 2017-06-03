@@ -61,16 +61,16 @@ public class Wiese {
     public int getTotalWert(){
         int totalWert = 0;
         Set<Stadt> staete = new HashSet<>();
-        for(Wiesenstueck w : wiesenstuecke){
-            Stadtteil[] teile = w.getAngrenzendeStadteile();
+        for(Wiesenstueck stueck : wiesenstuecke){
+            Stadtteil[] teile = stueck.getAngrenzendeStadteile();
             if(teile != null){
-                for(Stadtteil s : teile){
+                for(Stadtteil std : teile){
                     //TODO Anpassen
-//                    if(s.getStadt().isAbgeschlossen()) staete.add(s.getStadt());
+                    if(std.getStadt().isAbgeschlossen()) staete.add(std.getStadt());
                 }
             }
         }
-
+        totalWert = staete.size();
 
 
         return totalWert;

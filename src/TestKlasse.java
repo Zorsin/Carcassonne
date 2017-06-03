@@ -44,18 +44,58 @@ public class TestKlasse {
         /**
          * Test Rotation
          */
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        start.rotate();
+//        start.rotate();
+//        start.rotate();
+//        start.rotate();
+
+//        Landschaftskarte e = stapel.generateLandschaftE();
+//        start.addNeighbor(e, HimmelsrichtungT.OST);
+//        e.rotate(false,1);
+//        System.out.println("-------------");
+//        start.addNeighbor(e, HimmelsrichtungT.OST);
+
+        /**
+         * Test Strassen / Stadt abgeschlossen
+         */
+        //Strasse
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        Landschaftskarte a = stapel.generateLandschaftA();
+//        Landschaftskarte l = stapel.generateLandschaftL();
+//
+//        start.addNeighbor(a, HimmelsrichtungT.NORD);
+//        start.addNeighbor(l,HimmelsrichtungT.SUED);
+//
+//        start.getInformation();
+//        a.getInformation();
+//        l.getInformation();
+
+        //Stadt
         Landschaftskarte start = stapel.generateLandschaftD();
-//        start.rotate();
-//        start.rotate();
-//        start.rotate();
-//        start.rotate();
+        Landschaftskarte c = stapel.generateLandschaftC();
+        Landschaftskarte h = stapel.generateLandschaftH();
+        Landschaftskarte e1 = stapel.generateLandschaftE();
+        Landschaftskarte e2 = stapel.generateLandschaftE();
+        Landschaftskarte e3 = stapel.generateLandschaftE();
+        Landschaftskarte f = stapel.generateLandschaftF();
+        Landschaftskarte n1 = stapel.generateLandschaftN();
+        Landschaftskarte n2 = stapel.generateLandschaftN();
 
-        Landschaftskarte e = stapel.generateLandschaftE();
-        start.addNeighbor(e, HimmelsrichtungT.OST);
-        e.rotate(false,1);
-        System.out.println("-------------");
-        start.addNeighbor(e, HimmelsrichtungT.OST);
-
+        start.addNeighbor(c, HimmelsrichtungT.OST);
+        e1.rotate(true, 2);
+        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
+        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
+        c.addNeighbor(f, HimmelsrichtungT.OST);
+//
+        f.addNeighbor(n1, HimmelsrichtungT.OST);
+//        n1.getInformation();
+//        System.out.println("---");
+        n2.rotate(true, 2);
+        n2.addNeighbor(h, HimmelsrichtungT.OST);
+//        n2.getInformation();
+        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+        n2.getInformation();
     }
 //
 //    private static Landschaftskarte generateLandschaftA(){
