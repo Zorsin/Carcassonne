@@ -34,8 +34,33 @@ public class Spieler {
     }
 
     public String toString(){
+        int frei = 0;
+        int ritter = 0;
+        int bauer = 0;
+        int moench = 0;
+        int wegelagerer = 0;
+        for(Gefolgsmann gefolgsmann : gefolgsleute){
+            switch (gefolgsmann.getRolle()){
+                case FREI:
+                    frei++;
+                    break;
+                case BAUER:
+                    bauer++;
+                    break;
+                case MOENCH:
+                    moench++;
+                    break;
+                case RITTER:
+                    ritter++;
+                    break;
+                case WEGELAGERER:
+                    wegelagerer++;
+                    break;
+            }
+        }
 
-        return name + " Farbe:"+farbe + " Punkte:"+punkte;
+        return name + " Farbe:"+farbe + " Punkte:"+punkte + " Frei:"+frei + " Ritter:"+ritter + " Bauer:"+ bauer +
+                " Mönch:"+moench + " Wegelagerer:"+wegelagerer;
     }
 
     public void addPunkte(int punkte){

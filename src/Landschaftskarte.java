@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import javafx.scene.control.ChoiceDialog;
+
+import java.util.*;
 
 /**
  * 07.05.2017
@@ -509,7 +508,8 @@ public class Landschaftskarte {
         if (strassenabschnitte != null) {
             for(Strassenabschnitt str : strassenabschnitte){
                 System.out.println(str.getStrasse() + " Anzahl:" + str.getStrasse().getAnzahlStrassenabschnitte() +
-                        " Fertig: " + str.getStrasse().isAbgeschlossen());
+                        " Fertig: " + str.getStrasse().isAbgeschlossen() +
+                        " Ausrichtung:"+str.getStartRichtung() + " " + str.getEndRichtung());
             }
         }
         if (stadtteile != null) {
@@ -527,5 +527,42 @@ public class Landschaftskarte {
             System.out.println(kloster);
         }
         System.out.println("--END--");
+    }
+
+    public void setGefolgsmann(Gefolgsmann gefolgsmann){
+        //TODO Auswahldialog welchen Landschaftsteil
+        ArrayList<String> choices = new ArrayList<>();
+        HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
+        if(stadtteile != null){
+            for(Stadtteil sdt : stadtteile){
+                choices.add(sdt.toString());
+                auswahl.put(sdt.toString(),sdt);
+            }
+        }
+        if(wiestenstuecke != null){
+            for(Wiesenstueck stueck: wiestenstuecke){
+                choices.add(stueck.toString());
+                auswahl.put(stueck.toString(),stueck);
+            }
+        }
+        if(strassenabschnitte != null){
+            for(Strassenabschnitt str : strassenabschnitte){
+                choices.add(str.toString());
+                auswahl.put(str.toString(),str);
+            }
+        }
+        if (kloster != null){
+            choices.add(kloster.toString());
+            auswahl.put(kloster.toString(),kloster);
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0),choices);
+        dialog.setTitle("Gebiet festlegen");
+        dialog.setHeaderText("Gebiet zum Plazieren wählen:");
+
+        Optional<String> result = dialog.showAndWait();
+        if(result.isPresent()){
+            auswahl.get(result.get()).setBesetzer(gefolgsmann);
+        }
     }
 }

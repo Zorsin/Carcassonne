@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 07.05.2017
@@ -71,13 +73,48 @@ public class Strasse {
             if (stopCount >= 2) {
                 abgeschlossen = true;
                 System.out.println("Strasse abgeschlossen");
+                setPlayerPoints();
                 break;
             }
         }
         if (!abgeschlossen) System.out.println("nicht abgeschlossen");
-        //TODO Wert berechnen -> getTotalWert
-        //TODO Wert auf Punktekonto des Spielers gutschreiben über Gefolgsmann. Berechnung bei mehreren Männern beachten!
-        //TODO Gefolgsleute wieder freigeben -> gefolgsmann.setRolle(RolleT.FREI)
+
+    }
+
+    private void setPlayerPoints(){
+        if(abgeschlossen){
+
+            HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();
+            ArrayList<Gefolgsmann> besetzer = new ArrayList<>();
+            int maxCount = 0;
+            for(Strassenabschnitt str: strassenabschnitte){
+                if(str.getBesetzer() != null){
+                    Spieler spieler = str.getBesetzer().getSpieler();
+                    besetzer.add(str.getBesetzer());
+                    int count = 0;
+
+                    if(gefolgsmannAnzahl.containsKey(spieler)){
+                        count = gefolgsmannAnzahl.get(spieler);
+                        count++;
+                        gefolgsmannAnzahl.replace(spieler,count);
+                    }else{
+                        count = 1;
+                        gefolgsmannAnzahl.put(spieler,count);
+                    }
+                    if(maxCount < count) maxCount = count;
+                }
+            }
+            int points = getTotalWert();
+            for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
+                if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
+            }
+            //TODO REMOVE
+//            System.out.println(gefolgsmannAnzahl);
+
+            for (Gefolgsmann g : besetzer){
+                g.setRolle(RolleT.FREI);
+            }
+        }
     }
 
     public ArrayList<Strassenabschnitt> getStrassenabschnitte() {

@@ -47,4 +47,20 @@ public class Stadtteil extends Landschaftsteil {
 //        System.out.println(vorher);
 //        System.out.println(nachher);
     }
+
+    @Override
+    public void setBesetzer(Gefolgsmann besetzer) {
+        super.setBesetzer(besetzer);
+        besetzer.setRolle(RolleT.RITTER);
+    }
+
+    @Override
+    public String toString() {
+        String himmelsRichtung = "{";
+        for(HimmelsrichtungT himmelsrichtungT : offeneKanten){
+            himmelsRichtung += " " + himmelsrichtungT;
+        }
+        himmelsRichtung += "}";
+        return "Stadtteil " + himmelsRichtung;
+    }
 }

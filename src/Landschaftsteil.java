@@ -18,6 +18,7 @@ public abstract class Landschaftsteil {
 
     public void setBesetzer(Gefolgsmann besetzer) {
         this.besetzer = besetzer;
+        besetzer.setGebiet(this);
         besetzt = true;
     }
 

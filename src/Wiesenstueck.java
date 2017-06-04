@@ -47,4 +47,20 @@ public class Wiesenstueck extends Landschaftsteil {
 //        System.out.println(nachher);
     }
 
+    @Override
+    public void setBesetzer(Gefolgsmann besetzer) {
+        super.setBesetzer(besetzer);
+        besetzer.setRolle(RolleT.BAUER);
+        besetzer.setAusrichtung(AusrichtungT.LIEGEND);
+    }
+
+    @Override
+    public String toString() {
+        String halbKanten = "{";
+        for(HalbKantenT halbKantenT : offeneHalbKanten){
+            halbKanten += " " + halbKantenT;
+        }
+        halbKanten += "}";
+        return "Wiesenstueck " + halbKanten;
+    }
 }

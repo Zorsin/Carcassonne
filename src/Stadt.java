@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 07.05.2017
@@ -137,10 +136,6 @@ public class Stadt {
 
     public void checkAbgeschlossen(){
         //TODO Prüfen ob Abgeschlossen ist -> abgeschlossen = true
-//        ArrayList<HimmelsrichtungT> alleKanten = new ArrayList<>();
-//        for(Stadtteil sdt : stadtteile){
-//            alleKanten.addAll(Arrays.asList(sdt.getOffeneKanten()));
-//        }
         int nordCount = 0;
         int ostCount = 0;
         int suedCount  = 0;
@@ -155,6 +150,7 @@ public class Stadt {
         if(nordCount == 0 && ostCount == 0 && suedCount == 0 && westCout == 0){
             System.out.println("Alle Kanten geschlossen");
             abgeschlossen = true;
+            setPlayerPoints();
         }else{
             System.out.println("N:"+nordCount);
             System.out.println("O:"+ostCount);
@@ -162,12 +158,42 @@ public class Stadt {
             System.out.println("W:"+westCout);
         }
 
-        //TODO Wert berechnen -> getTotalWert
-        //TODO Wert auf Punktekonto des Spielers gutschreiben über Gefolgsmann. Berechnung bei mehreren Männern beachten!
-//        for(Stadtteil s: stadtteile){
-//            if(s.getBesetzer() != null) s.getBesetzer().getSpieler().addPunkte(getTotalWert());
-//        }
-        //TODO Gefolgsleute wieder freigeben -> gefolgsmann.setRolle(RolleT.FREI)
+    }
+
+    private void setPlayerPoints(){
+        if(abgeschlossen){
+
+            HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();
+            ArrayList<Gefolgsmann> besetzer = new ArrayList<>();
+            int maxCount = 0;
+            for(Stadtteil sdt: stadtteile){
+                if(sdt.getBesetzer() != null){
+                    Spieler spieler = sdt.getBesetzer().getSpieler();
+                    besetzer.add(sdt.getBesetzer());
+                    int count = 0;
+
+                    if(gefolgsmannAnzahl.containsKey(spieler)){
+                        count = gefolgsmannAnzahl.get(spieler);
+                        count++;
+                        gefolgsmannAnzahl.replace(spieler,count);
+                    }else{
+                        count = 1;
+                        gefolgsmannAnzahl.put(spieler,count);
+                    }
+                    if(maxCount < count) maxCount = count;
+                }
+            }
+            int points = getTotalWert();
+            for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
+                if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
+            }
+            //TODO REMOVE
+            System.out.println(gefolgsmannAnzahl);
+
+            for (Gefolgsmann g : besetzer){
+                g.setRolle(RolleT.FREI);
+            }
+        }
     }
 
     public void setAbgeschlossen(boolean b){

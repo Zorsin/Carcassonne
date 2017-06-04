@@ -42,4 +42,20 @@ public class Strassenabschnitt extends Landschaftsteil {
 //        System.out.println("Strasse nachher: "+startRichtung + " " +endRichtung);
 
     }
+
+    @Override
+    public void setBesetzer(Gefolgsmann besetzer) {
+        super.setBesetzer(besetzer);
+        besetzer.setRolle(RolleT.WEGELAGERER);
+    }
+
+    @Override
+    public String toString() {
+        String himmelsRichtung = "{";
+        himmelsRichtung += " " + startRichtung;
+        himmelsRichtung += " " + endRichtung;
+        himmelsRichtung += "}";
+
+        return "Stassenabschnitt " + himmelsRichtung;
+    }
 }

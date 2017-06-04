@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 07.05.2017
@@ -80,10 +78,43 @@ public class Wiese {
         return wiesenstuecke;
     }
 
-    private void checkAbgeschlossen(){
-        //TODO Prüfen ob Abgeschlossen ist -> abgeschlossen = true
-        //TODO Wert berechnen -> getTotalWert
-        //TODO Wert auf Punktekonto des Spielers gutschreiben über Gefolgsmann. Berechnung bei mehreren Männern beachten!
-        //TODO Gefolgsleute wieder freigeben -> gefolgsmann.setRolle(RolleT.FREI)
+    public void setPlayerPoints(){
+        /**
+         * in der Endwertung aufrufen
+         * für alle Spieler und Gefolgsleute
+         * Spieler.getAllGefolgsleute = RolleT.BAUER
+         * Gefolgsmann.getGebiet().setPlayerPoints <- alle Bauern auf der gleichen Wiese werden entfern bzw FREI
+         */
+
+        HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();
+        ArrayList<Gefolgsmann> besetzer = new ArrayList<>();
+        int maxCount = 0;
+        for(Wiesenstueck stueck: wiesenstuecke){
+            if(stueck.getBesetzer() != null){
+                Spieler spieler = stueck.getBesetzer().getSpieler();
+                besetzer.add(stueck.getBesetzer());
+                int count = 0;
+
+                if(gefolgsmannAnzahl.containsKey(spieler)){
+                    count = gefolgsmannAnzahl.get(spieler);
+                    count++;
+                    gefolgsmannAnzahl.replace(spieler,count);
+                }else{
+                    count = 1;
+                    gefolgsmannAnzahl.put(spieler,count);
+                }
+                if(maxCount < count) maxCount = count;
+            }
+        }
+        int points = getTotalWert();
+        for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
+            if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
+        }
+        //TODO REMOVE
+//        System.out.println(gefolgsmannAnzahl);
+
+        for (Gefolgsmann g : besetzer){
+            g.setRolle(RolleT.FREI);
+        }
     }
 }

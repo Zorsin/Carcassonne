@@ -1,3 +1,6 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 /**
  * 25.04.2017
@@ -7,24 +10,242 @@ import java.util.ArrayList;
  *         This code is
  *         documentation enough
  */
-public class TestKlasse {
+public class TestKlasse extends Application{
 
-    public static void main(String[] args) {
-
-        /**
-         * Test der Logik ohne GUI
-         */
-
+//    public static void main(String[] args) {
+//
+//        /**
+//         * Test der Logik ohne GUI
+//         */
+//
+////        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
+////        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
+//
+////        System.out.println(spieler1);
+////        System.out.println(spieler2);
+//
+////        ArrayList<Landschaftskarte> gelegtekarten = new ArrayList<>();
+//
+//        Stapel stapel = new Stapel();
+//
+////        Landschaftskarte start = stapel.generateLandschaftA();
+////        Landschaftskarte la1 = stapel.generateLandschaftX();
+////        System.out.println(la1);
+////        Landschaftskarte la2 = generateLandschaftA();
+//
+////        start.addNeighbor(la1,HimmelsrichtungT.OST);
+////        la2.addNeighbor(start, HimmelsrichtungT.SUED);
+////        System.out.println("----------------------");
+////
+////        Landschaftskarte la3 = generateLandschaftI();
+////        Landschaftskarte la4 = generateLandschaftG();
+////        Landschaftskarte la5 = generateLandschaftN();
+////        la3.addNeighbor(la4,HimmelsrichtungT.SUED);
+////        la4.addNeighbor(la2,HimmelsrichtungT.SUED);
+////        la4.addNeighbor(la5,HimmelsrichtungT.WEST);
+//
+//        /**
+//         * Test Rotation
+//         */
+////        Landschaftskarte start = stapel.generateLandschaftD();
+////        start.rotate();
+////        start.rotate();
+////        start.rotate();
+////        start.rotate();
+//
+////        Landschaftskarte e = stapel.generateLandschaftE();
+////        start.addNeighbor(e, HimmelsrichtungT.OST);
+////        e.rotate(false,1);
+////        System.out.println("-------------");
+////        start.addNeighbor(e, HimmelsrichtungT.OST);
+//
+//        /**
+//         * Test Strassen / Stadt abgeschlossen
+//         */
+//        //Strasse
+////        Landschaftskarte start = stapel.generateLandschaftD();
+////        Landschaftskarte a = stapel.generateLandschaftA();
+////        Landschaftskarte l = stapel.generateLandschaftL();
+////
+////        start.addNeighbor(a, HimmelsrichtungT.NORD);
+////        start.addNeighbor(l,HimmelsrichtungT.SUED);
+////
+////        start.getInformation();
+////        a.getInformation();
+////        l.getInformation();
+//
+//        //Stadt
+////        Landschaftskarte start = stapel.generateLandschaftD();
+////        Landschaftskarte c = stapel.generateLandschaftC();
+////        Landschaftskarte h = stapel.generateLandschaftH();
+////        Landschaftskarte e1 = stapel.generateLandschaftE();
+////        Landschaftskarte e2 = stapel.generateLandschaftE();
+////        Landschaftskarte e3 = stapel.generateLandschaftE();
+////        Landschaftskarte f = stapel.generateLandschaftF();
+////        Landschaftskarte n1 = stapel.generateLandschaftN();
+////        Landschaftskarte n2 = stapel.generateLandschaftN();
+////
+////        start.addNeighbor(c, HimmelsrichtungT.OST);
+////        e1.rotate(true, 2);
+////        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
+////        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
+////        c.addNeighbor(f, HimmelsrichtungT.OST);
+//////
+////        f.addNeighbor(n1, HimmelsrichtungT.OST);
+//////        n1.getInformation();
+//////        System.out.println("---");
+////        n2.rotate(true, 2);
+////        n2.addNeighbor(h, HimmelsrichtungT.OST);
+//////        n2.getInformation();
+////        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+////        n2.getInformation();
+//
+//
+//        /**
+//         * Test Gefolgsmann setzen / brechnen
+//         */
 //        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
 //        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
+//
+//        //Stadt
+////        Landschaftskarte start = stapel.generateLandschaftD();
+////        Landschaftskarte c = stapel.generateLandschaftC();
+////        Landschaftskarte h = stapel.generateLandschaftH();
+////        Landschaftskarte e1 = stapel.generateLandschaftE();
+////        Landschaftskarte e2 = stapel.generateLandschaftE();
+////        Landschaftskarte e3 = stapel.generateLandschaftE();
+////        Landschaftskarte f = stapel.generateLandschaftF();
+////        Landschaftskarte n1 = stapel.generateLandschaftN();
+////        Landschaftskarte n2 = stapel.generateLandschaftN();
+////
+////        //Mehre Gefolgsleute in einer Stadt
+////        c.setGefolgsmann(spieler1.getFreienGeflogsmann());
+////        n1.setGefolgsmann(spieler1.getFreienGeflogsmann());
+////        n2.setGefolgsmann(spieler2.getFreienGeflogsmann());
+////
+////        start.addNeighbor(c, HimmelsrichtungT.OST);
+////        e1.rotate(true, 2);
+////        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
+////        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
+////        c.addNeighbor(f, HimmelsrichtungT.OST);
+//////
+////        f.addNeighbor(n1, HimmelsrichtungT.OST);
+////        n2.rotate(true, 2);
+////        n2.addNeighbor(h, HimmelsrichtungT.OST);
+////        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+////        System.out.println(spieler1);
+////        System.out.println(spieler2);
+//
+//        //Strasse
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        Landschaftskarte d = stapel.generateLandschaftD();
+//        Landschaftskarte a1 = stapel.generateLandschaftA();
+//        Landschaftskarte a2 = stapel.generateLandschaftA();
+//        Landschaftskarte l = stapel.generateLandschaftL();
+//
+//        start.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        start.addNeighbor(a1, HimmelsrichtungT.NORD);
+////        a1.setGefolgsmann(spieler2.getFreienGeflogsmann());
+//        start.addNeighbor(d,HimmelsrichtungT.SUED);
+////        d.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        a2.rotate(true,2);
+//        d.addNeighbor(a2,HimmelsrichtungT.SUED);
+
+//    }
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        /**
+         * Test der Logik
+         */
+
+        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
+        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
 
 //        System.out.println(spieler1);
 //        System.out.println(spieler2);
 
-        ArrayList<Landschaftskarte> gelegtekarten = new ArrayList<>();
+//        ArrayList<Landschaftskarte> gelegtekarten = new ArrayList<>();
 
         Stapel stapel = new Stapel();
 
+        /**
+         * Welt
+         */
+
+        Landschaftskarte d = stapel.generateLandschaftD();
+        Landschaftskarte e1 = stapel.generateLandschaftE();
+        Landschaftskarte e2 = stapel.generateLandschaftE();
+        Landschaftskarte e3 = stapel.generateLandschaftE();
+        Landschaftskarte e4 = stapel.generateLandschaftE();
+        Landschaftskarte n = stapel.generateLandschaftN();
+        Landschaftskarte c = stapel.generateLandschaftC();
+        Landschaftskarte f = stapel.generateLandschaftF();
+        Landschaftskarte p = stapel.generateLandschaftP();
+        Landschaftskarte w = stapel.generateLandschaftW();
+        Landschaftskarte u1 = stapel.generateLandschaftU();
+        Landschaftskarte u2 = stapel.generateLandschaftU();
+        Landschaftskarte u3 = stapel.generateLandschaftU();
+        Landschaftskarte a = stapel.generateLandschaftA();
+        Landschaftskarte v1 = stapel.generateLandschaftV();
+        Landschaftskarte v2 = stapel.generateLandschaftV();
+        Landschaftskarte l = stapel.generateLandschaftL();
+        Landschaftskarte i = stapel.generateLandschaftI();
+        Landschaftskarte k = stapel.generateLandschaftK();
+
+        System.out.println("Stadt 1");
+        //Stadt 1
+        d.addNeighbor(c,HimmelsrichtungT.OST);
+        e1.rotate(true,2);
+        c.addNeighbor(e1,HimmelsrichtungT.NORD);
+        c.addNeighbor(e2, HimmelsrichtungT.SUED);
+        c.addNeighbor(f,HimmelsrichtungT.OST);
+        f.addNeighbor(p,HimmelsrichtungT.OST);
+        n.rotate(true,2);
+        p.addNeighbor(n, HimmelsrichtungT.NORD);
+        e3.rotate(false,1);
+        n.addNeighbor(e3,HimmelsrichtungT.OST);
+
+        System.out.println("\nStraße 1");
+        //Straße 1
+        d.addNeighbor(u1,HimmelsrichtungT.SUED);
+        u1.addNeighbor(l,HimmelsrichtungT.SUED);
+        u1.addNeighbor(e2,HimmelsrichtungT.OST);
+
+        System.out.println("\nKloster und Straße 2");
+        //Kloster und Straße 2
+        a.rotate(false,1);
+        e2.addNeighbor(a,HimmelsrichtungT.OST);
+        v1.rotate(true,1);
+        a.addNeighbor(v1,HimmelsrichtungT.OST);
+        v1.addNeighbor(p,HimmelsrichtungT.NORD);
+        //TODO P und v1 koennen nicht verbunden werden
+        p.getInformation();
+        v1.getInformation();
+        p.addNeighbor(w, HimmelsrichtungT.OST);
+        w.addNeighbor(e3, HimmelsrichtungT.NORD);
+
+        System.out.println("\nStraße 3");
+        //Straße 3
+        w.addNeighbor(u2, HimmelsrichtungT.SUED);
+        u2.addNeighbor(v1,HimmelsrichtungT.WEST);
+        u2.addNeighbor(k,HimmelsrichtungT.SUED);
+        u3.rotate(true,1);
+        k.addNeighbor(u3,HimmelsrichtungT.WEST);
+        v2.rotate(false,1);
+        u3.addNeighbor(v2,HimmelsrichtungT.WEST);
+        i.rotate(true,1);
+        v2.addNeighbor(i, HimmelsrichtungT.WEST);
+
+        System.out.println("Stadt 2");
+        //Stadt 2
+        l.addNeighbor(i,HimmelsrichtungT.OST);
+
+        System.out.println("Stadt 3");
+        //Stadt 3
+        e4.rotate(false,1);
+        k.addNeighbor(e4,HimmelsrichtungT.OST);
 //        Landschaftskarte start = stapel.generateLandschaftA();
 //        Landschaftskarte la1 = stapel.generateLandschaftX();
 //        System.out.println(la1);
@@ -72,508 +293,79 @@ public class TestKlasse {
 //        l.getInformation();
 
         //Stadt
-        Landschaftskarte start = stapel.generateLandschaftD();
-        Landschaftskarte c = stapel.generateLandschaftC();
-        Landschaftskarte h = stapel.generateLandschaftH();
-        Landschaftskarte e1 = stapel.generateLandschaftE();
-        Landschaftskarte e2 = stapel.generateLandschaftE();
-        Landschaftskarte e3 = stapel.generateLandschaftE();
-        Landschaftskarte f = stapel.generateLandschaftF();
-        Landschaftskarte n1 = stapel.generateLandschaftN();
-        Landschaftskarte n2 = stapel.generateLandschaftN();
-
-        start.addNeighbor(c, HimmelsrichtungT.OST);
-        e1.rotate(true, 2);
-        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
-        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
-        c.addNeighbor(f, HimmelsrichtungT.OST);
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        Landschaftskarte c = stapel.generateLandschaftC();
+//        Landschaftskarte h = stapel.generateLandschaftH();
+//        Landschaftskarte e1 = stapel.generateLandschaftE();
+//        Landschaftskarte e2 = stapel.generateLandschaftE();
+//        Landschaftskarte e3 = stapel.generateLandschaftE();
+//        Landschaftskarte f = stapel.generateLandschaftF();
+//        Landschaftskarte n1 = stapel.generateLandschaftN();
+//        Landschaftskarte n2 = stapel.generateLandschaftN();
 //
-        f.addNeighbor(n1, HimmelsrichtungT.OST);
-//        n1.getInformation();
-//        System.out.println("---");
-        n2.rotate(true, 2);
-        n2.addNeighbor(h, HimmelsrichtungT.OST);
+//        start.addNeighbor(c, HimmelsrichtungT.OST);
+//        e1.rotate(true, 2);
+//        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
+//        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
+//        c.addNeighbor(f, HimmelsrichtungT.OST);
+////
+//        f.addNeighbor(n1, HimmelsrichtungT.OST);
+////        n1.getInformation();
+////        System.out.println("---");
+//        n2.rotate(true, 2);
+//        n2.addNeighbor(h, HimmelsrichtungT.OST);
+////        n2.getInformation();
+//        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
 //        n2.getInformation();
-        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
-        n2.getInformation();
-    }
-//
-//    private static Landschaftskarte generateLandschaftA(){
-//        Kloster kloster = new Kloster();
-//        HalbKantenT[] w1hk = {
-//              HalbKantenT.NordOst,
-//              HalbKantenT.NordWest,
-//              HalbKantenT.OstNord,
-//              HalbKantenT.OstSued,
-//              HalbKantenT.SuedOst,
-//              HalbKantenT.SuedWest,
-//              HalbKantenT.WestSued,
-//              HalbKantenT.WestNord
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//        Strassenabschnitt str1 = new Strassenabschnitt(HimmelsrichtungT.SUED,HimmelsrichtungT.STOP);
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1},new Strassenabschnitt[]{str1},kloster);
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftB(){
-//        Kloster kloster = new Kloster();
-//        HalbKantenT[] w1hk = {
-//              HalbKantenT.NordOst,
-//              HalbKantenT.NordWest,
-//              HalbKantenT.OstNord,
-//              HalbKantenT.OstSued,
-//              HalbKantenT.SuedOst,
-//              HalbKantenT.SuedWest,
-//              HalbKantenT.WestSued,
-//              HalbKantenT.WestNord
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1},kloster);
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftC(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{
-//                HimmelsrichtungT.NORD,
-//                HimmelsrichtungT.OST,
-//                HimmelsrichtungT.SUED,
-//                HimmelsrichtungT.WEST
-//            });
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftD(){
-//
-//        /**
-//         * Für eine Landschaftskarte D
-//         */
-//        Stadtteil st1 = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
-//
-//        HalbKantenT[] w1hk = {HalbKantenT.NordOst, HalbKantenT.SuedOst};
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{st1});
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued,
-//                HalbKantenT.WestNord};
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk, null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.NORD, HimmelsrichtungT.SUED);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1, w2},new Stadtteil[]{st1}, new Strassenabschnitt[]{s1});
-//
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftE(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD});
-//        HalbKantenT[] w1hk = {
-//              HalbKantenT.OstNord,
-//              HalbKantenT.OstSued,
-//              HalbKantenT.SuedOst,
-//              HalbKantenT.SuedWest,
-//              HalbKantenT.WestSued,
-//              HalbKantenT.WestNord
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftF(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{HimmelsrichtungT.OST,HimmelsrichtungT.WEST});
-//        HalbKantenT[] w1hk = {
-//          HalbKantenT.SuedOst,
-//          HalbKantenT.SuedWest
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.NordOst
-//            };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,new Stadtteil[]{stadtteil});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftG(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.SUED});
-//
-//        HalbKantenT[] w1hk = {
-//          HalbKantenT.OstNord,
-//          HalbKantenT.OstSued
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.WestSued,
-//                HalbKantenT.WestNord
-//            };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,new Stadtteil[]{stadtteil});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftH(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
-//        Stadtteil stadtteil2 = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.NordOst,
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil,stadtteil2});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1},
-//                new Stadtteil[]{stadtteil,stadtteil2});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftI(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
-//        Stadtteil stadtteil2 = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.SUED});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.NordOst,
-//                HalbKantenT.WestSued,
-//                HalbKantenT.WestNord
-//            };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil,stadtteil2});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1},
-//                new Stadtteil[]{stadtteil,stadtteil2});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftJ(){
-//        Strassenabschnitt str = new Strassenabschnitt(HimmelsrichtungT.OST,HimmelsrichtungT.SUED);
-//
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.OstNord,
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued,
-//                HalbKantenT.WestNord
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2},
-//                new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{str});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftK(){
-//        Strassenabschnitt str = new Strassenabschnitt(HimmelsrichtungT.WEST,HimmelsrichtungT.NORD);
-//
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordOst,
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.WestNord,
-//                HalbKantenT.NordWest
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2},
-//                new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{str});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftL(){
-//        Strassenabschnitt str = new Strassenabschnitt(HimmelsrichtungT.NORD,HimmelsrichtungT.STOP);
-//        Strassenabschnitt str2 = new Strassenabschnitt(HimmelsrichtungT.SUED,HimmelsrichtungT.STOP);
-//        Strassenabschnitt str3 = new Strassenabschnitt(HimmelsrichtungT.WEST,HimmelsrichtungT.STOP);
-//
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordOst,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//        HalbKantenT[] w3hk = {
-//                HalbKantenT.WestNord,
-//                HalbKantenT.NordWest
-//        };
-//        Wiesenstueck w3 = new Wiesenstueck(w3hk,null);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2,w3},
-//                new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{str,str2,str3});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftM(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.OstNord,
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftN(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.OstNord,
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftO(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.OstNord,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.OST, HimmelsrichtungT.SUED);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftP(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.OstNord,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.OST, HimmelsrichtungT.SUED);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftQ(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.OST ,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftR(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.OST ,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.SuedOst,
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1}, new Stadtteil[]{stadtteil});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftS(){
-//        Stadtteil stadtteil = new Stadtteil(true,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.OST ,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,new Stadtteil[]{stadtteil});
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.SUED, HimmelsrichtungT.STOP);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftT(){
-//        Stadtteil stadtteil = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.NORD,HimmelsrichtungT.OST ,HimmelsrichtungT.WEST});
-//
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,new Stadtteil[]{stadtteil});
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.SuedWest
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,new Stadtteil[]{stadtteil});
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.SUED, HimmelsrichtungT.STOP);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Stadtteil[]{stadtteil}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftU(){
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued,
-//                HalbKantenT.WestNord
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.NordOst,
-//                HalbKantenT.OstNord,
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.NORD, HimmelsrichtungT.SUED);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftV(){
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.NordOst,
-//                HalbKantenT.OstNord,
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.SUED, HimmelsrichtungT.WEST);
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2}, new Strassenabschnitt[]{s1});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftW(){
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.NordOst,
-//                HalbKantenT.OstNord,
-//                HalbKantenT.WestNord
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        HalbKantenT[] w3hk = {
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued
-//        };
-//        Wiesenstueck w3 = new Wiesenstueck(w3hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.OST, HimmelsrichtungT.STOP);
-//        Strassenabschnitt s2 = new Strassenabschnitt(HimmelsrichtungT.SUED, HimmelsrichtungT.STOP);
-//        Strassenabschnitt s3 = new Strassenabschnitt(HimmelsrichtungT.WEST, HimmelsrichtungT.STOP);
-//
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2,w3}, new Strassenabschnitt[]{s1,s2,s3});
-//        return landschaftskarte;
-//    }
-//
-//    private static Landschaftskarte generateLandschaftX(){
-//        HalbKantenT[] w1hk = {
-//                HalbKantenT.NordWest,
-//                HalbKantenT.WestNord
-//        };
-//        Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
-//
-//        HalbKantenT[] w2hk = {
-//                HalbKantenT.NordOst,
-//                HalbKantenT.OstNord
-//        };
-//        Wiesenstueck w2 = new Wiesenstueck(w2hk,null);
-//
-//        HalbKantenT[] w3hk = {
-//                HalbKantenT.OstSued,
-//                HalbKantenT.SuedOst
-//        };
-//        Wiesenstueck w3 = new Wiesenstueck(w3hk,null);
-//
-//        HalbKantenT[] w4hk = {
-//                HalbKantenT.SuedWest,
-//                HalbKantenT.WestSued
-//        };
-//        Wiesenstueck w4 = new Wiesenstueck(w4hk,null);
-//
-//        Strassenabschnitt s1 = new Strassenabschnitt(HimmelsrichtungT.NORD, HimmelsrichtungT.STOP);
-//        Strassenabschnitt s2 = new Strassenabschnitt(HimmelsrichtungT.OST, HimmelsrichtungT.STOP);
-//        Strassenabschnitt s3 = new Strassenabschnitt(HimmelsrichtungT.SUED, HimmelsrichtungT.STOP);
-//        Strassenabschnitt s4 = new Strassenabschnitt(HimmelsrichtungT.WEST, HimmelsrichtungT.STOP);
-//
-//
-//        Landschaftskarte landschaftskarte = new Landschaftskarte(new Wiesenstueck[]{w1,w2,w3,w4}, new Strassenabschnitt[]{s1,s2,s3,s4});
-//        return landschaftskarte;
-//    }
 
+
+        /**
+         * Test Gefolgsmann setzen / brechnen
+         */
+
+
+        //Stadt
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        Landschaftskarte c = stapel.generateLandschaftC();
+//        Landschaftskarte h = stapel.generateLandschaftH();
+//        Landschaftskarte e1 = stapel.generateLandschaftE();
+//        Landschaftskarte e2 = stapel.generateLandschaftE();
+//        Landschaftskarte e3 = stapel.generateLandschaftE();
+//        Landschaftskarte f = stapel.generateLandschaftF();
+//        Landschaftskarte n1 = stapel.generateLandschaftN();
+//        Landschaftskarte n2 = stapel.generateLandschaftN();
+//
+//        //Mehre Gefolgsleute in einer Stadt
+//        c.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        n1.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        n2.setGefolgsmann(spieler2.getFreienGeflogsmann());
+//
+//        start.addNeighbor(c, HimmelsrichtungT.OST);
+//        e1.rotate(true, 2);
+//        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
+//        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
+//        c.addNeighbor(f, HimmelsrichtungT.OST);
+////
+//        f.addNeighbor(n1, HimmelsrichtungT.OST);
+//        n2.rotate(true, 2);
+//        n2.addNeighbor(h, HimmelsrichtungT.OST);
+//        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+//        System.out.println(spieler1);
+//        System.out.println(spieler2);
+
+        //Strasse
+//        Landschaftskarte start = stapel.generateLandschaftD();
+//        Landschaftskarte d = stapel.generateLandschaftD();
+//        Landschaftskarte a1 = stapel.generateLandschaftA();
+//        Landschaftskarte a2 = stapel.generateLandschaftA();
+//        Landschaftskarte l = stapel.generateLandschaftL();
+//
+//        start.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        start.addNeighbor(a1, HimmelsrichtungT.NORD);
+//        a1.setGefolgsmann(spieler2.getFreienGeflogsmann());
+//        start.addNeighbor(d,HimmelsrichtungT.SUED);
+//        d.setGefolgsmann(spieler1.getFreienGeflogsmann());
+//        a2.rotate(true,2);
+//        d.addNeighbor(a2,HimmelsrichtungT.SUED);
+    }
 }

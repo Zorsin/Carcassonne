@@ -47,6 +47,7 @@ public class Gefolgsmann {
 
     public void setRolle(RolleT rolle) {
         this.rolle = rolle;
+        if(rolle == RolleT.FREI) gebiet = null;
     }
 
     public AusrichtungT getAusrichtung() {
@@ -63,6 +64,6 @@ public class Gefolgsmann {
 
     public void setGebiet(Landschaftsteil gebiet) {
         this.gebiet = gebiet;
-        gebiet.setBesetzer(this);
+//        gebiet.setBesetzer(this);
     }
 }
