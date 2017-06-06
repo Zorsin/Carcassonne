@@ -1,7 +1,6 @@
 package ui;
 
-import game.Landschaftskarte;
-import game.Stapel;
+import game.*;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,6 +37,7 @@ public class Main extends Application{
     private Landschaftskarte currentLKarte;
     private double currentLKartX, currentLKartY;
     private Stapel stapel;
+    private Spieler[] spielers;
 
     private double dragStartX = 0, dragStartY = 0;
 
@@ -164,13 +164,25 @@ public class Main extends Application{
                 }
                 if(!foundButton){
                     // TODO Landschaftskarte.add(new Landschaftskarte);
-                    System.out.println("current Scene:"+event.getSceneX()+ " "+ event.getSceneY());
-                    if (currentLKartX != originX || currentLKartY != originY) {
-                        currentLKarte.setX(currentLKartX);
-                        currentLKarte.setY(currentLKartY);
-                        gelegteLandschaftskarten.add(currentLKarte);
-                        currentLKarte = stapel.drawLandschaftskarte();
+//
+                    if (canvasAllowUserInput) {
+                        placeLKarte();
                     }
+                    for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
+                        double x = event.getSceneX()-originX, y = event.getSceneY()-originY;
+                        double lx = landschaftskarte.getX()*landschaftskarte.getWidth(),
+                                ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
+                                lw = landschaftskarte.getWidth(),
+                                lh = landschaftskarte.getHeight();
+
+                        if(squareContains(x,y,lx,ly,lw,lh)){
+
+                            Landschaftsteil landschaftsteil = landschaftskarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
+
+                        }
+
+                    }
+
                 }
             }
         });
@@ -182,13 +194,18 @@ public class Main extends Application{
         //TODO anpassen
         canvasButtons.add(new CanvasButton(500,50,50,50, "images/D.png", "rotate"));
 
+        //TODO Spieler erzugen
+        spielers = new Spieler[]{
+                new Spieler("Spieler 1", FarbeT.BLAU),
+                new Spieler("Spieler 2", FarbeT.ROT)
+            };
         /**
          * Start Karte und erster Zug
          */
         stapel  = new Stapel();
         Landschaftskarte startKarte = stapel.getStartLandschaftskarte();
-        startKarte.setX(originX);
-        startKarte.setY(originY);
+        startKarte.setX(0);
+        startKarte.setY(0);
         gelegteLandschaftskarten.add(startKarte);
         currentLKarte = stapel.drawLandschaftskarte();
         render();
@@ -204,25 +221,39 @@ public class Main extends Application{
         int planHeight = 1080;
 
         // canvas background
-        c.setFill(Color.BLUEVIOLET);
+        c.setFill(Color.WHEAT);
         c.fillRect(0,0,canvas.getWidth(), canvas.getHeight());
 
         // plan background
         //TODO verschieben nach Spielplan bzw. ändern nach spielplan.draw() o.ä.
-        c.setFill(Color.BLACK);
-        c.fillRect(originX-(planWidth/2), originY-(planHeight/2), planWidth, planHeight);
+//        c.setFill(Color.WHEAT);
+//        c.fillRect(originX-(planWidth/2), originY-(planHeight/2), planWidth, planHeight);
 
         // TODO change to ClassObject.draw() o.ä.
         // startkarte
 //        Images images = new Images("images");
 //        c.drawImage(new Landschaftskarte().getImage(), originX,originY); // TODO anonymous Object
 
-        // add landschaftskarten
+        //draw landschaftskarten
         for (Landschaftskarte lkarte : gelegteLandschaftskarten){
-            c.drawImage(lkarte.getImage(),lkarte.getX(),lkarte.getY());
+            c.drawImage(lkarte.getImage(),lkarte.getX()*lkarte.getWidth()+originX,
+                    lkarte.getY()*lkarte.getHeight()+originY);
         }
 
-        // add canvas Buttons
+        //TODO Gefolgsmann setzen
+        //draw Gefolgsmann
+        for (Spieler spieler : spielers){
+            for(Gefolgsmann gefolgsmann : spieler.getAllGefolgsleute()){
+                if(gefolgsmann.getRolle() != RolleT.FREI && gefolgsmann.getAbsolutePosition() != null) {
+                    c.drawImage(Gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX()+originX,
+                            gefolgsmann.getAbsolutePosition().getY()+originY, 25, 24);
+//                    System.out.println("Gefunden: "+gefolgsmann.getAbsolutePosition());
+                }
+
+            }
+        }
+
+        //draw canvas Buttons
         for (CanvasButton cb : canvasButtons){
             c.drawImage(cb.getImage(), cb.getX(), cb.getY(), cb.getWidth(), cb.getHeight());
         }
@@ -233,52 +264,53 @@ public class Main extends Application{
         // TODO method stub
         // TODO make cards hover when canvas is clickable
 
-        // TODO delete
-        Landschaftskarte l = new Landschaftskarte(); // bereits vorhandene Karte auf Spielfeld zum Testen
+        Image rotatedImage = currentLKarte.getImage();
+        canvasAllowUserInput = false;
+        for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten) {
 
-        double x = e.getSceneX()-originX, y = e.getSceneY()-originY;
-        double lx = l.getX(), ly = l.getY(), lw = l.getWidth(), lh = l.getHeight();
+            double x = e.getSceneX()-originX, y = e.getSceneY()-originY;
+
+            double lx = landschaftskarte.getX()*landschaftskarte.getWidth(), ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
+                lw = landschaftskarte.getWidth(), lh = landschaftskarte.getHeight();
 
 //        System.out.println("zwischen " + (lx-lw) + " " + (ly-lh) + " und " + (lx+2*lw) + " " + (ly+2*lw));
 
-        if(x > (lx-lw) && x < (lx+2*lw) && y > (ly-lh) && y < (ly + 2*lh)){
-            Image rotatedImage = currentLKarte.getImage();
+            if (x > (lx - lw) && x < (lx + 2 * lw) && y > (ly - lh) && y < (ly + 2 * lh)) {
 
-            double imageX = 0, imageY = 0;
-            boolean showKard = false;
-            // karte darüber
-            if(squareContains(x,y, lx, ly-lh, lw, lh)){
-                imageX = lx;
-                imageY = ly-lh;
-                // TODO change to dynamic card width
-//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-                showKard = true;
-            }else if(squareContains(x,y, lx+lw,ly,lw,lh)){ // karte rechts
-                imageX = lx+lw;
-                imageY = ly;
-                // TODO change to dynamic card width
-//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
-                showKard = true;
-            }else if(squareContains(x,y, lx, ly+lh,lw,lh)){ // karte unten
-                imageX = lx;
-                imageY = ly+lh;
-                // TODO change to dynamic card width
-//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
-                showKard = true;
-            }else if(squareContains(x,y,lx-lw,ly,lw,lh)){ // karte links
-                imageX = lx-lw;
-                imageY = ly;
-                // TODO change to dynamic card width
-//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
-                showKard = true;
+                boolean showKard = false;
+                // karte darüber
+                if (squareContains(x, y, lx, ly - lh, lw, lh)) {
+                    currentLKartX = landschaftskarte.getX() + 0;
+                    currentLKartY = landschaftskarte.getY() - 1;
+                    showKard = true;
+                    canvasAllowUserInput = true;
+                } else if (squareContains(x, y, lx + lw, ly, lw, lh)) { // karte rechts
+                    currentLKartX = landschaftskarte.getX() + 1;
+                    currentLKartY = landschaftskarte.getY() - 0;
+                    showKard = true;
+                    canvasAllowUserInput = true;
+                } else if (squareContains(x, y, lx, ly + lh, lw, lh)) { // karte unten
+                    currentLKartX = landschaftskarte.getX() + 0;
+                    currentLKartY = landschaftskarte.getY() + 1;
+                    showKard = true;
+                    canvasAllowUserInput = true;
+                } else if (squareContains(x, y, lx - lw, ly, lw, lh)) { // karte links
+                    currentLKartX = landschaftskarte.getX() - 1;
+                    currentLKartY = landschaftskarte.getY() - 0;
+                    showKard = true;
+                    canvasAllowUserInput = true;
+                }
+                for(Landschaftskarte landschaftskarte2 : gelegteLandschaftskarten){
+                    if (currentLKartX == landschaftskarte2.getX() && currentLKartY == landschaftskarte2.getY()) {
+                        showKard = false;
+                        canvasAllowUserInput = false;
+                    }
+                }
+
+                if (showKard) c.drawImage(rotatedImage, currentLKartX*currentLKarte.getWidth()+originX,
+                        currentLKartY*currentLKarte.getHeight()+originY);
+
             }
-            currentLKartX = originX+imageX;
-            currentLKartY = originY+imageY;
-            if (showKard) c.drawImage(rotatedImage, currentLKartX, currentLKartY);
-
         }
 
 
@@ -286,6 +318,62 @@ public class Main extends Application{
 
     private boolean squareContains(double x, double y, double sx, double sy, double w, double h){
         return x>sx && x<(sx+w) && y>sy && y<(sy+h);
+    }
+
+    private void placeLKarte(){
+        Landschaftskarte nordKarte = null;
+        Landschaftskarte ostKarte = null;
+        Landschaftskarte suedKarte = null;
+        Landschaftskarte westKarte = null;
+
+        boolean bNord = true;
+        boolean bOst = true;
+        boolean bSued = true;
+        boolean bWest = true;
+
+        for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
+            if(landschaftskarte.getX() == currentLKartX && landschaftskarte.getY() == currentLKartY-1)
+                nordKarte = landschaftskarte;
+            if(landschaftskarte.getX() == currentLKartX+1 && landschaftskarte.getY() == currentLKartY)
+                ostKarte = landschaftskarte;
+            if(landschaftskarte.getX() == currentLKartX && landschaftskarte.getY() == currentLKartY+1)
+                suedKarte = landschaftskarte;
+            if(landschaftskarte.getX() == currentLKartX-1 && landschaftskarte.getY() == currentLKartY)
+                westKarte = landschaftskarte;
+        }
+        if(nordKarte != null) bNord = currentLKarte.addNeighbor(nordKarte, HimmelsrichtungT.NORD, false);
+        if(ostKarte != null) bOst = currentLKarte.addNeighbor(ostKarte, HimmelsrichtungT.OST, false);
+        if(suedKarte != null) bSued = currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, false);
+        if(westKarte != null) bWest = currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, false);
+
+        if(bNord && bOst && bSued && bWest){
+            System.out.println("Alle Seiten OK");
+            //TODO anpassen -> Karten jetzt verbinden
+            currentLKarte.setX(currentLKartX);
+            currentLKarte.setY(currentLKartY);
+            gelegteLandschaftskarten.add(currentLKarte);
+            currentLKarte = stapel.drawLandschaftskarte();
+        }else {
+            currentLKarte.getInformation();
+            System.out.println(bNord + " " + bOst + " "+ bSued + " " +bWest);
+            if(nordKarte != null){
+                System.out.println("--NORD--");
+                nordKarte.getInformation();
+            }
+            if(ostKarte != null){
+                System.out.println("--OST--");
+                ostKarte.getInformation();
+            }
+            if(suedKarte != null){
+                System.out.println("--SUED--");
+                suedKarte.getInformation();
+            }
+            if(westKarte != null){
+                System.out.println("--WEST--");
+                westKarte.getInformation();
+            }
+        }
+
     }
 
 }

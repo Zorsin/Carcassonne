@@ -30,7 +30,7 @@ public class Kloster extends Landschaftsteil {
 
     @Override
     public String toString() {
-        return "game.Kloster";
+        return "Kloster";
     }
 
     @Override

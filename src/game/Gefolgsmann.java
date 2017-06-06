@@ -1,5 +1,9 @@
 package game;
 
+import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+
+
 /**
  * 07.05.2017
  *
@@ -12,6 +16,8 @@ public class Gefolgsmann {
     AusrichtungT ausrichtung;
     Spieler spieler;
     Landschaftsteil gebiet;
+    Point2D absolutePosition;
+    private static Image image = new Image("images/Mann_Blau.png");
 
     public Gefolgsmann(int id, FarbeT farbe, Spieler spieler){
         this.id = id;
@@ -50,6 +56,18 @@ public class Gefolgsmann {
     public void setRolle(RolleT rolle) {
         this.rolle = rolle;
         if(rolle == RolleT.FREI) gebiet = null;
+    }
+
+    public void setAbsolutePosition(Point2D absolutePosition) {
+        this.absolutePosition = absolutePosition;
+    }
+
+    public Point2D getAbsolutePosition() {
+        return absolutePosition;
+    }
+
+    public static Image getImage() {
+        return image;
     }
 
     public AusrichtungT getAusrichtung() {

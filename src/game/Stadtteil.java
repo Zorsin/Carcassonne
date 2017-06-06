@@ -38,8 +38,8 @@ public class Stadtteil extends Landschaftsteil {
 
     public void rotate(boolean direction){
         //TODO REMOVE
-        String vorher = "game.Stadt vorher: ";
-        String nachher = "game.Stadt nachher: ";
+        String vorher = "Stadt vorher: ";
+        String nachher = "Stadt nachher: ";
         for(int i = 0; i<offeneKanten.length;i++){
             vorher += offeneKanten[i] +" ";
             offeneKanten[i] = direction ? offeneKanten[i].next() : offeneKanten[i].prev();
@@ -63,6 +63,6 @@ public class Stadtteil extends Landschaftsteil {
             himmelsRichtung += " " + himmelsrichtungT;
         }
         himmelsRichtung += "}";
-        return "game.Stadtteil " + himmelsRichtung;
+        return "Stadtteil " + himmelsRichtung;
     }
 }

@@ -197,58 +197,61 @@ public class TestKlasse extends Application{
         Landschaftskarte i = stapel.generateLandschaftI();
         Landschaftskarte k = stapel.generateLandschaftK();
 
-        System.out.println("game.Stadt 1");
-        //game.Stadt 1
-        d.addNeighbor(c,HimmelsrichtungT.OST);
-        e1.rotate(true,2);
-        c.addNeighbor(e1,HimmelsrichtungT.NORD);
-        c.addNeighbor(e2, HimmelsrichtungT.SUED);
-        c.addNeighbor(f,HimmelsrichtungT.OST);
-        f.addNeighbor(p,HimmelsrichtungT.OST);
-        n.rotate(true,2);
-        p.addNeighbor(n, HimmelsrichtungT.NORD);
-        e3.rotate(false,1);
-        n.addNeighbor(e3,HimmelsrichtungT.OST);
+//        System.out.println("game.Stadt 1");
+//        //game.Stadt 1
+//        d.addNeighbor(c,HimmelsrichtungT.OST, true);
+//        e1.rotate(true,2);
+//        c.addNeighbor(e1,HimmelsrichtungT.NORD, true);
+//        c.addNeighbor(e2, HimmelsrichtungT.SUED, true);
+//        c.addNeighbor(f,HimmelsrichtungT.OST, true);
+//        f.addNeighbor(p,HimmelsrichtungT.OST, true);
+//        n.rotate(true,2);
+//        p.addNeighbor(n, HimmelsrichtungT.NORD, true);
+//        e3.rotate(false,1);
+//        n.addNeighbor(e3,HimmelsrichtungT.OST, true);
+//
+//        System.out.println("\nStraße 1");
+//        //Straße 1
+//        d.addNeighbor(u1,HimmelsrichtungT.SUED, true);
+//        u1.addNeighbor(l,HimmelsrichtungT.SUED, true);
+//        u1.addNeighbor(e2,HimmelsrichtungT.OST, true);
+//
+//        System.out.println("\ngame.Kloster und Straße 2");
+//        //game.Kloster und Straße 2
+//        a.rotate(false,1);
+//        e2.addNeighbor(a,HimmelsrichtungT.OST, true);
+//        v1.rotate(true,1);
+//        a.addNeighbor(v1,HimmelsrichtungT.OST, true);
+//        v1.addNeighbor(p,HimmelsrichtungT.NORD, true);
+//        //TODO P und v1 koennen nicht verbunden werden
+//        p.getInformation();
+//        v1.getInformation();
+//        p.addNeighbor(w, HimmelsrichtungT.OST, true);
+//        w.addNeighbor(e3, HimmelsrichtungT.NORD, true);
+//
+//        System.out.println("\nStraße 3");
+//        //Straße 3
+//        w.addNeighbor(u2, HimmelsrichtungT.SUED, true);
+//        u2.addNeighbor(v1,HimmelsrichtungT.WEST, true);
+//        u2.addNeighbor(k,HimmelsrichtungT.SUED, true);
+//        u3.rotate(true,1);
+//        k.addNeighbor(u3,HimmelsrichtungT.WEST, true);
+//        v2.rotate(false,1);
+//        u3.addNeighbor(v2,HimmelsrichtungT.WEST, true);
+//        i.rotate(true,1);
+//        v2.addNeighbor(i, HimmelsrichtungT.WEST, true);
+//
+//        System.out.println("game.Stadt 2");
+//        //game.Stadt 2
+//        l.addNeighbor(i,HimmelsrichtungT.OST, true);
+//
+//        System.out.println("game.Stadt 3");
+//        //game.Stadt 3
+//        e4.rotate(false,1);
+//        k.addNeighbor(e4,HimmelsrichtungT.OST, true);
 
-        System.out.println("\nStraße 1");
-        //Straße 1
-        d.addNeighbor(u1,HimmelsrichtungT.SUED);
-        u1.addNeighbor(l,HimmelsrichtungT.SUED);
-        u1.addNeighbor(e2,HimmelsrichtungT.OST);
 
-        System.out.println("\ngame.Kloster und Straße 2");
-        //game.Kloster und Straße 2
-        a.rotate(false,1);
-        e2.addNeighbor(a,HimmelsrichtungT.OST);
-        v1.rotate(true,1);
-        a.addNeighbor(v1,HimmelsrichtungT.OST);
-        v1.addNeighbor(p,HimmelsrichtungT.NORD);
-        //TODO P und v1 koennen nicht verbunden werden
-        p.getInformation();
-        v1.getInformation();
-        p.addNeighbor(w, HimmelsrichtungT.OST);
-        w.addNeighbor(e3, HimmelsrichtungT.NORD);
 
-        System.out.println("\nStraße 3");
-        //Straße 3
-        w.addNeighbor(u2, HimmelsrichtungT.SUED);
-        u2.addNeighbor(v1,HimmelsrichtungT.WEST);
-        u2.addNeighbor(k,HimmelsrichtungT.SUED);
-        u3.rotate(true,1);
-        k.addNeighbor(u3,HimmelsrichtungT.WEST);
-        v2.rotate(false,1);
-        u3.addNeighbor(v2,HimmelsrichtungT.WEST);
-        i.rotate(true,1);
-        v2.addNeighbor(i, HimmelsrichtungT.WEST);
-
-        System.out.println("game.Stadt 2");
-        //game.Stadt 2
-        l.addNeighbor(i,HimmelsrichtungT.OST);
-
-        System.out.println("game.Stadt 3");
-        //game.Stadt 3
-        e4.rotate(false,1);
-        k.addNeighbor(e4,HimmelsrichtungT.OST);
 //        game.Landschaftskarte start = stapel.generateLandschaftA();
 //        game.Landschaftskarte la1 = stapel.generateLandschaftX();
 //        System.out.println(la1);
@@ -370,5 +373,11 @@ public class TestKlasse extends Application{
 //        d.setGefolgsmann(spieler1.getFreienGeflogsmann());
 //        a2.rotate(true,2);
 //        d.addNeighbor(a2,game.HimmelsrichtungT.SUED);
+
+        Landschaftskarte h = stapel.generateLandschaftH();
+        h.addNeighbor(p,HimmelsrichtungT.OST, false);
+        h.getInformation();
+        p.getInformation();
+
     }
 }

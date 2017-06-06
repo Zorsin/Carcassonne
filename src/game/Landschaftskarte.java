@@ -1,5 +1,6 @@
 package game;
 
+import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
@@ -90,29 +91,30 @@ public class Landschaftskarte {
         return kloster;
     }
 
-    public void addNeighbor(Landschaftskarte landschaftskarte, HimmelsrichtungT himmelsrichtungT){
+    public boolean addNeighbor(Landschaftskarte landschaftskarte, HimmelsrichtungT himmelsrichtungT, boolean connect){
 
         /**
-         * Aussicht der Karte
+         * aus Sicht der Karte die
          * ich füge mir einen Nachbarn hinzu der in Himmelsrichtung-lich liegt
          */
         switch (himmelsrichtungT){
             case NORD: //nördlich ich bin für ihn suedlich
-                addNordSuedNeighbor(landschaftskarte,this, HimmelsrichtungT.NORD);
-                break;
+                return addNordSuedNeighbor(landschaftskarte,this, HimmelsrichtungT.NORD, connect);
+
             case OST: //oestlich ich bin für ihn westlich
-                addOstWestNeighbor(landschaftskarte,this, HimmelsrichtungT.OST);
-                break;
+                return addOstWestNeighbor(landschaftskarte,this, HimmelsrichtungT.OST, connect);
+
             case SUED://suedlich ich bin für ihn noerdlich
-                addNordSuedNeighbor(this,landschaftskarte, HimmelsrichtungT.SUED);
-                break;
+                return addNordSuedNeighbor(this,landschaftskarte, HimmelsrichtungT.SUED, connect);
+
             case WEST: //Westlich ich bin für ihn oestlich
-                addOstWestNeighbor(this,landschaftskarte, HimmelsrichtungT.WEST);
-                break;
+                return addOstWestNeighbor(this,landschaftskarte, HimmelsrichtungT.WEST, connect);
+
         }
+        return false;
     }
 
-    private void addNordSuedNeighbor(Landschaftskarte landNord, Landschaftskarte landSued, HimmelsrichtungT himmelsrichtungT){
+    private boolean addNordSuedNeighbor(Landschaftskarte landNord, Landschaftskarte landSued, HimmelsrichtungT himmelsrichtungT, boolean connect){
 
         boolean wiesenOk = false;
         boolean stassenOk = false;
@@ -234,14 +236,18 @@ public class Landschaftskarte {
             boolean bSued = false;
             if (teileNord != null) {
                 for(Stadtteil sdtNord : teileNord){
-                    bSued = Arrays.asList(sdtNord.getOffeneKanten()).indexOf(HimmelsrichtungT.SUED) >=0;
-                    if(bSued) stadtteilSet.add(sdtNord);
+                    if (!bSued) {
+                        bSued = Arrays.asList(sdtNord.getOffeneKanten()).indexOf(HimmelsrichtungT.SUED) >=0;
+                        if(bSued) stadtteilSet.add(sdtNord);
+                    }
                 }
             }
             if (teileSued != null) {
                 for(Stadtteil stdSued : teileSued){
-                    bNord = Arrays.asList(stdSued.getOffeneKanten()).indexOf(HimmelsrichtungT.NORD) >=0;
-                    if(bNord) stadtteilSet.add(stdSued);
+                    if (!bNord) {
+                        bNord = Arrays.asList(stdSued.getOffeneKanten()).indexOf(HimmelsrichtungT.NORD) >=0;
+                        if(bNord) stadtteilSet.add(stdSued);
+                    }
                 }
             }
             if(bNord == bSued){
@@ -255,17 +261,23 @@ public class Landschaftskarte {
 
         if (wiesenOk && stadtOk && stassenOk){
             System.out.println("Karte kann gelegt werden!");
-            if(stueckeNord != null && stueckeSued != null){
-                connectWiesen(new ArrayList<>(wiesenstueckSet1));
-                connectWiesen(new ArrayList<>(wiesenstueckSet2));
+            if (connect){
+                if(stueckeNord != null && stueckeSued != null){
+                    connectWiesen(new ArrayList<>(wiesenstueckSet1));
+                    connectWiesen(new ArrayList<>(wiesenstueckSet2));
+                }
+                if(abschnitteNord != null && abschnitteSued != null) connectStrassen(new ArrayList<>(strassenabschnittSet));
+                if(teileNord != null && teileSued != null) connectStaedte(new ArrayList<>(stadtteilSet), himmelsrichtungT);
             }
-            if(abschnitteNord != null && abschnitteSued != null) connectStrassen(new ArrayList<>(strassenabschnittSet));
-            if(teileNord != null && teileSued != null) connectStaedte(new ArrayList<>(stadtteilSet), himmelsrichtungT);
-        }else System.out.println("Karte kann NICHT gelegt werden! W:" + wiesenOk + " Sdt:" + stadtOk + " Str:"+stassenOk);
+            return true;
+        }else{
+            System.out.println("Karte kann NICHT gelegt werden! W:" + wiesenOk + " Sdt:" + stadtOk + " Str:"+stassenOk);
+            return false;
+        }
 
     }
 
-    private void addOstWestNeighbor(Landschaftskarte landOst, Landschaftskarte landWest, HimmelsrichtungT himmelsrichtungT){
+    private boolean addOstWestNeighbor(Landschaftskarte landOst, Landschaftskarte landWest, HimmelsrichtungT himmelsrichtungT, boolean connect){
 
         boolean wiesenOk = false;
         boolean stassenOk = false;
@@ -316,7 +328,6 @@ public class Landschaftskarte {
             }
             if (stueckOst != null) {
                 for(Wiesenstueck wsOst : stueckOst){
-
                     if(!bWestNord) {
                         bWestNord = Arrays.asList(wsOst.getOffeneHalbKanten()).indexOf(HalbKantenT.WestNord) >= 0;
                         if(bWestNord) wsWestNord = wsOst;
@@ -388,34 +399,43 @@ public class Landschaftskarte {
             boolean bWest = false;
             if (teileOst != null) {
                 for(Stadtteil stdOst : teileOst){
-                    bWest = Arrays.asList(stdOst.getOffeneKanten()).indexOf(HimmelsrichtungT.WEST) >=0;
-                    if (bWest) stadtteilSet.add(stdOst);
+                    if (!bWest) {
+                        bWest = Arrays.asList(stdOst.getOffeneKanten()).indexOf(HimmelsrichtungT.WEST) >=0;
+                        if (bWest) stadtteilSet.add(stdOst);
+                    }
                 }
             }
             if (teileWest != null) {
                 for(Stadtteil stdWest : teileWest){
-                    bOst = Arrays.asList(stdWest.getOffeneKanten()).indexOf(HimmelsrichtungT.OST) >=0;
-                    if (bOst) stadtteilSet.add(stdWest);
+                    if (!bOst) {
+                        bOst = Arrays.asList(stdWest.getOffeneKanten()).indexOf(HimmelsrichtungT.OST) >=0;
+                        if (bOst) stadtteilSet.add(stdWest);
+                    }
                 }
             }
             if(bOst == bWest){
                 stadtOk =true;
 //                        System.out.println("Städte passen!");
-            }
-//                    else System.out.println("N"+bNord + " S"+ bSued);
+            }else System.out.println("O"+bOst + " S"+ bWest);
         }else {
             stadtOk = true;
         }
 
         if (wiesenOk && stadtOk && stassenOk){
             System.out.println("Karte kann gelegt werden!");
-            if (stueckOst != null && stueckWest != null){
-                connectWiesen(new ArrayList<>(wiesenstueckSet1));
-                connectWiesen(new ArrayList<>(wiesenstueckSet2));
+            if(connect){
+                if (stueckOst != null && stueckWest != null){
+                    connectWiesen(new ArrayList<>(wiesenstueckSet1));
+                    connectWiesen(new ArrayList<>(wiesenstueckSet2));
+                }
+                if (abschnitteOst != null && abschnitteWest != null) connectStrassen(new ArrayList<>(strassenabschnittSet));
+                if (teileOst != null && teileWest != null) connectStaedte(new ArrayList<>(stadtteilSet),himmelsrichtungT);
             }
-            if (abschnitteOst != null && abschnitteWest != null) connectStrassen(new ArrayList<>(strassenabschnittSet));
-            if (teileOst != null && teileWest != null) connectStaedte(new ArrayList<>(stadtteilSet),himmelsrichtungT);
-        }else System.out.println("Karte kann NICHT gelegt werden! W:" + wiesenOk + " Sdt:" + stadtOk + " Str:"+stassenOk);
+            return true;
+        }else{
+            System.out.println("Karte kann NICHT gelegt werden! W:" + wiesenOk + " Sdt:" + stadtOk + " Str:"+stassenOk);
+            return false;
+        }
 
     }
 
@@ -559,8 +579,8 @@ public class Landschaftskarte {
         System.out.println("--END--");
     }
 
-    public void setGefolgsmann(Gefolgsmann gefolgsmann){
-        //TODO Auswahldialog welchen game.Landschaftsteil
+    public Landschaftsteil setGefolgsmann(Gefolgsmann gefolgsmann){
+        Landschaftsteil output = null;
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
         if(stadtteile != null){
@@ -593,7 +613,40 @@ public class Landschaftskarte {
         Optional<String> result = dialog.showAndWait();
         if(result.isPresent()){
             auswahl.get(result.get()).setBesetzer(gefolgsmann);
+            output = auswahl.get(result.get());
         }
+        //TODO Gefolgsmann setzen
+        HimmelsrichtungT himmelsrichtungT = HimmelsrichtungT.STOP;
+        if(output != null && output.getClass().equals(Strassenabschnitt.class)){
+            Strassenabschnitt strassenabschnitt = (Strassenabschnitt) output;
+            himmelsrichtungT = strassenabschnitt.getStartRichtung();
+        }
+        //weitere
+        double gfX = 0, gfY = 0;
+        if(himmelsrichtungT != HimmelsrichtungT.STOP){
+            switch (himmelsrichtungT){
+                case NORD:
+                    gfX = (1/2d)*83d-25d/2d;
+                    gfY = (1/4d)*83d-24d/2d;
+                    break;
+                case SUED:
+                    gfX = (1/2d)*83d-25d/2d;
+                    gfY = (3/4d)*83d-24d/2d;
+                    break;
+                case OST:
+                    gfX = (3/4d)*83d-25d/2d;
+                    gfY = (1/2d)*83d-24d/2d;
+                    break;
+                case WEST:
+                    gfX = (1/4d)*83d-25d/2d;
+                    gfY = (1/2d)*83d-24d/2d;
+                    break;
+            }
+            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY);
+            gefolgsmann.setAbsolutePosition(new Point2D(this.getX()*this.getWidth()+gfX, this.getY()*this.getHeight()+gfY));
+        }
+
+        return output;
     }
 
     public Image getImage(){
@@ -621,7 +674,7 @@ public class Landschaftskarte {
     }
 
     public double getWidth() {
-        return 83;
+        return image.getWidth();
     }
 
     public void setWidth(double width) {
@@ -629,7 +682,7 @@ public class Landschaftskarte {
     }
 
     public double getHeight() {
-        return 83;
+        return image.getHeight();
     }
 
     public void setHeight(double height) {

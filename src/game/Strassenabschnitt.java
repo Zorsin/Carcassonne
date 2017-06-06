@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.*;
+
 /**
  * 07.05.2017
  *
@@ -59,5 +61,13 @@ public class Strassenabschnitt extends Landschaftsteil {
         himmelsRichtung += "}";
 
         return "Stassenabschnitt " + himmelsRichtung;
+    }
+    private void getGefolgsmannPositionAufStrasse(){
+
+        // erster enum (NORD,...)
+
+        // Nord: 1/2widht, 1/4height
+        // OST: 3/4widht, 1/2height
+
     }
 }

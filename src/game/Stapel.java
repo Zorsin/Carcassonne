@@ -50,10 +50,8 @@ public class Stapel {
         Random random = new Random();
 
         int randomInt = random.nextInt(size);
-        System.out.println("Random:"+randomInt);
         Landschaftskarte drawedKard = landschaftskarten.get(randomInt);
         landschaftskarten.remove(drawedKard);
-        System.out.println(landschaftskarten.size());
 
         return  drawedKard;
     }
@@ -541,7 +539,8 @@ public class Stapel {
                 HalbKantenT.NordOst,
                 HalbKantenT.OstNord,
                 HalbKantenT.OstSued,
-                HalbKantenT.SuedOst
+                HalbKantenT.SuedOst,
+                HalbKantenT.WestNord
         };
         Wiesenstueck w1 = new Wiesenstueck(w1hk,null);
 
