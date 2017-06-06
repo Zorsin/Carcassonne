@@ -1,7 +1,9 @@
 package game;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.*;
 
@@ -17,13 +19,23 @@ public class Landschaftskarte {
     private Kloster kloster = null;
     private String name = "";
     private int[] legeNr;
+    private double rotationDegree = 0;
+
+    private Image image;
+    private ImageView imageView;
 
     private double x,y,width,height;
+
+    public Landschaftskarte() {
+        //TODO REMOVE
+        //Wird nur zum Testen benötigt
+    }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Kloster kloster) {
         this.wiestenstuecke = wiestenstuecke;
         this.kloster = kloster;
         this.name = name;
+        init();
     }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte, Kloster kloster) {
@@ -31,11 +43,13 @@ public class Landschaftskarte {
         this.strassenabschnitte = strassenabschnitte;
         this.kloster = kloster;
         this.name = name;
+        init();
     }
 
     public Landschaftskarte(String name, Stadtteil[] stadtteile) {
         this.stadtteile = stadtteile;
         this.name = name;
+        init();
     }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile, Strassenabschnitt[] strassenabschnitte) {
@@ -43,18 +57,21 @@ public class Landschaftskarte {
         this.stadtteile = stadtteile;
         this.strassenabschnitte = strassenabschnitte;
         this.name = name;
+        init();
     }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Stadtteil[] stadtteile) {
         this.wiestenstuecke = wiestenstuecke;
         this.stadtteile = stadtteile;
         this.name = name;
+        init();
     }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Strassenabschnitt[] strassenabschnitte) {
         this.wiestenstuecke = wiestenstuecke;
         this.strassenabschnitte = strassenabschnitte;
         this.name = name;
+        init();
     }
 
     public Wiesenstueck[] getWiestenstuecke() {
@@ -499,6 +516,13 @@ public class Landschaftskarte {
                     stk.rotate(direction);
                 }
             }
+            //TODO rotate Image
+            if(direction){
+                rotationDegree = (rotationDegree + 90)%360;
+            }else {
+                rotationDegree = (rotationDegree - 90)%360;
+            }
+            imageView.setRotate(rotationDegree);
         }
     }
 
@@ -572,8 +596,8 @@ public class Landschaftskarte {
         }
     }
 
-    public static Image getImage(){
-        return new Image("images/D.png");
+    public Image getImage(){
+        return imageView.snapshot(new SnapshotParameters(),null);
     }
 
     public int[] getLegeNr() {
@@ -581,7 +605,7 @@ public class Landschaftskarte {
     }
 
     public double getX() {
-        return 0;
+        return x;
     }
 
     public void setX(double x) {
@@ -589,7 +613,7 @@ public class Landschaftskarte {
     }
 
     public double getY() {
-        return 0;
+        return y;
     }
 
     public void setY(double y) {
@@ -610,5 +634,82 @@ public class Landschaftskarte {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    private void init(){
+        switch (name){
+            case "A":
+                image = Stapel.imageA;
+                break;
+            case "B":
+                image = Stapel.imageB;
+                break;
+            case "C":
+                image = Stapel.imageC;
+                break;
+            case "D":
+                image = Stapel.imageD;
+                break;
+            case "E":
+                image = Stapel.imageE;
+                break;
+            case "F":
+                image = Stapel.imageF;
+                break;
+            case "G":
+                image = Stapel.imageG;
+                break;
+            case "H":
+                image = Stapel.imageH;
+                break;
+            case "I":
+                image = Stapel.imageI;
+                break;
+            case "J":
+                image = Stapel.imageJ;
+                break;
+            case "K":
+                image = Stapel.imageK;
+                break;
+            case "L":
+                image= Stapel.imageL;
+                break;
+            case "M":
+                image = Stapel.imageM;
+                break;
+            case "N":
+                image = Stapel.imageN;
+                break;
+            case "O":
+                image = Stapel.imageO;
+                break;
+            case "P":
+                image = Stapel.imageP;
+                break;
+            case "Q":
+                image = Stapel.imageQ;
+                break;
+            case "R":
+                image = Stapel.imageR;
+                break;
+            case "S":
+                image = Stapel.imageS;
+                break;
+            case "T":
+                image = Stapel.imageT;
+                break;
+            case  "U":
+                image = Stapel.imageU;
+                break;
+            case "V":
+                image = Stapel.imageV;
+                break;
+            case "W":
+                image = Stapel.imageW;
+                break;
+            case "X":
+                image = Stapel.imageX;
+        }
+        imageView = new ImageView(image);
     }
 }

@@ -1,3 +1,5 @@
+package game;
+
 import java.util.*;
 
 /**
@@ -81,9 +83,9 @@ public class Wiese {
     public void setPlayerPoints(){
         /**
          * in der Endwertung aufrufen
-         * für alle Spieler und Gefolgsleute
-         * Spieler.getAllGefolgsleute = RolleT.BAUER
-         * Gefolgsmann.getGebiet().setPlayerPoints <- alle Bauern auf der gleichen Wiese werden entfern bzw FREI
+         * für alle game.Spieler und Gefolgsleute
+         * game.Spieler.getAllGefolgsleute = game.RolleT.BAUER
+         * game.Gefolgsmann.getGebiet().setPlayerPoints <- alle Bauern auf der gleichen game.Wiese werden entfern bzw FREI
          */
 
         HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();

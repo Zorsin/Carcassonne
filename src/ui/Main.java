@@ -1,6 +1,7 @@
 package ui;
 
 import game.Landschaftskarte;
+import game.Stapel;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -32,21 +34,20 @@ public class Main extends Application{
     private GraphicsContext c;
     private BorderPane root;
     private ArrayList<CanvasButton> canvasButtons = new ArrayList<>();
+    private ArrayList<Landschaftskarte> gelegteLandschaftskarten = new ArrayList<>();
+    private Landschaftskarte currentLKarte;
+    private double currentLKartX, currentLKartY;
+    private Stapel stapel;
 
     private double dragStartX = 0, dragStartY = 0;
 
     //TODO verschieben nach Spielplan??
     private double originX = 0, originY = 0;
 
-    //TODO Test Imge rotation
-    private Image image = new Image("images/A.png");
-    private ImageView imageView = new ImageView(image);
-    private double rotationWinkel = 0;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("Jetzt weiß ich auch, warum Sie Köpfe haben, soll ich's sagen?");
-        System.out.println("Sie müssen dann das viele Stroh nicht in den Händen tragen.");
+//        System.out.println("Jetzt weiß ich auch, warum Sie Köpfe haben, soll ich's sagen?");
+//        System.out.println("Sie müssen dann das viele Stroh nicht in den Händen tragen.");
 
 
         primaryStage.setTitle("Carcassonne");
@@ -94,7 +95,7 @@ public class Main extends Application{
          */
 
         canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
+//            @Override
             public void handle(MouseEvent event) {
 
                 dragStartX = event.getSceneX();
@@ -154,9 +155,7 @@ public class Main extends Application{
                                 // TODO rotate card
                                 System.out.println("rotate!");
                                 foundButton = true;
-                                rotationWinkel = (rotationWinkel + 90)%360;
-                                System.out.println(rotationWinkel);
-                                imageView.setRotate(rotationWinkel);
+                                currentLKarte.rotate(true,1);
 
                                 break;
                         }
@@ -165,6 +164,13 @@ public class Main extends Application{
                 }
                 if(!foundButton){
                     // TODO Landschaftskarte.add(new Landschaftskarte);
+                    System.out.println("current Scene:"+event.getSceneX()+ " "+ event.getSceneY());
+                    if (currentLKartX != originX || currentLKartY != originY) {
+                        currentLKarte.setX(currentLKartX);
+                        currentLKarte.setY(currentLKartY);
+                        gelegteLandschaftskarten.add(currentLKarte);
+                        currentLKarte = stapel.drawLandschaftskarte();
+                    }
                 }
             }
         });
@@ -173,8 +179,18 @@ public class Main extends Application{
         originX = canvas.getWidth()/2;
         originY = canvas.getHeight()/2;
 
+        //TODO anpassen
         canvasButtons.add(new CanvasButton(500,50,50,50, "images/D.png", "rotate"));
 
+        /**
+         * Start Karte und erster Zug
+         */
+        stapel  = new Stapel();
+        Landschaftskarte startKarte = stapel.getStartLandschaftskarte();
+        startKarte.setX(originX);
+        startKarte.setY(originY);
+        gelegteLandschaftskarten.add(startKarte);
+        currentLKarte = stapel.drawLandschaftskarte();
         render();
     }
 
@@ -198,9 +214,13 @@ public class Main extends Application{
 
         // TODO change to ClassObject.draw() o.ä.
         // startkarte
-        Images images = new Images("images");
-        c.drawImage(new Landschaftskarte().getImage(), originX,originY); // TODO anonymous Object
+//        Images images = new Images("images");
+//        c.drawImage(new Landschaftskarte().getImage(), originX,originY); // TODO anonymous Object
 
+        // add landschaftskarten
+        for (Landschaftskarte lkarte : gelegteLandschaftskarten){
+            c.drawImage(lkarte.getImage(),lkarte.getX(),lkarte.getY());
+        }
 
         // add canvas Buttons
         for (CanvasButton cb : canvasButtons){
@@ -222,36 +242,42 @@ public class Main extends Application{
 //        System.out.println("zwischen " + (lx-lw) + " " + (ly-lh) + " und " + (lx+2*lw) + " " + (ly+2*lw));
 
         if(x > (lx-lw) && x < (lx+2*lw) && y > (ly-lh) && y < (ly + 2*lh)){
-            Image rotatedImage = imageView.snapshot(new SnapshotParameters(),null);
+            Image rotatedImage = currentLKarte.getImage();
 
-            double imageX, imageY;
+            double imageX = 0, imageY = 0;
+            boolean showKard = false;
             // karte darüber
             if(squareContains(x,y, lx, ly-lh, lw, lh)){
                 imageX = lx;
                 imageY = ly-lh;
                 // TODO change to dynamic card width
 //                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+                showKard = true;
             }else if(squareContains(x,y, lx+lw,ly,lw,lh)){ // karte rechts
                 imageX = lx+lw;
                 imageY = ly;
                 // TODO change to dynamic card width
 //                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+                showKard = true;
             }else if(squareContains(x,y, lx, ly+lh,lw,lh)){ // karte unten
                 imageX = lx;
                 imageY = ly+lh;
                 // TODO change to dynamic card width
 //                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+                showKard = true;
             }else if(squareContains(x,y,lx-lw,ly,lw,lh)){ // karte links
                 imageX = lx-lw;
                 imageY = ly;
                 // TODO change to dynamic card width
 //                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
-                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+//                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
+                showKard = true;
             }
-
+            currentLKartX = originX+imageX;
+            currentLKartY = originY+imageY;
+            if (showKard) c.drawImage(rotatedImage, currentLKartX, currentLKartY);
 
         }
 

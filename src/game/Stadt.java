@@ -1,3 +1,5 @@
+package game;
+
 import java.util.*;
 
 /**
@@ -30,20 +32,20 @@ public class Stadt {
         offeneStadtkanten.addAll(Arrays.asList(stadtteil.getOffeneKanten()));
 //        switch (himmelsrichtungT){
 //            case WEST:
-//                offeneStadtkanten.remove(HimmelsrichtungT.WEST);
-//                offeneStadtkanten.remove(HimmelsrichtungT.OST);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.WEST);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.OST);
 //                break;
 //            case OST:
-//                offeneStadtkanten.remove(HimmelsrichtungT.WEST);
-//                offeneStadtkanten.remove(HimmelsrichtungT.OST);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.WEST);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.OST);
 //                break;
 //            case SUED:
-//                offeneStadtkanten.remove(HimmelsrichtungT.SUED);
-//                offeneStadtkanten.remove(HimmelsrichtungT.NORD);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.SUED);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.NORD);
 //                break;
 //            case NORD:
-//                offeneStadtkanten.remove(HimmelsrichtungT.SUED);
-//                offeneStadtkanten.remove(HimmelsrichtungT.NORD);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.SUED);
+//                offeneStadtkanten.remove(game.HimmelsrichtungT.NORD);
 //                break;
 //        }
 
@@ -62,11 +64,11 @@ public class Stadt {
                  element.setStadt(this);
         }
 //
-//        for(HimmelsrichtungT t : offeneStadtkanten){
+//        for(game.HimmelsrichtungT t : offeneStadtkanten){
 //            System.out.println("Vor "+t);
 //        }
         offeneStadtkanten.addAll(stadt.getOffeneStadtkanten());
-//        for(HimmelsrichtungT t : offeneStadtkanten){
+//        for(game.HimmelsrichtungT t : offeneStadtkanten){
 //            System.out.println("Zwischen "+t);
 //        }
 //        System.out.println("Anzal1: "+offeneStadtkanten.size());
@@ -89,7 +91,7 @@ public class Stadt {
                 offeneStadtkanten.remove(HimmelsrichtungT.SUED);
                 break;
         }
-//        for(HimmelsrichtungT t : offeneStadtkanten){
+//        for(game.HimmelsrichtungT t : offeneStadtkanten){
 //            System.out.println("Nach "+t);
 //        }
 //        System.out.println("Anzal 2: "+offeneStadtkanten.size());

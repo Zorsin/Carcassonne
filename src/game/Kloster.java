@@ -1,3 +1,5 @@
+package game;
+
 /**
  * 07.05.2017
  *
@@ -28,7 +30,7 @@ public class Kloster extends Landschaftsteil {
 
     @Override
     public String toString() {
-        return "Kloster";
+        return "game.Kloster";
     }
 
     @Override

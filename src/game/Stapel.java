@@ -1,3 +1,6 @@
+package game;
+
+import javafx.scene.image.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,6 +11,30 @@ import java.util.Random;
  */
 public class Stapel {
     ArrayList<Landschaftskarte> landschaftskarten = new ArrayList<>();
+    public static final Image imageA = new Image("images/A.png");
+    public static final Image imageB = new Image("images/B.png");
+    public static final Image imageC = new Image("images/C.png");
+    public static final Image imageD = new Image("images/D.png");
+    public static final Image imageE = new Image("images/E.png");
+    public static final Image imageF = new Image("images/F.png");
+    public static final Image imageG = new Image("images/G.png");
+    public static final Image imageH = new Image("images/H.png");
+    public static final Image imageI = new Image("images/I.png");
+    public static final Image imageJ = new Image("images/J.png");
+    public static final Image imageK = new Image("images/K.png");
+    public static final Image imageL = new Image("images/L.png");
+    public static final Image imageM = new Image("images/M.png");
+    public static final Image imageN = new Image("images/N.png");
+    public static final Image imageO = new Image("images/O.png");
+    public static final Image imageP = new Image("images/P.png");
+    public static final Image imageQ = new Image("images/Q.png");
+    public static final Image imageR = new Image("images/R.png");
+    public static final Image imageS = new Image("images/S.png");
+    public static final Image imageT = new Image("images/T.png");
+    public static final Image imageU = new Image("images/U.png");
+    public static final Image imageV = new Image("images/V.png");
+    public static final Image imageW = new Image("images/W.png");
+    public static final Image imageX = new Image("images/X.png");
 
     public Stapel() {
         generateStapel();
@@ -165,7 +192,7 @@ public class Stapel {
     public Landschaftskarte generateLandschaftD(){
 
         /**
-         * Für eine Landschaftskarte D
+         * Für eine game.Landschaftskarte D
          */
         Stadtteil st1 = new Stadtteil(false,new HimmelsrichtungT[]{HimmelsrichtungT.OST});
 

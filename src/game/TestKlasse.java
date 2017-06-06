@@ -1,7 +1,8 @@
+package game;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 /**
  * 25.04.2017
  *
@@ -18,138 +19,138 @@ public class TestKlasse extends Application{
 //         * Test der Logik ohne GUI
 //         */
 //
-////        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
-////        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
+////        game.Spieler spieler1 = new game.Spieler("game.Spieler 1", game.FarbeT.BLAU);
+////        game.Spieler spieler2 = new game.Spieler("game.Spieler 2", game.FarbeT.ROT);
 //
 ////        System.out.println(spieler1);
 ////        System.out.println(spieler2);
 //
-////        ArrayList<Landschaftskarte> gelegtekarten = new ArrayList<>();
+////        ArrayList<game.Landschaftskarte> gelegtekarten = new ArrayList<>();
 //
-//        Stapel stapel = new Stapel();
+//        game.Stapel stapel = new game.Stapel();
 //
-////        Landschaftskarte start = stapel.generateLandschaftA();
-////        Landschaftskarte la1 = stapel.generateLandschaftX();
+////        game.Landschaftskarte start = stapel.generateLandschaftA();
+////        game.Landschaftskarte la1 = stapel.generateLandschaftX();
 ////        System.out.println(la1);
-////        Landschaftskarte la2 = generateLandschaftA();
+////        game.Landschaftskarte la2 = generateLandschaftA();
 //
-////        start.addNeighbor(la1,HimmelsrichtungT.OST);
-////        la2.addNeighbor(start, HimmelsrichtungT.SUED);
+////        start.addNeighbor(la1,game.HimmelsrichtungT.OST);
+////        la2.addNeighbor(start, game.HimmelsrichtungT.SUED);
 ////        System.out.println("----------------------");
 ////
-////        Landschaftskarte la3 = generateLandschaftI();
-////        Landschaftskarte la4 = generateLandschaftG();
-////        Landschaftskarte la5 = generateLandschaftN();
-////        la3.addNeighbor(la4,HimmelsrichtungT.SUED);
-////        la4.addNeighbor(la2,HimmelsrichtungT.SUED);
-////        la4.addNeighbor(la5,HimmelsrichtungT.WEST);
+////        game.Landschaftskarte la3 = generateLandschaftI();
+////        game.Landschaftskarte la4 = generateLandschaftG();
+////        game.Landschaftskarte la5 = generateLandschaftN();
+////        la3.addNeighbor(la4,game.HimmelsrichtungT.SUED);
+////        la4.addNeighbor(la2,game.HimmelsrichtungT.SUED);
+////        la4.addNeighbor(la5,game.HimmelsrichtungT.WEST);
 //
 //        /**
 //         * Test Rotation
 //         */
-////        Landschaftskarte start = stapel.generateLandschaftD();
+////        game.Landschaftskarte start = stapel.generateLandschaftD();
 ////        start.rotate();
 ////        start.rotate();
 ////        start.rotate();
 ////        start.rotate();
 //
-////        Landschaftskarte e = stapel.generateLandschaftE();
-////        start.addNeighbor(e, HimmelsrichtungT.OST);
+////        game.Landschaftskarte e = stapel.generateLandschaftE();
+////        start.addNeighbor(e, game.HimmelsrichtungT.OST);
 ////        e.rotate(false,1);
 ////        System.out.println("-------------");
-////        start.addNeighbor(e, HimmelsrichtungT.OST);
+////        start.addNeighbor(e, game.HimmelsrichtungT.OST);
 //
 //        /**
-//         * Test Strassen / Stadt abgeschlossen
+//         * Test Strassen / game.Stadt abgeschlossen
 //         */
-//        //Strasse
-////        Landschaftskarte start = stapel.generateLandschaftD();
-////        Landschaftskarte a = stapel.generateLandschaftA();
-////        Landschaftskarte l = stapel.generateLandschaftL();
+//        //game.Strasse
+////        game.Landschaftskarte start = stapel.generateLandschaftD();
+////        game.Landschaftskarte a = stapel.generateLandschaftA();
+////        game.Landschaftskarte l = stapel.generateLandschaftL();
 ////
-////        start.addNeighbor(a, HimmelsrichtungT.NORD);
-////        start.addNeighbor(l,HimmelsrichtungT.SUED);
+////        start.addNeighbor(a, game.HimmelsrichtungT.NORD);
+////        start.addNeighbor(l,game.HimmelsrichtungT.SUED);
 ////
 ////        start.getInformation();
 ////        a.getInformation();
 ////        l.getInformation();
 //
-//        //Stadt
-////        Landschaftskarte start = stapel.generateLandschaftD();
-////        Landschaftskarte c = stapel.generateLandschaftC();
-////        Landschaftskarte h = stapel.generateLandschaftH();
-////        Landschaftskarte e1 = stapel.generateLandschaftE();
-////        Landschaftskarte e2 = stapel.generateLandschaftE();
-////        Landschaftskarte e3 = stapel.generateLandschaftE();
-////        Landschaftskarte f = stapel.generateLandschaftF();
-////        Landschaftskarte n1 = stapel.generateLandschaftN();
-////        Landschaftskarte n2 = stapel.generateLandschaftN();
+//        //game.Stadt
+////        game.Landschaftskarte start = stapel.generateLandschaftD();
+////        game.Landschaftskarte c = stapel.generateLandschaftC();
+////        game.Landschaftskarte h = stapel.generateLandschaftH();
+////        game.Landschaftskarte e1 = stapel.generateLandschaftE();
+////        game.Landschaftskarte e2 = stapel.generateLandschaftE();
+////        game.Landschaftskarte e3 = stapel.generateLandschaftE();
+////        game.Landschaftskarte f = stapel.generateLandschaftF();
+////        game.Landschaftskarte n1 = stapel.generateLandschaftN();
+////        game.Landschaftskarte n2 = stapel.generateLandschaftN();
 ////
-////        start.addNeighbor(c, HimmelsrichtungT.OST);
+////        start.addNeighbor(c, game.HimmelsrichtungT.OST);
 ////        e1.rotate(true, 2);
-////        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
-////        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
-////        c.addNeighbor(f, HimmelsrichtungT.OST);
+////        c.addNeighbor(e1, game.HimmelsrichtungT.NORD);//Oben
+////        c.addNeighbor(e3, game.HimmelsrichtungT.SUED);//unten
+////        c.addNeighbor(f, game.HimmelsrichtungT.OST);
 //////
-////        f.addNeighbor(n1, HimmelsrichtungT.OST);
+////        f.addNeighbor(n1, game.HimmelsrichtungT.OST);
 //////        n1.getInformation();
 //////        System.out.println("---");
 ////        n2.rotate(true, 2);
-////        n2.addNeighbor(h, HimmelsrichtungT.OST);
+////        n2.addNeighbor(h, game.HimmelsrichtungT.OST);
 //////        n2.getInformation();
-////        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+////        n1.addNeighbor(n2, game.HimmelsrichtungT.NORD);
 ////        n2.getInformation();
 //
 //
 //        /**
-//         * Test Gefolgsmann setzen / brechnen
+//         * Test game.Gefolgsmann setzen / brechnen
 //         */
-//        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
-//        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
+//        game.Spieler spieler1 = new game.Spieler("game.Spieler 1", game.FarbeT.BLAU);
+//        game.Spieler spieler2 = new game.Spieler("game.Spieler 2", game.FarbeT.ROT);
 //
-//        //Stadt
-////        Landschaftskarte start = stapel.generateLandschaftD();
-////        Landschaftskarte c = stapel.generateLandschaftC();
-////        Landschaftskarte h = stapel.generateLandschaftH();
-////        Landschaftskarte e1 = stapel.generateLandschaftE();
-////        Landschaftskarte e2 = stapel.generateLandschaftE();
-////        Landschaftskarte e3 = stapel.generateLandschaftE();
-////        Landschaftskarte f = stapel.generateLandschaftF();
-////        Landschaftskarte n1 = stapel.generateLandschaftN();
-////        Landschaftskarte n2 = stapel.generateLandschaftN();
+//        //game.Stadt
+////        game.Landschaftskarte start = stapel.generateLandschaftD();
+////        game.Landschaftskarte c = stapel.generateLandschaftC();
+////        game.Landschaftskarte h = stapel.generateLandschaftH();
+////        game.Landschaftskarte e1 = stapel.generateLandschaftE();
+////        game.Landschaftskarte e2 = stapel.generateLandschaftE();
+////        game.Landschaftskarte e3 = stapel.generateLandschaftE();
+////        game.Landschaftskarte f = stapel.generateLandschaftF();
+////        game.Landschaftskarte n1 = stapel.generateLandschaftN();
+////        game.Landschaftskarte n2 = stapel.generateLandschaftN();
 ////
-////        //Mehre Gefolgsleute in einer Stadt
+////        //Mehre Gefolgsleute in einer game.Stadt
 ////        c.setGefolgsmann(spieler1.getFreienGeflogsmann());
 ////        n1.setGefolgsmann(spieler1.getFreienGeflogsmann());
 ////        n2.setGefolgsmann(spieler2.getFreienGeflogsmann());
 ////
-////        start.addNeighbor(c, HimmelsrichtungT.OST);
+////        start.addNeighbor(c, game.HimmelsrichtungT.OST);
 ////        e1.rotate(true, 2);
-////        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
-////        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
-////        c.addNeighbor(f, HimmelsrichtungT.OST);
+////        c.addNeighbor(e1, game.HimmelsrichtungT.NORD);//Oben
+////        c.addNeighbor(e3, game.HimmelsrichtungT.SUED);//unten
+////        c.addNeighbor(f, game.HimmelsrichtungT.OST);
 //////
-////        f.addNeighbor(n1, HimmelsrichtungT.OST);
+////        f.addNeighbor(n1, game.HimmelsrichtungT.OST);
 ////        n2.rotate(true, 2);
-////        n2.addNeighbor(h, HimmelsrichtungT.OST);
-////        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+////        n2.addNeighbor(h, game.HimmelsrichtungT.OST);
+////        n1.addNeighbor(n2, game.HimmelsrichtungT.NORD);
 ////        System.out.println(spieler1);
 ////        System.out.println(spieler2);
 //
-//        //Strasse
-//        Landschaftskarte start = stapel.generateLandschaftD();
-//        Landschaftskarte d = stapel.generateLandschaftD();
-//        Landschaftskarte a1 = stapel.generateLandschaftA();
-//        Landschaftskarte a2 = stapel.generateLandschaftA();
-//        Landschaftskarte l = stapel.generateLandschaftL();
+//        //game.Strasse
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte d = stapel.generateLandschaftD();
+//        game.Landschaftskarte a1 = stapel.generateLandschaftA();
+//        game.Landschaftskarte a2 = stapel.generateLandschaftA();
+//        game.Landschaftskarte l = stapel.generateLandschaftL();
 //
 //        start.setGefolgsmann(spieler1.getFreienGeflogsmann());
-//        start.addNeighbor(a1, HimmelsrichtungT.NORD);
+//        start.addNeighbor(a1, game.HimmelsrichtungT.NORD);
 ////        a1.setGefolgsmann(spieler2.getFreienGeflogsmann());
-//        start.addNeighbor(d,HimmelsrichtungT.SUED);
+//        start.addNeighbor(d,game.HimmelsrichtungT.SUED);
 ////        d.setGefolgsmann(spieler1.getFreienGeflogsmann());
 //        a2.rotate(true,2);
-//        d.addNeighbor(a2,HimmelsrichtungT.SUED);
+//        d.addNeighbor(a2,game.HimmelsrichtungT.SUED);
 
 //    }
 
@@ -160,13 +161,15 @@ public class TestKlasse extends Application{
          * Test der Logik
          */
 
-        Spieler spieler1 = new Spieler("Spieler 1", FarbeT.BLAU);
-        Spieler spieler2 = new Spieler("Spieler 2", FarbeT.ROT);
+        primaryStage.show();
+
+        Spieler spieler1 = new Spieler("game.Spieler 1", FarbeT.BLAU);
+        Spieler spieler2 = new Spieler("game.Spieler 2", FarbeT.ROT);
 
 //        System.out.println(spieler1);
 //        System.out.println(spieler2);
 
-//        ArrayList<Landschaftskarte> gelegtekarten = new ArrayList<>();
+//        ArrayList<game.Landschaftskarte> gelegtekarten = new ArrayList<>();
 
         Stapel stapel = new Stapel();
 
@@ -194,8 +197,8 @@ public class TestKlasse extends Application{
         Landschaftskarte i = stapel.generateLandschaftI();
         Landschaftskarte k = stapel.generateLandschaftK();
 
-        System.out.println("Stadt 1");
-        //Stadt 1
+        System.out.println("game.Stadt 1");
+        //game.Stadt 1
         d.addNeighbor(c,HimmelsrichtungT.OST);
         e1.rotate(true,2);
         c.addNeighbor(e1,HimmelsrichtungT.NORD);
@@ -213,8 +216,8 @@ public class TestKlasse extends Application{
         u1.addNeighbor(l,HimmelsrichtungT.SUED);
         u1.addNeighbor(e2,HimmelsrichtungT.OST);
 
-        System.out.println("\nKloster und Straße 2");
-        //Kloster und Straße 2
+        System.out.println("\ngame.Kloster und Straße 2");
+        //game.Kloster und Straße 2
         a.rotate(false,1);
         e2.addNeighbor(a,HimmelsrichtungT.OST);
         v1.rotate(true,1);
@@ -238,134 +241,134 @@ public class TestKlasse extends Application{
         i.rotate(true,1);
         v2.addNeighbor(i, HimmelsrichtungT.WEST);
 
-        System.out.println("Stadt 2");
-        //Stadt 2
+        System.out.println("game.Stadt 2");
+        //game.Stadt 2
         l.addNeighbor(i,HimmelsrichtungT.OST);
 
-        System.out.println("Stadt 3");
-        //Stadt 3
+        System.out.println("game.Stadt 3");
+        //game.Stadt 3
         e4.rotate(false,1);
         k.addNeighbor(e4,HimmelsrichtungT.OST);
-//        Landschaftskarte start = stapel.generateLandschaftA();
-//        Landschaftskarte la1 = stapel.generateLandschaftX();
+//        game.Landschaftskarte start = stapel.generateLandschaftA();
+//        game.Landschaftskarte la1 = stapel.generateLandschaftX();
 //        System.out.println(la1);
-//        Landschaftskarte la2 = generateLandschaftA();
+//        game.Landschaftskarte la2 = generateLandschaftA();
 
-//        start.addNeighbor(la1,HimmelsrichtungT.OST);
-//        la2.addNeighbor(start, HimmelsrichtungT.SUED);
+//        start.addNeighbor(la1,game.HimmelsrichtungT.OST);
+//        la2.addNeighbor(start, game.HimmelsrichtungT.SUED);
 //        System.out.println("----------------------");
 //
-//        Landschaftskarte la3 = generateLandschaftI();
-//        Landschaftskarte la4 = generateLandschaftG();
-//        Landschaftskarte la5 = generateLandschaftN();
-//        la3.addNeighbor(la4,HimmelsrichtungT.SUED);
-//        la4.addNeighbor(la2,HimmelsrichtungT.SUED);
-//        la4.addNeighbor(la5,HimmelsrichtungT.WEST);
+//        game.Landschaftskarte la3 = generateLandschaftI();
+//        game.Landschaftskarte la4 = generateLandschaftG();
+//        game.Landschaftskarte la5 = generateLandschaftN();
+//        la3.addNeighbor(la4,game.HimmelsrichtungT.SUED);
+//        la4.addNeighbor(la2,game.HimmelsrichtungT.SUED);
+//        la4.addNeighbor(la5,game.HimmelsrichtungT.WEST);
 
         /**
          * Test Rotation
          */
-//        Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
 //        start.rotate();
 //        start.rotate();
 //        start.rotate();
 //        start.rotate();
 
-//        Landschaftskarte e = stapel.generateLandschaftE();
-//        start.addNeighbor(e, HimmelsrichtungT.OST);
+//        game.Landschaftskarte e = stapel.generateLandschaftE();
+//        start.addNeighbor(e, game.HimmelsrichtungT.OST);
 //        e.rotate(false,1);
 //        System.out.println("-------------");
-//        start.addNeighbor(e, HimmelsrichtungT.OST);
+//        start.addNeighbor(e, game.HimmelsrichtungT.OST);
 
         /**
-         * Test Strassen / Stadt abgeschlossen
+         * Test Strassen / game.Stadt abgeschlossen
          */
-        //Strasse
-//        Landschaftskarte start = stapel.generateLandschaftD();
-//        Landschaftskarte a = stapel.generateLandschaftA();
-//        Landschaftskarte l = stapel.generateLandschaftL();
+        //game.Strasse
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte a = stapel.generateLandschaftA();
+//        game.Landschaftskarte l = stapel.generateLandschaftL();
 //
-//        start.addNeighbor(a, HimmelsrichtungT.NORD);
-//        start.addNeighbor(l,HimmelsrichtungT.SUED);
+//        start.addNeighbor(a, game.HimmelsrichtungT.NORD);
+//        start.addNeighbor(l,game.HimmelsrichtungT.SUED);
 //
 //        start.getInformation();
 //        a.getInformation();
 //        l.getInformation();
 
-        //Stadt
-//        Landschaftskarte start = stapel.generateLandschaftD();
-//        Landschaftskarte c = stapel.generateLandschaftC();
-//        Landschaftskarte h = stapel.generateLandschaftH();
-//        Landschaftskarte e1 = stapel.generateLandschaftE();
-//        Landschaftskarte e2 = stapel.generateLandschaftE();
-//        Landschaftskarte e3 = stapel.generateLandschaftE();
-//        Landschaftskarte f = stapel.generateLandschaftF();
-//        Landschaftskarte n1 = stapel.generateLandschaftN();
-//        Landschaftskarte n2 = stapel.generateLandschaftN();
+        //game.Stadt
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte c = stapel.generateLandschaftC();
+//        game.Landschaftskarte h = stapel.generateLandschaftH();
+//        game.Landschaftskarte e1 = stapel.generateLandschaftE();
+//        game.Landschaftskarte e2 = stapel.generateLandschaftE();
+//        game.Landschaftskarte e3 = stapel.generateLandschaftE();
+//        game.Landschaftskarte f = stapel.generateLandschaftF();
+//        game.Landschaftskarte n1 = stapel.generateLandschaftN();
+//        game.Landschaftskarte n2 = stapel.generateLandschaftN();
 //
-//        start.addNeighbor(c, HimmelsrichtungT.OST);
+//        start.addNeighbor(c, game.HimmelsrichtungT.OST);
 //        e1.rotate(true, 2);
-//        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
-//        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
-//        c.addNeighbor(f, HimmelsrichtungT.OST);
+//        c.addNeighbor(e1, game.HimmelsrichtungT.NORD);//Oben
+//        c.addNeighbor(e3, game.HimmelsrichtungT.SUED);//unten
+//        c.addNeighbor(f, game.HimmelsrichtungT.OST);
 ////
-//        f.addNeighbor(n1, HimmelsrichtungT.OST);
+//        f.addNeighbor(n1, game.HimmelsrichtungT.OST);
 ////        n1.getInformation();
 ////        System.out.println("---");
 //        n2.rotate(true, 2);
-//        n2.addNeighbor(h, HimmelsrichtungT.OST);
+//        n2.addNeighbor(h, game.HimmelsrichtungT.OST);
 ////        n2.getInformation();
-//        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+//        n1.addNeighbor(n2, game.HimmelsrichtungT.NORD);
 //        n2.getInformation();
 
 
         /**
-         * Test Gefolgsmann setzen / brechnen
+         * Test game.Gefolgsmann setzen / brechnen
          */
 
 
-        //Stadt
-//        Landschaftskarte start = stapel.generateLandschaftD();
-//        Landschaftskarte c = stapel.generateLandschaftC();
-//        Landschaftskarte h = stapel.generateLandschaftH();
-//        Landschaftskarte e1 = stapel.generateLandschaftE();
-//        Landschaftskarte e2 = stapel.generateLandschaftE();
-//        Landschaftskarte e3 = stapel.generateLandschaftE();
-//        Landschaftskarte f = stapel.generateLandschaftF();
-//        Landschaftskarte n1 = stapel.generateLandschaftN();
-//        Landschaftskarte n2 = stapel.generateLandschaftN();
+        //game.Stadt
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte c = stapel.generateLandschaftC();
+//        game.Landschaftskarte h = stapel.generateLandschaftH();
+//        game.Landschaftskarte e1 = stapel.generateLandschaftE();
+//        game.Landschaftskarte e2 = stapel.generateLandschaftE();
+//        game.Landschaftskarte e3 = stapel.generateLandschaftE();
+//        game.Landschaftskarte f = stapel.generateLandschaftF();
+//        game.Landschaftskarte n1 = stapel.generateLandschaftN();
+//        game.Landschaftskarte n2 = stapel.generateLandschaftN();
 //
-//        //Mehre Gefolgsleute in einer Stadt
+//        //Mehre Gefolgsleute in einer game.Stadt
 //        c.setGefolgsmann(spieler1.getFreienGeflogsmann());
 //        n1.setGefolgsmann(spieler1.getFreienGeflogsmann());
 //        n2.setGefolgsmann(spieler2.getFreienGeflogsmann());
 //
-//        start.addNeighbor(c, HimmelsrichtungT.OST);
+//        start.addNeighbor(c, game.HimmelsrichtungT.OST);
 //        e1.rotate(true, 2);
-//        c.addNeighbor(e1, HimmelsrichtungT.NORD);//Oben
-//        c.addNeighbor(e3, HimmelsrichtungT.SUED);//unten
-//        c.addNeighbor(f, HimmelsrichtungT.OST);
+//        c.addNeighbor(e1, game.HimmelsrichtungT.NORD);//Oben
+//        c.addNeighbor(e3, game.HimmelsrichtungT.SUED);//unten
+//        c.addNeighbor(f, game.HimmelsrichtungT.OST);
 ////
-//        f.addNeighbor(n1, HimmelsrichtungT.OST);
+//        f.addNeighbor(n1, game.HimmelsrichtungT.OST);
 //        n2.rotate(true, 2);
-//        n2.addNeighbor(h, HimmelsrichtungT.OST);
-//        n1.addNeighbor(n2, HimmelsrichtungT.NORD);
+//        n2.addNeighbor(h, game.HimmelsrichtungT.OST);
+//        n1.addNeighbor(n2, game.HimmelsrichtungT.NORD);
 //        System.out.println(spieler1);
 //        System.out.println(spieler2);
 
-        //Strasse
-//        Landschaftskarte start = stapel.generateLandschaftD();
-//        Landschaftskarte d = stapel.generateLandschaftD();
-//        Landschaftskarte a1 = stapel.generateLandschaftA();
-//        Landschaftskarte a2 = stapel.generateLandschaftA();
-//        Landschaftskarte l = stapel.generateLandschaftL();
+        //game.Strasse
+//        game.Landschaftskarte start = stapel.generateLandschaftD();
+//        game.Landschaftskarte d = stapel.generateLandschaftD();
+//        game.Landschaftskarte a1 = stapel.generateLandschaftA();
+//        game.Landschaftskarte a2 = stapel.generateLandschaftA();
+//        game.Landschaftskarte l = stapel.generateLandschaftL();
 //
 //        start.setGefolgsmann(spieler1.getFreienGeflogsmann());
-//        start.addNeighbor(a1, HimmelsrichtungT.NORD);
+//        start.addNeighbor(a1, game.HimmelsrichtungT.NORD);
 //        a1.setGefolgsmann(spieler2.getFreienGeflogsmann());
-//        start.addNeighbor(d,HimmelsrichtungT.SUED);
+//        start.addNeighbor(d,game.HimmelsrichtungT.SUED);
 //        d.setGefolgsmann(spieler1.getFreienGeflogsmann());
 //        a2.rotate(true,2);
-//        d.addNeighbor(a2,HimmelsrichtungT.SUED);
+//        d.addNeighbor(a2,game.HimmelsrichtungT.SUED);
     }
 }

@@ -1,3 +1,5 @@
+package game;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,7 +74,7 @@ public class Strasse {
             if (hasStop) stopCount++;
             if (stopCount >= 2) {
                 abgeschlossen = true;
-                System.out.println("Strasse abgeschlossen");
+                System.out.println("game.Strasse abgeschlossen");
                 setPlayerPoints();
                 break;
             }

@@ -1,3 +1,5 @@
+package game;
+
 /**
  * 07.05.2017
  *
@@ -36,10 +38,10 @@ public class Strassenabschnitt extends Landschaftsteil {
 
     public void rotate(boolean direction){
         //TODO REMOVE
-//        System.out.println("Strasse vorher: "+startRichtung + " " +endRichtung);
+//        System.out.println("game.Strasse vorher: "+startRichtung + " " +endRichtung);
         startRichtung = direction ? startRichtung.next() : startRichtung.prev();
         endRichtung = direction ? endRichtung.next() : endRichtung.prev();
-//        System.out.println("Strasse nachher: "+startRichtung + " " +endRichtung);
+//        System.out.println("game.Strasse nachher: "+startRichtung + " " +endRichtung);
 
     }
 

@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+package game;
 
 /**
  * 07.05.2017
@@ -35,8 +34,8 @@ public class Wiesenstueck extends Landschaftsteil {
 
     public void rotate(boolean direction){
         //TODO REMOVE
-        String vorher = "Wiese vorher: ";
-        String nachher = "Wiese nachher: ";
+        String vorher = "game.Wiese vorher: ";
+        String nachher = "game.Wiese nachher: ";
         for(int i = 0; i<offeneHalbKanten.length;i++){
             vorher += offeneHalbKanten[i] +" ";
             offeneHalbKanten[i] = direction ? offeneHalbKanten[i].next() : offeneHalbKanten[i].prev();
@@ -61,6 +60,6 @@ public class Wiesenstueck extends Landschaftsteil {
             halbKanten += " " + halbKantenT;
         }
         halbKanten += "}";
-        return "Wiesenstueck " + halbKanten;
+        return "game.Wiesenstueck " + halbKanten;
     }
 }
