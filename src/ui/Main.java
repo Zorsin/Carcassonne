@@ -6,9 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +37,11 @@ public class Main extends Application{
 
     //TODO verschieben nach Spielplan??
     private double originX = 0, originY = 0;
+
+    //TODO Test Imge rotation
+    private Image image = new Image("images/A.png");
+    private ImageView imageView = new ImageView(image);
+    private double rotationWinkel = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -147,6 +154,10 @@ public class Main extends Application{
                                 // TODO rotate card
                                 System.out.println("rotate!");
                                 foundButton = true;
+                                rotationWinkel = (rotationWinkel + 90)%360;
+                                System.out.println(rotationWinkel);
+                                imageView.setRotate(rotationWinkel);
+
                                 break;
                         }
                         break;
@@ -211,6 +222,7 @@ public class Main extends Application{
 //        System.out.println("zwischen " + (lx-lw) + " " + (ly-lh) + " und " + (lx+2*lw) + " " + (ly+2*lw));
 
         if(x > (lx-lw) && x < (lx+2*lw) && y > (ly-lh) && y < (ly + 2*lh)){
+            Image rotatedImage = imageView.snapshot(new SnapshotParameters(),null);
 
             double imageX, imageY;
             // karte darüber
@@ -218,22 +230,26 @@ public class Main extends Application{
                 imageX = lx;
                 imageY = ly-lh;
                 // TODO change to dynamic card width
-                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
             }else if(squareContains(x,y, lx+lw,ly,lw,lh)){ // karte rechts
                 imageX = lx+lw;
                 imageY = ly;
                 // TODO change to dynamic card width
-                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
             }else if(squareContains(x,y, lx, ly+lh,lw,lh)){ // karte unten
                 imageX = lx;
                 imageY = ly+lh;
                 // TODO change to dynamic card width
-                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
             }else if(squareContains(x,y,lx-lw,ly,lw,lh)){ // karte links
                 imageX = lx-lw;
                 imageY = ly;
                 // TODO change to dynamic card width
-                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+//                c.drawImage(new Image("images/A.png"), originX+imageX, originY+imageY);
+                c.drawImage(rotatedImage, originX+imageX, originY+imageY);
             }
 
 
