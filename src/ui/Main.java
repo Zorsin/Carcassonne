@@ -163,25 +163,26 @@ public class Main extends Application{
                     }
                 }
                 if(!foundButton){
-                    // TODO Landschaftskarte.add(new Landschaftskarte);
 //
                     if (canvasAllowUserInput) {
                         placeLKarte();
                     }
-                    for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
-                        double x = event.getSceneX()-originX, y = event.getSceneY()-originY;
-                        double lx = landschaftskarte.getX()*landschaftskarte.getWidth(),
-                                ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
-                                lw = landschaftskarte.getWidth(),
-                                lh = landschaftskarte.getHeight();
 
-                        if(squareContains(x,y,lx,ly,lw,lh)){
-
-                            Landschaftsteil landschaftsteil = landschaftskarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
-
-                        }
-
-                    }
+                    //TODO man kann nur auf der letzten Karte legen aktuell noch auf jeder
+//                    for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
+//                        double x = event.getSceneX()-originX, y = event.getSceneY()-originY;
+//                        double lx = landschaftskarte.getX()*landschaftskarte.getWidth(),
+//                                ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
+//                                lw = landschaftskarte.getWidth(),
+//                                lh = landschaftskarte.getHeight();
+//
+//                        if(squareContains(x,y,lx,ly,lw,lh)){
+//
+//                            landschaftskarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
+//
+//                        }
+//
+//                    }
 
                 }
             }
@@ -240,7 +241,6 @@ public class Main extends Application{
                     lkarte.getY()*lkarte.getHeight()+originY);
         }
 
-        //TODO Gefolgsmann setzen
         //draw Gefolgsmann
         for (Spieler spieler : spielers){
             for(Gefolgsmann gefolgsmann : spieler.getAllGefolgsleute()){
@@ -352,6 +352,8 @@ public class Main extends Application{
             currentLKarte.setX(currentLKartX);
             currentLKarte.setY(currentLKartY);
             gelegteLandschaftskarten.add(currentLKarte);
+            currentLKarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
+            //Neue Karte zeihen
             currentLKarte = stapel.drawLandschaftskarte();
         }else {
             currentLKarte.getInformation();

@@ -579,7 +579,7 @@ public class Landschaftskarte {
         System.out.println("--END--");
     }
 
-    public Landschaftsteil setGefolgsmann(Gefolgsmann gefolgsmann){
+    public void setGefolgsmann(Gefolgsmann gefolgsmann){
         Landschaftsteil output = null;
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
@@ -617,10 +617,20 @@ public class Landschaftskarte {
         }
         //TODO Gefolgsmann setzen
         HimmelsrichtungT himmelsrichtungT = HimmelsrichtungT.STOP;
+        HalbKantenT[] offeneHalbKanten = null;
         if(output != null && output.getClass().equals(Strassenabschnitt.class)){
             Strassenabschnitt strassenabschnitt = (Strassenabschnitt) output;
             himmelsrichtungT = strassenabschnitt.getStartRichtung();
         }
+        if(output != null && output.getClass().equals(Stadtteil.class)){
+            Stadtteil stadtteil = (Stadtteil) output;
+            himmelsrichtungT = stadtteil.getOffeneKanten()[0];
+        }
+        if(output != null && output.getClass().equals(Wiesenstueck.class)){
+            Wiesenstueck wiesenstueck = (Wiesenstueck) output;
+            offeneHalbKanten = wiesenstueck.getOffeneHalbKanten();
+        }
+
         //weitere
         double gfX = 0, gfY = 0;
         if(himmelsrichtungT != HimmelsrichtungT.STOP){
@@ -642,11 +652,50 @@ public class Landschaftskarte {
                     gfY = (1/2d)*83d-24d/2d;
                     break;
             }
+
+        }else if(offeneHalbKanten != null){
+            //TODO Position anpassen, ist bei Ecken ok aber bei R,S,Q schlecht
+//            if(offeneHalbKanten.length == 1){
+                switch (offeneHalbKanten[0]){
+                    case NordWest:
+                        gfX = (1/4d)*83d-25d/2d;
+                        gfY = (1/4d)*83d-24d/2d;
+                        break;
+                    case NordOst:
+                        gfX = (3/4d)*83d-25d/2d;
+                        gfY = (1/4d)*83d-24d/2d;
+                        break;
+                    case OstNord:
+                        gfX = (3/4d)*83d-25d/2d;
+                        gfY = (1/4d)*83d-24d/2d;
+                        break;
+                    case OstSued:
+                        gfX = (3/4d)*83d-25d/2d;
+                        gfY = (3/4d)*83d-24d/2d;
+                        break;
+                    case SuedOst:
+                        gfX = (3/4d)*83d-25d/2d;
+                        gfY = (3/4d)*83d-24d/2d;
+                        break;
+                    case SuedWest:
+                        gfX = (1/4d)*83d-25d/2d;
+                        gfY = (3/4d)*83d-24d/2d;
+                        break;
+                    case WestSued:
+                        gfX = (1/4d)*83d-25d/2d;
+                        gfY = (3/4d)*83d-24d/2d;
+                        break;
+                    case WestNord:
+                        gfX = (1/4d)*83d-25d/2d;
+                        gfY = (1/4d)*83d-24d/2d;
+                        break;
+                }
+//            }
+        }
+        if(gfX != 0 || gfY != 0){
             System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY);
             gefolgsmann.setAbsolutePosition(new Point2D(this.getX()*this.getWidth()+gfX, this.getY()*this.getHeight()+gfY));
         }
-
-        return output;
     }
 
     public Image getImage(){
