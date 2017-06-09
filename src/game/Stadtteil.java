@@ -54,6 +54,7 @@ public class Stadtteil extends Landschaftsteil {
     public void setBesetzer(Gefolgsmann besetzer) {
         super.setBesetzer(besetzer);
         besetzer.setRolle(RolleT.RITTER);
+        System.out.println("ist Stadtteil");
     }
 
     @Override

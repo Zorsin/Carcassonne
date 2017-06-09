@@ -2,9 +2,12 @@ package ui;
 
 import game.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -14,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -53,7 +57,7 @@ public class Main extends Application{
 
 
         primaryStage.setTitle("Carcassonne");
-        CanvasPane canvasPane = new CanvasPane(1200, 800);
+        CanvasPane canvasPane = new CanvasPane(4000, 4000);
         canvas = canvasPane.getCanvas();
         c = canvas.getGraphicsContext2D();
 
@@ -154,8 +158,6 @@ public class Main extends Application{
                     if(cb.isInside(event.getSceneX(), event.getSceneY())){ // TODO if not drag detected
                         switch (cb.getName()){
                             case "Rotate Left":
-                                // TODO rotate card
-                                System.out.println("rotate!");
                                 foundButton = true;
                                 currentLKarte.rotate(false,1);
 
@@ -165,6 +167,7 @@ public class Main extends Application{
                                 currentLKarte.rotate(true,1);
                                 break;
                         }
+                        render();
                         break;
                     }
                 }
@@ -199,17 +202,9 @@ public class Main extends Application{
         originY = canvas.getHeight()/2;
 
         //TODO anpassen
-        canvasButtons.add(new CanvasButton(500,50,60,60, "images/rotate-left.png", "Rotate Left"));
-        canvasButtons.add(new CanvasButton(600,50,60,60, "images/rotate-right.png", "Rotate Right"));
+        canvasButtons.add(new CanvasButton(500,20,60,60, "images/rotate-left.png", "Rotate Left"));
+        canvasButtons.add(new CanvasButton(700,20,60,60, "images/rotate-right.png", "Rotate Right"));
 
-        //TODO Spieler erzeugen
-        spielers = new Spieler[]{
-                new Spieler("Spieler 1", FarbeT.BLAU),
-                new Spieler("Spieler 2", FarbeT.ROT),
-                new Spieler("Spieler 3", FarbeT.GELB),
-                new Spieler("Spieler 4", FarbeT.GRUEN),
-                new Spieler("Spieler 5", FarbeT.SCHWARZ)
-            };
         /**
          * Start Karte und erster Zug
          */
@@ -219,66 +214,72 @@ public class Main extends Application{
         startKarte.setY(0);
         gelegteLandschaftskarten.add(startKarte);
         currentLKarte = stapel.drawLandschaftskarte();
-        currentSpieler = spielers[0];
-        currentSpielerIndex = 0;
+
+        PlayerInputController playerInputController = new PlayerInputController(new AnchorPane(), this);
+
+        do {
+            playerInputController.showAndWait();
+        } while (spielers == null);
+
         render();
     }
 
     public void render(){
 
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
 
-        //TODO verschieben nach Spielplan
-        int planWidth = 1920;
-        int planHeight = 1080;
+            double width = canvas.getWidth();
+            double height = canvas.getHeight();
 
-        // canvas background
-        c.setFill(Color.WHEAT);
-        c.fillRect(0,0,canvas.getWidth(), canvas.getHeight());
+            //TODO verschieben nach Spielplan
+            int planWidth = 1920;
+            int planHeight = 1080;
 
-        // plan background
-        //TODO verschieben nach Spielplan bzw. ändern nach spielplan.draw() o.ä.
+            // canvas background
+            c.setFill(Color.WHEAT);
+            c.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+            // plan background
+            //TODO verschieben nach Spielplan bzw. ändern nach spielplan.draw() o.ä.
 //        c.setFill(Color.WHEAT);
 //        c.fillRect(originX-(planWidth/2), originY-(planHeight/2), planWidth, planHeight);
 
-        // TODO change to ClassObject.draw() o.ä.
-        // startkarte
+            // TODO change to ClassObject.draw() o.ä.
+            // startkarte
 //        Images images = new Images("images");
 //        c.drawImage(new Landschaftskarte().getImage(), originX,originY); // TODO anonymous Object
 
-        //draw landschaftskarten
-        for (Landschaftskarte lkarte : gelegteLandschaftskarten){
-            c.drawImage(lkarte.getImage(),lkarte.getX()*lkarte.getWidth()+originX,
-                    lkarte.getY()*lkarte.getHeight()+originY);
-        }
+            //draw landschaftskarten
 
-        //draw Gefolgsmann
-        for (Spieler spieler : spielers){
-            for(Gefolgsmann gefolgsmann : spieler.getAllGefolgsleute()){
-                if(gefolgsmann.getRolle() != RolleT.FREI && gefolgsmann.getAbsolutePosition() != null) {
-                    c.drawImage(gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX()+originX,
-                            gefolgsmann.getAbsolutePosition().getY()+originY, 25, 24);
-//                    System.out.println("Gefunden: "+gefolgsmann.getAbsolutePosition());
-                }
-
+            for (Landschaftskarte lkarte : gelegteLandschaftskarten) {
+                c.drawImage(lkarte.getImage(), lkarte.getX() * lkarte.getWidth() + originX,
+                        lkarte.getY() * lkarte.getHeight() + originY);
             }
-        }
 
-        //draw canvas Buttons
-        for (CanvasButton cb : canvasButtons){
-            c.drawImage(cb.getImage(), cb.getX(), cb.getY(), cb.getWidth(), cb.getHeight());
-        }
-        //TODO Vorschau der aktuellen Karte
-        //draw currentKarte
-        c.drawImage(currentLKarte.getImage(), 1100,50,60,60);
+            //draw Gefolgsmann
+            if(spielers != null) {
+                for (Spieler spieler : spielers) {
+                    for (Gefolgsmann gefolgsmann : spieler.getAllGefolgsleute()) {
+                        if (gefolgsmann.getRolle() != RolleT.FREI && gefolgsmann.getAbsolutePosition() != null) {
+                            c.drawImage(gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX() + originX,
+                                    gefolgsmann.getAbsolutePosition().getY() + originY, 25, 24);
+                            //                    System.out.println("Gefunden: "+gefolgsmann.getAbsolutePosition());
+                        }
+
+                    }
+                }
+            }
+
+            //draw canvas Buttons
+            for (CanvasButton cb : canvasButtons) {
+                c.drawImage(cb.getImage(), cb.getX(), cb.getY(), cb.getWidth(), cb.getHeight());
+            }
+            //TODO Vorschau der aktuellen Karte
+            //draw currentKarte
+            c.drawImage(currentLKarte.getImage(), 600, 20, 60, 60);
 
     }
 
     public void drawCardHover(MouseEvent e){
-        // TODO method stub
-        // TODO make cards hover when canvas is clickable
-
         Image rotatedImage = currentLKarte.getImage();
         canvasAllowUserInput = false;
         for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten) {
@@ -321,14 +322,15 @@ public class Main extends Application{
                         canvasAllowUserInput = false;
                     }
                 }
-
+                if(spielers == null){
+                    showKard =false;
+                    canvasAllowUserInput = false;
+                }
                 if (showKard) c.drawImage(rotatedImage, currentLKartX*currentLKarte.getWidth()+originX,
                         currentLKartY*currentLKarte.getHeight()+originY);
 
             }
         }
-
-
     }
 
     private boolean squareContains(double x, double y, double sx, double sy, double w, double h){
@@ -362,8 +364,6 @@ public class Main extends Application{
         if(westKarte != null) bWest = currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, false);
 
         if(bNord && bOst && bSued && bWest){
-            System.out.println("Alle Seiten OK");
-
             currentLKarte.setX(currentLKartX);
             currentLKarte.setY(currentLKartY);
             gelegteLandschaftskarten.add(currentLKarte);
@@ -404,4 +404,9 @@ public class Main extends Application{
 
     }
 
+    public void setSpielers(Spieler[] spielers) {
+        this.spielers = spielers;
+        currentSpieler = spielers[0];
+        currentSpielerIndex = 0;
+    }
 }

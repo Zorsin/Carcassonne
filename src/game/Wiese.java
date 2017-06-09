@@ -119,4 +119,8 @@ public class Wiese {
             g.setRolle(RolleT.FREI);
         }
     }
+
+    public void setBesetzt(boolean besetzt) {
+        this.besetzt = besetzt;
+    }
 }

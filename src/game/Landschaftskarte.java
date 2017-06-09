@@ -260,7 +260,7 @@ public class Landschaftskarte {
         }
 
         if (wiesenOk && stadtOk && stassenOk){
-            System.out.println("Karte kann gelegt werden!");
+//            System.out.println("Karte kann gelegt werden!");
             if (connect){
                 if(stueckeNord != null && stueckeSued != null){
                     connectWiesen(new ArrayList<>(wiesenstueckSet1));
@@ -422,7 +422,7 @@ public class Landschaftskarte {
         }
 
         if (wiesenOk && stadtOk && stassenOk){
-            System.out.println("Karte kann gelegt werden!");
+//            System.out.println("Karte kann gelegt werden!");
             if(connect){
                 if (stueckOst != null && stueckWest != null){
                     connectWiesen(new ArrayList<>(wiesenstueckSet1));
@@ -442,6 +442,7 @@ public class Landschaftskarte {
     private void connectWiesen(ArrayList<Wiesenstueck> wsList){
         //TODO Wiesenstücke die nicht verbunden sind werden zusammen getan
         Wiese mainWiese = new Wiese();
+
         for(Wiesenstueck ws : wsList){
             if(ws.getWiese().getAnzahlWiesenstuecke() > mainWiese.getAnzahlWiesenstuecke()){
                 mainWiese = ws.getWiese();
@@ -460,6 +461,7 @@ public class Landschaftskarte {
                 }
             }
         }
+        mainWiese.isBesetzt();
 
 //        System.out.println("game.Wiese: "+mainWiese.getAnzahlWiesenstuecke());
     }
@@ -487,6 +489,7 @@ public class Landschaftskarte {
 
             }
         }
+        mainStadt.isBesetzt();
 
 //        System.out.println("Staedte: "+mainStadt.getAnzahlStadtteile());
     }
@@ -510,7 +513,7 @@ public class Landschaftskarte {
                 }
             }
         }
-
+        mainStrasse.isBesetzt();
 //        System.out.println("game.Strasse: "+ mainStrasse.getAnzahlStrassenabschnitte());
     }
 
@@ -580,6 +583,7 @@ public class Landschaftskarte {
     }
 
     public void setGefolgsmann(Gefolgsmann gefolgsmann){
+        //TODO der Gefolgsman wird manchmal nicht richtig gesetzt
         Landschaftsteil output = null;
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
@@ -587,6 +591,8 @@ public class Landschaftskarte {
         if(stadtteile != null){
             for(Stadtteil sdt : stadtteile){
                 if (!sdt.getStadt().isBesetzt()) {
+                    //TODO REMOVE
+                    System.out.println("Stadt:"+sdt.getStadt().isBesetzt() + " " +sdt.getStadt().getAnzahlStadtteile());
                     choices.add(sdt.toString());
                     auswahl.put(sdt.toString(),sdt);
                 }
@@ -612,38 +618,40 @@ public class Landschaftskarte {
             choices.add(kloster.toString());
             auswahl.put(kloster.toString(),kloster);
         }
-
+        if(choices.size() == 0) return;
         ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0),choices);
         dialog.setTitle("Gebiet festlegen");
         dialog.setHeaderText("Gebiet zum Plazieren wählen:");
 
         Optional<String> result = dialog.showAndWait();
         if(result.isPresent()){
-            auswahl.get(result.get()).setBesetzer(gefolgsmann);
+//            auswahl.get(result.get()).setBesetzer(gefolgsmann);
             output = auswahl.get(result.get());
         }
-        //TODO Gefolgsmann setzen
+
         HimmelsrichtungT himmelsrichtungT = HimmelsrichtungT.STOP;
         HalbKantenT[] offeneHalbKanten = null;
         if(output != null && output.getClass().equals(Strassenabschnitt.class)){
             Strassenabschnitt strassenabschnitt = (Strassenabschnitt) output;
             himmelsrichtungT = strassenabschnitt.getStartRichtung();
-            output.setBesetzer(gefolgsmann);
+            strassenabschnitt.setBesetzer(gefolgsmann);
         }
         if(output != null && output.getClass().equals(Stadtteil.class)){
             Stadtteil stadtteil = (Stadtteil) output;
             himmelsrichtungT = stadtteil.getOffeneKanten()[0];
-            output.setBesetzer(gefolgsmann);
+            stadtteil.setBesetzer(gefolgsmann);
         }
         if(output != null && output.getClass().equals(Wiesenstueck.class)){
             Wiesenstueck wiesenstueck = (Wiesenstueck) output;
             offeneHalbKanten = wiesenstueck.getOffeneHalbKanten();
-            output.setBesetzer(gefolgsmann);
+            wiesenstueck.setBesetzer(gefolgsmann);
         }
         if(output != null && output.getClass().equals(Kloster.class)){
             isKloster = true;
-            output.setBesetzer(gefolgsmann);
+            Kloster kloster = (Kloster) output;
+            kloster.setBesetzer(gefolgsmann);
         }
+//        if(output!=null) output.setBesetzer(gefolgsmann);
 
         //weitere
         double gfX = 0, gfY = 0;
@@ -710,7 +718,8 @@ public class Landschaftskarte {
 //            }
         }
         if(gfX != 0 || gfY != 0){
-            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY + " Rolle:"+gefolgsmann.getRolle());
+            //TODO REMOVE
+//            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY + " Rolle:"+gefolgsmann.getRolle());
             gefolgsmann.setAbsolutePosition(new Point2D(this.getX()*this.getWidth()+gfX, this.getY()*this.getHeight()+gfY));
         }
     }

@@ -34,12 +34,12 @@ public class Wiesenstueck extends Landschaftsteil {
 
     public void rotate(boolean direction){
         //TODO REMOVE
-        String vorher = "Wiese vorher: ";
-        String nachher = "Wiese nachher: ";
+//        String vorher = "Wiese vorher: ";
+//        String nachher = "Wiese nachher: ";
         for(int i = 0; i<offeneHalbKanten.length;i++){
-            vorher += offeneHalbKanten[i] +" ";
+//            vorher += offeneHalbKanten[i] +" ";
             offeneHalbKanten[i] = direction ? offeneHalbKanten[i].next() : offeneHalbKanten[i].prev();
-            nachher += offeneHalbKanten[i] + " ";
+//            nachher += offeneHalbKanten[i] + " ";
         }
 
 //        System.out.println(vorher);

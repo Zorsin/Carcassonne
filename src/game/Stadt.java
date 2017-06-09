@@ -150,14 +150,15 @@ public class Stadt {
         }
 
         if(nordCount == 0 && ostCount == 0 && suedCount == 0 && westCout == 0){
-            System.out.println("Alle Kanten geschlossen");
+//            System.out.println("Alle Kanten geschlossen");
             abgeschlossen = true;
             setPlayerPoints();
         }else{
-            System.out.println("N:"+nordCount);
-            System.out.println("O:"+ostCount);
-            System.out.println("S:"+suedCount);
-            System.out.println("W:"+westCout);
+            //TODO REMOVE
+//            System.out.println("N:"+nordCount);
+//            System.out.println("O:"+ostCount);
+//            System.out.println("S:"+suedCount);
+//            System.out.println("W:"+westCout);
         }
 
     }
@@ -189,8 +190,6 @@ public class Stadt {
             for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
                 if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
             }
-            //TODO REMOVE
-            System.out.println(gefolgsmannAnzahl);
 
             for (Gefolgsmann g : besetzer){
                 g.setRolle(RolleT.FREI);
