@@ -36,6 +36,12 @@ public class Stapel {
     public static final Image imageW = new Image("images/W.png");
     public static final Image imageX = new Image("images/X.png");
 
+    public static final Image mannBlau = new Image("images/Mann_Blau.PNG");
+    public static final Image mannGelb = new Image("images/Mann_Gelb.PNG");
+    public static final Image mannGruen = new Image("images/Mann_Gruen.PNG");
+    public static final Image mannRot = new Image("images/Mann_Rot.PNG");
+    public static final Image mannSchwarz = new Image("images/Mann_Schwarz.PNG");
+
     public Stapel() {
         generateStapel();
         System.out.println("Ein Stapel mit "+landschaftskarten.size()+ " Langschaftskarten wurde erzeugt");

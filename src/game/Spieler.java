@@ -35,7 +35,7 @@ public class Spieler {
         for(Gefolgsmann g : gefolgsleute){
             if(g.getRolle() == RolleT.FREI) return g;
         }
-
+        //TODO Spieler auf nicht vorhandenen Gefolgsmann hinweisen
         return null;
     }
 

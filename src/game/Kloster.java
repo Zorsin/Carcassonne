@@ -11,8 +11,11 @@ public class Kloster extends Landschaftsteil {
 
     private void setPlayerPoints(){
         if(filledFields == 8){
-            besetzer.getSpieler().addPunkte(getWert());
-            besetzer.setRolle(RolleT.FREI);
+            //TODO berechnung und Punkte anpassen
+            if(besetzer != null){
+                besetzer.getSpieler().addPunkte(getWert());
+                besetzer.setRolle(RolleT.FREI);
+            }
         }
     }
 

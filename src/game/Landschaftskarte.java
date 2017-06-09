@@ -583,22 +583,29 @@ public class Landschaftskarte {
         Landschaftsteil output = null;
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
+        boolean isKloster =false;
         if(stadtteile != null){
             for(Stadtteil sdt : stadtteile){
-                choices.add(sdt.toString());
-                auswahl.put(sdt.toString(),sdt);
+                if (!sdt.getStadt().isBesetzt()) {
+                    choices.add(sdt.toString());
+                    auswahl.put(sdt.toString(),sdt);
+                }
             }
         }
         if(wiestenstuecke != null){
             for(Wiesenstueck stueck: wiestenstuecke){
-                choices.add(stueck.toString());
-                auswahl.put(stueck.toString(),stueck);
+                if (!stueck.getWiese().isBesetzt()) {
+                    choices.add(stueck.toString());
+                    auswahl.put(stueck.toString(),stueck);
+                }
             }
         }
         if(strassenabschnitte != null){
             for(Strassenabschnitt str : strassenabschnitte){
-                choices.add(str.toString());
-                auswahl.put(str.toString(),str);
+                if (!str.getStrasse().isBesetzt()) {
+                    choices.add(str.toString());
+                    auswahl.put(str.toString(),str);
+                }
             }
         }
         if (kloster != null){
@@ -621,19 +628,29 @@ public class Landschaftskarte {
         if(output != null && output.getClass().equals(Strassenabschnitt.class)){
             Strassenabschnitt strassenabschnitt = (Strassenabschnitt) output;
             himmelsrichtungT = strassenabschnitt.getStartRichtung();
+            output.setBesetzer(gefolgsmann);
         }
         if(output != null && output.getClass().equals(Stadtteil.class)){
             Stadtteil stadtteil = (Stadtteil) output;
             himmelsrichtungT = stadtteil.getOffeneKanten()[0];
+            output.setBesetzer(gefolgsmann);
         }
         if(output != null && output.getClass().equals(Wiesenstueck.class)){
             Wiesenstueck wiesenstueck = (Wiesenstueck) output;
             offeneHalbKanten = wiesenstueck.getOffeneHalbKanten();
+            output.setBesetzer(gefolgsmann);
+        }
+        if(output != null && output.getClass().equals(Kloster.class)){
+            isKloster = true;
+            output.setBesetzer(gefolgsmann);
         }
 
         //weitere
         double gfX = 0, gfY = 0;
-        if(himmelsrichtungT != HimmelsrichtungT.STOP){
+        if(isKloster){
+            gfX = (1/2d)*83d-25d/2d;
+            gfY = (1/2d)*83d-24d/2d;
+        }else if(himmelsrichtungT != HimmelsrichtungT.STOP){
             switch (himmelsrichtungT){
                 case NORD:
                     gfX = (1/2d)*83d-25d/2d;
@@ -693,7 +710,7 @@ public class Landschaftskarte {
 //            }
         }
         if(gfX != 0 || gfY != 0){
-            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY);
+            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY + " Rolle:"+gefolgsmann.getRolle());
             gefolgsmann.setAbsolutePosition(new Point2D(this.getX()*this.getWidth()+gfX, this.getY()*this.getHeight()+gfY));
         }
     }

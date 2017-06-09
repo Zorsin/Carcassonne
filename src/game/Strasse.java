@@ -74,7 +74,7 @@ public class Strasse {
             if (hasStop) stopCount++;
             if (stopCount >= 2) {
                 abgeschlossen = true;
-                System.out.println("game.Strasse abgeschlossen");
+                System.out.println("trasse abgeschlossen");
                 setPlayerPoints();
                 break;
             }

@@ -35,6 +35,8 @@ public class Main extends Application{
     private ArrayList<CanvasButton> canvasButtons = new ArrayList<>();
     private ArrayList<Landschaftskarte> gelegteLandschaftskarten = new ArrayList<>();
     private Landschaftskarte currentLKarte;
+    private Spieler currentSpieler;
+    private int currentSpielerIndex;
     private double currentLKartX, currentLKartY;
     private Stapel stapel;
     private Spieler[] spielers;
@@ -151,12 +153,16 @@ public class Main extends Application{
                 for(CanvasButton cb : canvasButtons){
                     if(cb.isInside(event.getSceneX(), event.getSceneY())){ // TODO if not drag detected
                         switch (cb.getName()){
-                            case "rotate":
+                            case "Rotate Left":
                                 // TODO rotate card
                                 System.out.println("rotate!");
                                 foundButton = true;
-                                currentLKarte.rotate(true,1);
+                                currentLKarte.rotate(false,1);
 
+                                break;
+                            case "Rotate Right":
+                                foundButton = true;
+                                currentLKarte.rotate(true,1);
                                 break;
                         }
                         break;
@@ -193,12 +199,16 @@ public class Main extends Application{
         originY = canvas.getHeight()/2;
 
         //TODO anpassen
-        canvasButtons.add(new CanvasButton(500,50,50,50, "images/D.png", "rotate"));
+        canvasButtons.add(new CanvasButton(500,50,60,60, "images/rotate-left.png", "Rotate Left"));
+        canvasButtons.add(new CanvasButton(600,50,60,60, "images/rotate-right.png", "Rotate Right"));
 
-        //TODO Spieler erzugen
+        //TODO Spieler erzeugen
         spielers = new Spieler[]{
                 new Spieler("Spieler 1", FarbeT.BLAU),
-                new Spieler("Spieler 2", FarbeT.ROT)
+                new Spieler("Spieler 2", FarbeT.ROT),
+                new Spieler("Spieler 3", FarbeT.GELB),
+                new Spieler("Spieler 4", FarbeT.GRUEN),
+                new Spieler("Spieler 5", FarbeT.SCHWARZ)
             };
         /**
          * Start Karte und erster Zug
@@ -209,6 +219,8 @@ public class Main extends Application{
         startKarte.setY(0);
         gelegteLandschaftskarten.add(startKarte);
         currentLKarte = stapel.drawLandschaftskarte();
+        currentSpieler = spielers[0];
+        currentSpielerIndex = 0;
         render();
     }
 
@@ -245,7 +257,7 @@ public class Main extends Application{
         for (Spieler spieler : spielers){
             for(Gefolgsmann gefolgsmann : spieler.getAllGefolgsleute()){
                 if(gefolgsmann.getRolle() != RolleT.FREI && gefolgsmann.getAbsolutePosition() != null) {
-                    c.drawImage(Gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX()+originX,
+                    c.drawImage(gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX()+originX,
                             gefolgsmann.getAbsolutePosition().getY()+originY, 25, 24);
 //                    System.out.println("Gefunden: "+gefolgsmann.getAbsolutePosition());
                 }
@@ -257,6 +269,9 @@ public class Main extends Application{
         for (CanvasButton cb : canvasButtons){
             c.drawImage(cb.getImage(), cb.getX(), cb.getY(), cb.getWidth(), cb.getHeight());
         }
+        //TODO Vorschau der aktuellen Karte
+        //draw currentKarte
+        c.drawImage(currentLKarte.getImage(), 1100,50,60,60);
 
     }
 
@@ -348,13 +363,24 @@ public class Main extends Application{
 
         if(bNord && bOst && bSued && bWest){
             System.out.println("Alle Seiten OK");
-            //TODO anpassen -> Karten jetzt verbinden
+
             currentLKarte.setX(currentLKartX);
             currentLKarte.setY(currentLKartY);
             gelegteLandschaftskarten.add(currentLKarte);
-            currentLKarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
+            //Karte bzw Landschaftsteile miteinander Verbinden
+            if(nordKarte != null) currentLKarte.addNeighbor(nordKarte, HimmelsrichtungT.NORD, true);
+            if(ostKarte != null) currentLKarte.addNeighbor(ostKarte, HimmelsrichtungT.OST, true);
+            if(suedKarte != null) currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, true);
+            if(westKarte != null) currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, true);
+
+            currentLKarte.setGefolgsmann(currentSpieler.getFreienGeflogsmann());
             //Neue Karte zeihen
             currentLKarte = stapel.drawLandschaftskarte();
+            //nächster Spieler
+            int spielerIndex = (++currentSpielerIndex)%spielers.length;
+
+            currentSpieler = spielers[spielerIndex];
+            currentSpielerIndex = spielerIndex;
         }else {
             currentLKarte.getInformation();
             System.out.println(bNord + " " + bOst + " "+ bSued + " " +bWest);
