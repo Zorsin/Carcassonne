@@ -3,6 +3,7 @@ package game;
 import game.FarbeT;
 import game.Gefolgsmann;
 import game.RolleT;
+import javafx.scene.image.Image;
 
 /**
  * 07.05.2017
@@ -35,7 +36,6 @@ public class Spieler {
         for(Gefolgsmann g : gefolgsleute){
             if(g.getRolle() == RolleT.FREI) return g;
         }
-        //TODO Spieler auf nicht vorhandenen Gefolgsmann hinweisen
         return null;
     }
 
@@ -73,4 +73,42 @@ public class Spieler {
         this.punkte += punkte;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPunkte() {
+        return punkte;
+    }
+
+    public Image getImage(){
+        Image image = null;
+        switch (farbe){
+            case SCHWARZ:
+                image = Stapel.mannSchwarzHR;
+                break;
+            case GRUEN:
+                image = Stapel.mannGruenHR;
+                break;
+            case GELB:
+                image = Stapel.mannGelbHR;
+                break;
+            case BLAU:
+                image = Stapel.mannBlauHR;
+                break;
+            case ROT:
+                image = Stapel.mannRotHR;
+                break;
+        }
+        return image;
+    }
+
+    public int countFreieGefolgsleute(){
+        int i = 0;
+        for(Gefolgsmann g : gefolgsleute){
+            if(g.getRolle() == RolleT.FREI) i++;
+        }
+
+        return i;
+    }
 }

@@ -49,10 +49,14 @@ public class Wiese {
     }
 
     public boolean isBesetzt() {
-        if(besetzt == false){
+        if(!besetzt){
             for(Wiesenstueck w : wiesenstuecke){
                 boolean tempBesetzt = w.isBesetzt();
-                if(tempBesetzt) besetzt = true; break;
+                if(tempBesetzt){
+                    besetzt = true;
+                    break;
+                }
+
             }
         }
         return besetzt;
@@ -65,7 +69,6 @@ public class Wiese {
             Stadtteil[] teile = stueck.getAngrenzendeStadteile();
             if(teile != null){
                 for(Stadtteil std : teile){
-                    //TODO Anpassen
                     if(std.getStadt().isAbgeschlossen()) staete.add(std.getStadt());
                 }
             }
@@ -112,8 +115,6 @@ public class Wiese {
         for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
             if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
         }
-        //TODO REMOVE
-//        System.out.println(gefolgsmannAnzahl);
 
         for (Gefolgsmann g : besetzer){
             g.setRolle(RolleT.FREI);

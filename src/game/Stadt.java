@@ -58,21 +58,11 @@ public class Stadt {
     }
 
     public void integrateStadt(Stadt stadt, HimmelsrichtungT himmelsrichtungT){
-        //TODO REMOVE
         stadtteile.addAll(stadt.getStadtteile());
         for(Stadtteil element : stadt.getStadtteile()){
                  element.setStadt(this);
         }
-//
-//        for(game.HimmelsrichtungT t : offeneStadtkanten){
-//            System.out.println("Vor "+t);
-//        }
         offeneStadtkanten.addAll(stadt.getOffeneStadtkanten());
-//        for(game.HimmelsrichtungT t : offeneStadtkanten){
-//            System.out.println("Zwischen "+t);
-//        }
-//        System.out.println("Anzal1: "+offeneStadtkanten.size());
-//        System.out.println(himmelsrichtungT);
         switch (himmelsrichtungT){
             case WEST:
                 offeneStadtkanten.remove(HimmelsrichtungT.WEST);
@@ -97,6 +87,7 @@ public class Stadt {
 //        System.out.println("Anzal 2: "+offeneStadtkanten.size());
 
         checkAbgeschlossen();
+
     }
 
     public boolean removeStadtteil(Stadtteil stadtteil){
@@ -115,7 +106,6 @@ public class Stadt {
 
     public int getTotalWert(){
         int totalWert = 0;
-        //TODO anpassen mit mehren Gefolgsleuten und auf gleicher Karte
         for(Stadtteil s : stadtteile){
             totalWert += s.getWert();
         }
@@ -127,17 +117,21 @@ public class Stadt {
     }
 
     public boolean isBesetzt() {
-        if(besetzt == false){
+        if(!besetzt){
             for(Stadtteil s : stadtteile){
                 boolean tempBesetzt = s.isBesetzt();
-                if(tempBesetzt) besetzt = true; break;
+                if(tempBesetzt){
+                    besetzt = true;
+                    break;
+                }
+
             }
         }
         return besetzt;
     }
 
     public void checkAbgeschlossen(){
-        //TODO Prüfen ob Abgeschlossen ist -> abgeschlossen = true
+
         int nordCount = 0;
         int ostCount = 0;
         int suedCount  = 0;
@@ -150,15 +144,8 @@ public class Stadt {
         }
 
         if(nordCount == 0 && ostCount == 0 && suedCount == 0 && westCout == 0){
-//            System.out.println("Alle Kanten geschlossen");
             abgeschlossen = true;
             setPlayerPoints();
-        }else{
-            //TODO REMOVE
-//            System.out.println("N:"+nordCount);
-//            System.out.println("O:"+ostCount);
-//            System.out.println("S:"+suedCount);
-//            System.out.println("W:"+westCout);
         }
 
     }
@@ -195,14 +182,6 @@ public class Stadt {
                 g.setRolle(RolleT.FREI);
             }
         }
-    }
-
-    public void setAbgeschlossen(boolean b){
-        //TODO REMOVE
-        /**
-         * DebugOnly wird eigentlich nicht benötig
-         */
-        abgeschlossen = b;
     }
 
     public boolean contains(Stadtteil stadtteil){

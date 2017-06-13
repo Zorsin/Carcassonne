@@ -20,6 +20,7 @@ public class Kloster extends Landschaftsteil {
     }
 
     public void addFillFreeField(){
+        //TODO Umliegende Felder erkennen
         if(filledFields <8) filledFields++;
         if (filledFields == 8) setPlayerPoints();
     }

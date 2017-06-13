@@ -37,24 +37,16 @@ public class Stadtteil extends Landschaftsteil {
     }
 
     public void rotate(boolean direction){
-        //TODO REMOVE
-        String vorher = "Stadt vorher: ";
-        String nachher = "Stadt nachher: ";
         for(int i = 0; i<offeneKanten.length;i++){
-            vorher += offeneKanten[i] +" ";
             offeneKanten[i] = direction ? offeneKanten[i].next() : offeneKanten[i].prev();
-            nachher += offeneKanten[i] + " ";
         }
         stadt.replaceOffeneKanten(offeneKanten);
-//        System.out.println(vorher);
-//        System.out.println(nachher);
     }
 
     @Override
     public void setBesetzer(Gefolgsmann besetzer) {
         super.setBesetzer(besetzer);
         besetzer.setRolle(RolleT.RITTER);
-        System.out.println("ist Stadtteil");
     }
 
     @Override

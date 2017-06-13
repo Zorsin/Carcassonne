@@ -42,9 +42,14 @@ public class Stapel {
     public static final Image mannRot = new Image("images/Mann_Rot.PNG");
     public static final Image mannSchwarz = new Image("images/Mann_Schwarz.PNG");
 
+    public static final Image mannBlauHR = new Image("images/Mann_Blau_x150.PNG");
+    public static final Image mannGelbHR = new Image("images/Mann_Gelb_x150.PNG");
+    public static final Image mannGruenHR = new Image("images/Mann_Gruen_x150.PNG");
+    public static final Image mannRotHR = new Image("images/Mann_Rot_x150.PNG");
+    public static final Image mannSchwarzHR = new Image("images/Mann_Schwarz_x150.PNG");
+
     public Stapel() {
         generateStapel();
-        System.out.println("Ein Stapel mit "+landschaftskarten.size()+ " Langschaftskarten wurde erzeugt");
     }
 
     public Landschaftskarte getStartLandschaftskarte(){

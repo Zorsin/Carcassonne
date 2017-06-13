@@ -2,18 +2,14 @@ package ui;
 
 import game.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -22,9 +18,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 /**
@@ -44,24 +39,24 @@ public class Main extends Application{
     private double currentLKartX, currentLKartY;
     private Stapel stapel;
     private Spieler[] spielers;
+    private PlayerStatusBar playerStatusBar = new PlayerStatusBar(new AnchorPane());
 
     private double dragStartX = 0, dragStartY = 0;
+    private int planWidth = 1000;
+    private int planHeight = 1000;
 
     //TODO verschieben nach Spielplan??
     private double originX = 0, originY = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        System.out.println("Jetzt weiß ich auch, warum Sie Köpfe haben, soll ich's sagen?");
-//        System.out.println("Sie müssen dann das viele Stroh nicht in den Händen tragen.");
-
-
         primaryStage.setTitle("Carcassonne");
-        CanvasPane canvasPane = new CanvasPane(4000, 4000);
+        CanvasPane canvasPane = new CanvasPane(1920, 1080);
         canvas = canvasPane.getCanvas();
         c = canvas.getGraphicsContext2D();
 
         root = new BorderPane(canvasPane);
+        root.setBottom(playerStatusBar.getNode());
         Scene scene = new Scene(root, 1200,800);
         primaryStage.setScene(scene);
         scene.getStylesheets().add("css/styles.css");
@@ -117,6 +112,7 @@ public class Main extends Application{
                 drawCardHover(event);
             }
         });
+
         canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -131,13 +127,16 @@ public class Main extends Application{
                 originY += deltaY;
 
                 // TODO change width and height from constant to 'Spielplan' values
-                int width = 1920;
-                int height = 1080;
-                if(originX-width/2 > 50 || (originX+width/2) < (canvas.getWidth()-50)){
+                int maxCardRowWidth = gelegteLandschaftskarten.size() * 100;
+                if(maxCardRowWidth > planWidth){
+                    planWidth += 1000;
+                    planHeight += 1000;
+                }
+                if(originX- planWidth /2 > 50 || (originX+ planWidth /2) < (canvas.getWidth()-50)){
                     // reset
                     originX -= deltaX;
                 }
-                if(originY-height/2 > 50 || (originY+height/2) < (canvas.getHeight()-50)){
+                if(originY- planHeight /2 > 50 || (originY+ planHeight /2) < (canvas.getHeight()-50)){
                     // reset
                     originY -= deltaY;
                 }
@@ -155,7 +154,7 @@ public class Main extends Application{
                 // compute canvasButtons
                 boolean foundButton = false;
                 for(CanvasButton cb : canvasButtons){
-                    if(cb.isInside(event.getSceneX(), event.getSceneY())){ // TODO if not drag detected
+                    if(cb.isInside(event.getSceneX(), event.getSceneY())){
                         switch (cb.getName()){
                             case "Rotate Left":
                                 foundButton = true;
@@ -166,33 +165,44 @@ public class Main extends Application{
                                 foundButton = true;
                                 currentLKarte.rotate(true,1);
                                 break;
+                            case "Surrender":
+                                Alert alertSurrender = new Alert(Alert.AlertType.CONFIRMATION);
+                                alertSurrender.setTitle("Spiel beenden");
+                                alertSurrender.setHeaderText("Möchten Sie das Spiel wirklich beenden?");
+                                Optional<ButtonType> resultSurrender = alertSurrender.showAndWait();
+                                if (resultSurrender.get() == ButtonType.OK){
+                                    //TODO Endwertung durchführen
+                                    System.out.println("Endwertung wird durchgeführt");
+                                }
+                                break;
+                            case "ThrowCard":
+                                Alert alertThrowCard;
+                                if(currentLKarte.getName().equalsIgnoreCase("C") || currentLKarte.getName().equalsIgnoreCase("X")){
+                                    alertThrowCard = new Alert(Alert.AlertType.CONFIRMATION);
+                                    alertThrowCard.setTitle("Karte wegwerfen");
+                                    alertThrowCard.setHeaderText("Möchten Sie die Karte wirklich wegwerfen?");
+                                    Optional<ButtonType> resultCard = alertThrowCard.showAndWait();
+                                    if (resultCard.get() == ButtonType.OK){
+                                        //TODO Karte auf anlege Möglichkeit prüfen (alternativ nur bei Karte C und X)
+                                        currentLKarte = stapel.drawLandschaftskarte();
+                                    }
+                                    break;
+                                }else {
+                                    alertThrowCard = new Alert(Alert.AlertType.INFORMATION);
+                                    alertThrowCard.setTitle("Karte wegwerfen");
+                                    alertThrowCard.setHeaderText("Das Wegwerfen bei dieser Karte ist nicht möglich!");
+                                    alertThrowCard.showAndWait();
+                                }
+
                         }
                         render();
                         break;
                     }
                 }
                 if(!foundButton){
-//
                     if (canvasAllowUserInput) {
                         placeLKarte();
                     }
-
-                    //TODO man kann nur auf der letzten Karte legen aktuell noch auf jeder
-//                    for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
-//                        double x = event.getSceneX()-originX, y = event.getSceneY()-originY;
-//                        double lx = landschaftskarte.getX()*landschaftskarte.getWidth(),
-//                                ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
-//                                lw = landschaftskarte.getWidth(),
-//                                lh = landschaftskarte.getHeight();
-//
-//                        if(squareContains(x,y,lx,ly,lw,lh)){
-//
-//                            landschaftskarte.setGefolgsmann(spielers[0].getFreienGeflogsmann());
-//
-//                        }
-//
-//                    }
-
                 }
             }
         });
@@ -201,9 +211,11 @@ public class Main extends Application{
         originX = canvas.getWidth()/2;
         originY = canvas.getHeight()/2;
 
-        //TODO anpassen
-        canvasButtons.add(new CanvasButton(500,20,60,60, "images/rotate-left.png", "Rotate Left"));
-        canvasButtons.add(new CanvasButton(700,20,60,60, "images/rotate-right.png", "Rotate Right"));
+
+        canvasButtons.add(new CanvasButton(500,20,60,60, "images/rotate-left.png", "Rotate Left", "Nach Links drehen"));
+        canvasButtons.add(new CanvasButton(700,20,60,60, "images/rotate-right.png", "Rotate Right", "Nach Rechts drehen"));
+        canvasButtons.add(new CanvasButton(200,20,60,60, "images/white-flag-symbol.png", "Surrender", "Spiel aufgeben"));
+        canvasButtons.add(new CanvasButton(300,20,60,60, "images/external-link-symbol.png", "ThrowCard", "Karte wegwerfen"));
 
         /**
          * Start Karte und erster Zug
@@ -225,31 +237,11 @@ public class Main extends Application{
     }
 
     public void render(){
-
-
-            double width = canvas.getWidth();
-            double height = canvas.getHeight();
-
-            //TODO verschieben nach Spielplan
-            int planWidth = 1920;
-            int planHeight = 1080;
-
             // canvas background
             c.setFill(Color.WHEAT);
             c.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-            // plan background
-            //TODO verschieben nach Spielplan bzw. ändern nach spielplan.draw() o.ä.
-//        c.setFill(Color.WHEAT);
-//        c.fillRect(originX-(planWidth/2), originY-(planHeight/2), planWidth, planHeight);
-
-            // TODO change to ClassObject.draw() o.ä.
-            // startkarte
-//        Images images = new Images("images");
-//        c.drawImage(new Landschaftskarte().getImage(), originX,originY); // TODO anonymous Object
-
             //draw landschaftskarten
-
             for (Landschaftskarte lkarte : gelegteLandschaftskarten) {
                 c.drawImage(lkarte.getImage(), lkarte.getX() * lkarte.getWidth() + originX,
                         lkarte.getY() * lkarte.getHeight() + originY);
@@ -262,7 +254,6 @@ public class Main extends Application{
                         if (gefolgsmann.getRolle() != RolleT.FREI && gefolgsmann.getAbsolutePosition() != null) {
                             c.drawImage(gefolgsmann.getImage(), gefolgsmann.getAbsolutePosition().getX() + originX,
                                     gefolgsmann.getAbsolutePosition().getY() + originY, 25, 24);
-                            //                    System.out.println("Gefunden: "+gefolgsmann.getAbsolutePosition());
                         }
 
                     }
@@ -273,7 +264,6 @@ public class Main extends Application{
             for (CanvasButton cb : canvasButtons) {
                 c.drawImage(cb.getImage(), cb.getX(), cb.getY(), cb.getWidth(), cb.getHeight());
             }
-            //TODO Vorschau der aktuellen Karte
             //draw currentKarte
             c.drawImage(currentLKarte.getImage(), 600, 20, 60, 60);
 
@@ -288,8 +278,6 @@ public class Main extends Application{
 
             double lx = landschaftskarte.getX()*landschaftskarte.getWidth(), ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
                 lw = landschaftskarte.getWidth(), lh = landschaftskarte.getHeight();
-
-//        System.out.println("zwischen " + (lx-lw) + " " + (ly-lh) + " und " + (lx+2*lw) + " " + (ly+2*lw));
 
             if (x > (lx - lw) && x < (lx + 2 * lw) && y > (ly - lh) && y < (ly + 2 * lh)) {
 
@@ -373,7 +361,9 @@ public class Main extends Application{
             if(suedKarte != null) currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, true);
             if(westKarte != null) currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, true);
 
-            currentLKarte.setGefolgsmann(currentSpieler.getFreienGeflogsmann());
+            if(currentSpieler.countFreieGefolgsleute() != 0){
+                currentLKarte.setGefolgsmann(currentSpieler.getFreienGeflogsmann());
+            }
             //Neue Karte zeihen
             currentLKarte = stapel.drawLandschaftskarte();
             //nächster Spieler
@@ -381,6 +371,7 @@ public class Main extends Application{
 
             currentSpieler = spielers[spielerIndex];
             currentSpielerIndex = spielerIndex;
+            playerStatusBar.setPlayer(spielers, currentSpielerIndex);
         }else {
             currentLKarte.getInformation();
             System.out.println(bNord + " " + bOst + " "+ bSued + " " +bWest);
@@ -408,5 +399,6 @@ public class Main extends Application{
         this.spielers = spielers;
         currentSpieler = spielers[0];
         currentSpielerIndex = 0;
+        playerStatusBar.setPlayer(spielers, currentSpielerIndex);
     }
 }

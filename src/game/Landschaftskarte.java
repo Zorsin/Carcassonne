@@ -2,6 +2,7 @@ package game;
 
 import javafx.geometry.Point2D;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,11 +27,6 @@ public class Landschaftskarte {
     private ImageView imageView;
 
     private double x,y,width,height;
-
-    public Landschaftskarte() {
-        //TODO REMOVE
-        //Wird nur zum Testen benötigt
-    }
 
     public Landschaftskarte(String name, Wiesenstueck[] wiestenstuecke, Kloster kloster) {
         this.wiestenstuecke = wiestenstuecke;
@@ -139,8 +135,6 @@ public class Landschaftskarte {
         if(klosterSued != null) klosterSued.addFillFreeField();
 //        else System.out.println("game.Kloster NULL");
 
-        //TODO man könnte davon ausgehen, dass nur richtig gelegt wird
-        //TODO prüfen ob der break keien False Prositiv erzeugt
         if(stueckeNord != null || stueckeSued != null){
             boolean bNordWest = false;
             Wiesenstueck wsNordWest = null;
@@ -303,8 +297,6 @@ public class Landschaftskarte {
         if(klosterWest != null) klosterWest.addFillFreeField();
 //        else System.out.println("game.Kloster NULL");
 
-        //TODO man könnte davon ausgehen, dass nur richtig gelegt wird
-        //TODO prüfen ob der break keien False Prositiv erzeugt
         if(stueckOst != null || stueckWest != null){
             boolean bOstNord = false;
             Wiesenstueck wsOstNord = null;
@@ -440,7 +432,6 @@ public class Landschaftskarte {
     }
 
     private void connectWiesen(ArrayList<Wiesenstueck> wsList){
-        //TODO Wiesenstücke die nicht verbunden sind werden zusammen getan
         Wiese mainWiese = new Wiese();
 
         for(Wiesenstueck ws : wsList){
@@ -454,8 +445,6 @@ public class Landschaftskarte {
                 Wiese currentWiese = ws.getWiese();
                 ArrayList<Wiesenstueck> allStueck = currentWiese.getWiesenstuecke();
                 for(Wiesenstueck element : allStueck){
-                    //TODO auf Fehler prüfen ConcurrentModificationException wenn aktiv (Liste kann nicht geändert werden während Schleife
-//                    currentWiese.removeWiesenstuecke(element);
                     element.setWiese(mainWiese);
                     mainWiese.addWiesenstueck(element);
                 }
@@ -470,7 +459,6 @@ public class Landschaftskarte {
         Stadt mainStadt = new Stadt();
         for(Stadtteil sdt : sdtList){
             if(sdt.getStadt().getAnzahlStadtteile() > mainStadt.getAnzahlStadtteile()){
-//                System.out.println("main "+ mainStadt.getAnzahlStadtteile() + " other "+sdt.getStadt().getAnzahlStadtteile());
                 mainStadt  = sdt.getStadt();
             }
         }
@@ -479,14 +467,6 @@ public class Landschaftskarte {
             if(!mainStadt.contains(sdt)){
                 Stadt currentStadt = sdt.getStadt();
                 mainStadt.integrateStadt(currentStadt,himmelsrichtungT);
-//                ArrayList<game.Stadtteil> allStueck = currentStadt.getStadtteile();
-//                for(game.Stadtteil element : allStueck){
-//                    //TODO auf Fehler prüfen ConcurrentModificationException wenn aktiv (Liste kann nicht geändert werden während Schleife
-////                    currentWiese.removeWiesenstuecke(element);
-//                    element.setStadt(mainStadt);
-//                    mainStadt.addStadteil(element, himmelsrichtungT);
-//                }
-
             }
         }
         mainStadt.isBesetzt();
@@ -506,8 +486,6 @@ public class Landschaftskarte {
                 Strasse currentStrasse = str.getStrasse();
                 ArrayList<Strassenabschnitt> allAbschnitt = currentStrasse.getStrassenabschnitte();
                 for(Strassenabschnitt element : allAbschnitt){
-                    //TODO auf Fehler prüfen ConcurrentModificationException wenn aktiv (Liste kann nicht geändert werden während Schleife
-//                    currentStrasse.removeStrassenabschnitt(element);
                     element.setStrasse(mainStrasse);
                     mainStrasse.addStrassenabschnitt(element);
                 }
@@ -539,7 +517,6 @@ public class Landschaftskarte {
                     stk.rotate(direction);
                 }
             }
-            //TODO rotate Image
             if(direction){
                 rotationDegree = (rotationDegree + 90)%360;
             }else {
@@ -583,7 +560,6 @@ public class Landschaftskarte {
     }
 
     public void setGefolgsmann(Gefolgsmann gefolgsmann){
-        //TODO der Gefolgsman wird manchmal nicht richtig gesetzt
         Landschaftsteil output = null;
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Landschaftsteil> auswahl = new HashMap<>();
@@ -591,8 +567,6 @@ public class Landschaftskarte {
         if(stadtteile != null){
             for(Stadtteil sdt : stadtteile){
                 if (!sdt.getStadt().isBesetzt()) {
-                    //TODO REMOVE
-                    System.out.println("Stadt:"+sdt.getStadt().isBesetzt() + " " +sdt.getStadt().getAnzahlStadtteile());
                     choices.add(sdt.toString());
                     auswahl.put(sdt.toString(),sdt);
                 }
@@ -718,8 +692,6 @@ public class Landschaftskarte {
 //            }
         }
         if(gfX != 0 || gfY != 0){
-            //TODO REMOVE
-//            System.out.println(getX() + " " +getY() + " W"+getWidth() +" H"+getHeight() + " gfX"+gfX+" gfY"+gfY + " Rolle:"+gefolgsmann.getRolle());
             gefolgsmann.setAbsolutePosition(new Point2D(this.getX()*this.getWidth()+gfX, this.getY()*this.getHeight()+gfY));
         }
     }
@@ -762,6 +734,10 @@ public class Landschaftskarte {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public String getName() {
+        return name;
     }
 
     private void init(){

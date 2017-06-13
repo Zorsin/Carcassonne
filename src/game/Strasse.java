@@ -49,7 +49,6 @@ public class Strasse {
 
     public int getTotalWert(){
         int totalWert = 0;
-        //TODO anpassen mit mehren Gefolgsleuten und auf gleicher Karte
         for(Strassenabschnitt s: strassenabschnitte){
             totalWert += s.getWert();
         }
@@ -57,29 +56,29 @@ public class Strasse {
     }
 
     public boolean isBesetzt() {
-        if(besetzt == false){
+        if(!besetzt){
             for(Strassenabschnitt s: strassenabschnitte){
                 boolean tempBesetzt = s.isBesetzt();
-                if(tempBesetzt) besetzt = true; break;
+                if(tempBesetzt){
+                    besetzt = true;
+                    break;
+                }
             }
         }
         return besetzt;
     }
 
     private void checkAbgeschlossen(){
-        //TODO Prüfen ob Abgeschlossen ist -> abgeschlossen = true
         int stopCount = 0;
         for(Strassenabschnitt str : strassenabschnitte){
             boolean hasStop =  Arrays.asList(str.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.STOP) >=0;
             if (hasStop) stopCount++;
             if (stopCount >= 2) {
                 abgeschlossen = true;
-//                System.out.println("Strasse abgeschlossen");
                 setPlayerPoints();
                 break;
             }
         }
-//        if (!abgeschlossen) System.out.println("nicht abgeschlossen");
 
     }
 
@@ -110,8 +109,6 @@ public class Strasse {
             for(Map.Entry entry : gefolgsmannAnzahl.entrySet()){
                 if((int)entry.getValue() == maxCount) ((Spieler)entry.getKey()).addPunkte(points);
             }
-            //TODO REMOVE
-//            System.out.println(gefolgsmannAnzahl);
 
             for (Gefolgsmann g : besetzer){
                 g.setRolle(RolleT.FREI);
