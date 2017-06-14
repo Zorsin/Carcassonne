@@ -106,8 +106,12 @@ public class Stadt {
 
     public int getTotalWert(){
         int totalWert = 0;
+        Set<Landschaftskarte> landschaftskarteSet = new HashSet<>();
         for(Stadtteil s : stadtteile){
-            totalWert += s.getWert();
+            if(!landschaftskarteSet.contains(s.getLandschaftskarte())){
+                landschaftskarteSet.add(s.getLandschaftskarte());
+                totalWert += s.getWert();
+            }
         }
         if(abgeschlossen){
             totalWert *= 2;

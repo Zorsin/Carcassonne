@@ -1,9 +1,6 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 07.05.2017
@@ -49,8 +46,12 @@ public class Strasse {
 
     public int getTotalWert(){
         int totalWert = 0;
+        Set<Landschaftskarte> landschaftskarteSet = new HashSet<>();
         for(Strassenabschnitt s: strassenabschnitte){
-            totalWert += s.getWert();
+            if(!landschaftskarteSet.contains(s.getLandschaftskarte())) {
+                landschaftskarteSet.add(s.getLandschaftskarte());
+                totalWert += s.getWert();
+            }
         }
         return totalWert;
     }
@@ -68,7 +69,7 @@ public class Strasse {
         return besetzt;
     }
 
-    private void checkAbgeschlossen(){
+    public void checkAbgeschlossen(){
         int stopCount = 0;
         for(Strassenabschnitt str : strassenabschnitte){
             boolean hasStop =  Arrays.asList(str.getHimmelsrichtungenT()).indexOf(HimmelsrichtungT.STOP) >=0;

@@ -609,11 +609,13 @@ public class Landschaftskarte {
             Strassenabschnitt strassenabschnitt = (Strassenabschnitt) output;
             himmelsrichtungT = strassenabschnitt.getStartRichtung();
             strassenabschnitt.setBesetzer(gefolgsmann);
+            strassenabschnitt.getStrasse().checkAbgeschlossen();
         }
         if(output != null && output.getClass().equals(Stadtteil.class)){
             Stadtteil stadtteil = (Stadtteil) output;
             himmelsrichtungT = stadtteil.getOffeneKanten()[0];
             stadtteil.setBesetzer(gefolgsmann);
+            stadtteil.getStadt().checkAbgeschlossen();
         }
         if(output != null && output.getClass().equals(Wiesenstueck.class)){
             Wiesenstueck wiesenstueck = (Wiesenstueck) output;
@@ -815,5 +817,18 @@ public class Landschaftskarte {
                 image = Stapel.imageX;
         }
         imageView = new ImageView(image);
+        if(stadtteile != null){
+            for(Stadtteil sdt : stadtteile){
+                sdt.setLandschaftskarte(this);
+            }
+        }
+        if(strassenabschnitte != null){
+            for(Strassenabschnitt str : strassenabschnitte){
+                str.setLandschaftskarte(this);
+            }
+        }
+        if(kloster != null){
+            kloster.setLandschaftskarte(this);
+        }
     }
 }
