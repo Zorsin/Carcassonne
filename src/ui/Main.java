@@ -47,6 +47,7 @@ public class Main extends Application{
     private int planHeight = 1000;
 
     private double originX = 0, originY = 0;
+    Main me = this;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -160,6 +161,12 @@ public class Main extends Application{
                                 Optional<ButtonType> resultSurrender = alertSurrender.showAndWait();
                                 if (resultSurrender.get() == ButtonType.OK){
                                     machJetztSofortDieEndwertung();
+
+                                    // TODO winning message
+
+                                    WinningController winningController = new WinningController(new AnchorPane(), me, spielers);
+                                    winningController.showAndWait();
+
                                 }
                                 break;
                             case "ThrowCard":

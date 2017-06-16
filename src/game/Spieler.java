@@ -111,4 +111,8 @@ public class Spieler {
 
         return i;
     }
+
+    public FarbeT getFarbe() {
+        return farbe;
+    }
 }
