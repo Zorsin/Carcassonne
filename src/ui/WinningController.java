@@ -83,26 +83,26 @@ public class WinningController extends Stage implements Initializable {
         sorter.remove(max);
         punkte1.setText("Punkte: "+max.getPunkte());
         platz1.setText(max.getName() + " hat gewonnen!");
-        platz1.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";");
+        platz1.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";-fx-stroke: black; -fx-stroke-width: 2px;");
 
         max = sorter.size() == 1 ? sorter.entrySet().iterator().next().getKey() : Collections.max(sorter.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
         sorter.remove(max);
         platz2.setText("Platz 2: " + max.getName() + " - Punkte: " + max.getPunkte());
-        platz2.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";");
+        platz2.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";-fx-stroke: black; -fx-stroke-width: 2px;");
         if(sorter.size()<1) return;
         max = sorter.size() == 1 ? sorter.entrySet().iterator().next().getKey() : Collections.max(sorter.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
         sorter.remove(max);
         platz3.setText("Platz 3: " + max.getName() + " - Punkte: " + max.getPunkte());
-        platz3.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";");
+        platz3.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";-fx-stroke: black; -fx-stroke-width: 2px;");
         if(sorter.size()<1) return;
         max = sorter.size() == 1 ? sorter.entrySet().iterator().next().getKey() : Collections.max(sorter.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
         sorter.remove(max);
         platz4.setText("Platz 4: " + max.getName() + " - Punkte: " + max.getPunkte());
-        platz4.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";");
+        platz4.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";-fx-stroke: black; -fx-stroke-width: 2px;");
         if(sorter.size()<1) return;
         max = sorter.size() == 1 ? sorter.entrySet().iterator().next().getKey() : Collections.max(sorter.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
         sorter.remove(max);
         platz5.setText("Platz 5: " + max.getName() + " - Punkte: " + max.getPunkte());
-        platz5.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";");
+        platz5.setStyle("-fx-text-fill: \"" + max.getFarbe().getColor() + "\";-fx-stroke: black; -fx-stroke-width: 2px;");
     }
 }
