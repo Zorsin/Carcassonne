@@ -87,6 +87,10 @@ public class Landschaftskarte {
         return kloster;
     }
 
+    public boolean hasKloster(){
+        return kloster != null;
+    }
+
     public boolean addNeighbor(Landschaftskarte landschaftskarte, HimmelsrichtungT himmelsrichtungT, boolean connect){
 
         /**
@@ -124,16 +128,10 @@ public class Landschaftskarte {
         Wiesenstueck[] stueckeNord = landNord.getWiestenstuecke();
         Strassenabschnitt[] abschnitteNord = landNord.getStrassenabschnitte();
         Stadtteil[] teileNord = landNord.getStadtteile();
-        Kloster klosterNord = landNord.getKloster();
 
         Wiesenstueck[] stueckeSued = landSued.getWiestenstuecke();
         Strassenabschnitt[] abschnitteSued = landSued.getStrassenabschnitte();
         Stadtteil[] teileSued = landSued.getStadtteile();
-        Kloster klosterSued = landSued.getKloster();
-
-        if(klosterNord != null) klosterNord.addFillFreeField();
-        if(klosterSued != null) klosterSued.addFillFreeField();
-//        else System.out.println("game.Kloster NULL");
 
         if(stueckeNord != null || stueckeSued != null){
             boolean bNordWest = false;
@@ -286,16 +284,10 @@ public class Landschaftskarte {
         Wiesenstueck[] stueckOst = landOst.getWiestenstuecke();
         Strassenabschnitt[] abschnitteOst = landOst.getStrassenabschnitte();
         Stadtteil[] teileOst = landOst.getStadtteile();
-        Kloster klosterOst = landOst.getKloster();
 
         Wiesenstueck[] stueckWest = landWest.getWiestenstuecke();
         Strassenabschnitt[] abschnitteWest = landWest.getStrassenabschnitte();
         Stadtteil[] teileWest = landWest.getStadtteile();
-        Kloster klosterWest = landWest.getKloster();
-
-        if(klosterOst != null) klosterOst.addFillFreeField();
-        if(klosterWest != null) klosterWest.addFillFreeField();
-//        else System.out.println("game.Kloster NULL");
 
         if(stueckOst != null || stueckWest != null){
             boolean bOstNord = false;
@@ -626,9 +618,8 @@ public class Landschaftskarte {
             isKloster = true;
             Kloster kloster = (Kloster) output;
             kloster.setBesetzer(gefolgsmann);
+            kloster.checkAbgeschlossen();
         }
-//        if(output!=null) output.setBesetzer(gefolgsmann);
-
         //weitere
         double gfX = 0, gfY = 0;
         if(isKloster){

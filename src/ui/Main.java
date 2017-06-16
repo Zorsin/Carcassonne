@@ -361,6 +361,52 @@ public class Main extends Application{
             if(suedKarte != null) currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, true);
             if(westKarte != null) currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, true);
 
+            //Kloster
+
+            for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
+                //oben links
+                if(landschaftskarte.getX() == currentLKarte.getX() -1 && landschaftskarte.getY() == currentLKarte.getY()-1){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //oben mitte
+                if(landschaftskarte.getX() == currentLKarte.getX() && landschaftskarte.getY() == currentLKarte.getY()-1){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //oben rechts
+                if(landschaftskarte.getX() == currentLKarte.getX() +1 && landschaftskarte.getY() == currentLKarte.getY()-1){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                // mitte links
+                if(landschaftskarte.getX() == currentLKarte.getX() -1 && landschaftskarte.getY() == currentLKarte.getY()){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //mitte rechts
+                if(landschaftskarte.getX() == currentLKarte.getX() +1 && landschaftskarte.getY() == currentLKarte.getY()){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //unten links
+                if(landschaftskarte.getX() == currentLKarte.getX() -1 && landschaftskarte.getY() == currentLKarte.getY()+1){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //unten mitte
+                if(landschaftskarte.getX() == currentLKarte.getX() && landschaftskarte.getY() == currentLKarte.getY()+1) {
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+                //unten rechts
+                if(landschaftskarte.getX() == currentLKarte.getX() +1 && landschaftskarte.getY() == currentLKarte.getY()+1){
+                    if(currentLKarte.hasKloster()) currentLKarte.getKloster().addFillFreeField();
+                    if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
+                }
+            }
+
+
             if(currentSpieler.countFreieGefolgsleute() != 0){
                 currentLKarte.setGefolgsmann(currentSpieler.getFreienGeflogsmann());
             }

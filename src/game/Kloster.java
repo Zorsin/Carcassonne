@@ -7,7 +7,7 @@ package game;
  */
 public class Kloster extends Landschaftsteil {
 
-    int filledFields = 1;
+    int filledFields = 0;
 
     private void setPlayerPoints(){
         if(filledFields == 8){
@@ -20,16 +20,22 @@ public class Kloster extends Landschaftsteil {
     }
 
     public void addFillFreeField(){
-        //TODO Umliegende Felder erkennen
         if(filledFields <8) filledFields++;
         if (filledFields == 8) setPlayerPoints();
     }
 
-
+    public void checkAbgeschlossen(){
+        if(filledFields == 8){
+            if(besetzer != null){
+                besetzer.getSpieler().addPunkte(getWert());
+                besetzer.setRolle(RolleT.FREI);
+            }
+        }
+    }
 
     @Override
     public int getWert() {
-        return wert * filledFields;
+        return wert * filledFields +1;
     }
 
     @Override
