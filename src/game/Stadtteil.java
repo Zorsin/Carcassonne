@@ -50,6 +50,11 @@ public class Stadtteil extends Landschaftsteil {
     }
 
     @Override
+    public void sammlePoints() {
+        stadt.setPlayerPoints();
+    }
+
+    @Override
     public String toString() {
         String himmelsRichtung = "{";
         for(HimmelsrichtungT himmelsrichtungT : offeneKanten){

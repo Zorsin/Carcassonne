@@ -39,18 +39,19 @@ public class Strassenabschnitt extends Landschaftsteil {
     }
 
     public void rotate(boolean direction){
-        //TODO REMOVE
-//        System.out.println("game.Strasse vorher: "+startRichtung + " " +endRichtung);
         startRichtung = direction ? startRichtung.next() : startRichtung.prev();
         endRichtung = direction ? endRichtung.next() : endRichtung.prev();
-//        System.out.println("game.Strasse nachher: "+startRichtung + " " +endRichtung);
-
     }
 
     @Override
     public void setBesetzer(Gefolgsmann besetzer) {
         super.setBesetzer(besetzer);
         besetzer.setRolle(RolleT.WEGELAGERER);
+    }
+
+    @Override
+    public void sammlePoints() {
+        strasse.setPlayerPoints();
     }
 
     @Override

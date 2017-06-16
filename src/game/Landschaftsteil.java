@@ -36,4 +36,6 @@ public abstract class Landschaftsteil {
     public boolean isBesetzt() {
         return besetzt;
     }
+
+    public abstract void sammlePoints();
 }

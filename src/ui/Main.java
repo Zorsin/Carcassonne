@@ -40,12 +40,12 @@ public class Main extends Application{
     private Stapel stapel;
     private Spieler[] spielers;
     private PlayerStatusBar playerStatusBar = new PlayerStatusBar(new AnchorPane());
+    private boolean gameFinished = false;
 
     private double dragStartX = 0, dragStartY = 0;
     private int planWidth = 1000;
     private int planHeight = 1000;
 
-    //TODO verschieben nach Spielplan??
     private double originX = 0, originY = 0;
 
     @Override
@@ -83,33 +83,21 @@ public class Main extends Application{
                 render();
             }
         });
-        primaryStage.maximizedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                render();
-            }
-        });
+        primaryStage.maximizedProperty().addListener(event -> render());
 
 
         /*
         events für canvas
          */
 
-        canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
-//            @Override
-            public void handle(MouseEvent event) {
-
-                dragStartX = event.getSceneX();
-                dragStartY = event.getSceneY();
-
-
-            }
+        canvas.setOnMousePressed(event -> {
+            dragStartX = event.getSceneX();
+            dragStartY = event.getSceneY();
         });
-        canvas.setOnMouseMoved(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        canvas.setOnMouseMoved(e -> {
+            if(!gameFinished){
                 render();
-                drawCardHover(event);
+                drawCardHover(e);
             }
         });
 
@@ -126,7 +114,6 @@ public class Main extends Application{
                 originX += deltaX;
                 originY += deltaY;
 
-                // TODO change width and height from constant to 'Spielplan' values
                 int maxCardRowWidth = gelegteLandschaftskarten.size() * 100;
                 if(maxCardRowWidth > planWidth){
                     planWidth += 1000;
@@ -151,6 +138,7 @@ public class Main extends Application{
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if(gameFinished) return;
                 // compute canvasButtons
                 boolean foundButton = false;
                 for(CanvasButton cb : canvasButtons){
@@ -171,8 +159,7 @@ public class Main extends Application{
                                 alertSurrender.setHeaderText("Möchten Sie das Spiel wirklich beenden?");
                                 Optional<ButtonType> resultSurrender = alertSurrender.showAndWait();
                                 if (resultSurrender.get() == ButtonType.OK){
-                                    //TODO Endwertung durchführen
-                                    System.out.println("Endwertung wird durchgeführt");
+                                    machJetztSofortDieEndwertung();
                                 }
                                 break;
                             case "ThrowCard":
@@ -234,6 +221,24 @@ public class Main extends Application{
         } while (spielers == null);
 
         render();
+    }
+
+    private void machJetztSofortDieEndwertung() {
+
+        gameFinished = true;
+
+        for(Spieler s : spielers){
+            Gefolgsmann[] gefolgsmanns = s.getAllGefolgsleute();
+            for(Gefolgsmann g : gefolgsmanns){
+
+                if(g.getRolle() != RolleT.FREI){
+                    Landschaftsteil parent = g.getGebiet();
+                    parent.sammlePoints();
+                }
+            }
+        }
+        playerStatusBar.setPlayer(spielers, currentSpielerIndex);
+
     }
 
     public void render(){
@@ -438,6 +443,8 @@ public class Main extends Application{
                 westKarte.getInformation();
             }
         }
+
+        render();
 
     }
 

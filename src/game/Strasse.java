@@ -83,9 +83,7 @@ public class Strasse {
 
     }
 
-    private void setPlayerPoints(){
-        if(abgeschlossen){
-
+    public void setPlayerPoints(){
             HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();
             ArrayList<Gefolgsmann> besetzer = new ArrayList<>();
             int maxCount = 0;
@@ -114,7 +112,6 @@ public class Strasse {
             for (Gefolgsmann g : besetzer){
                 g.setRolle(RolleT.FREI);
             }
-        }
     }
 
     public ArrayList<Strassenabschnitt> getStrassenabschnitte() {

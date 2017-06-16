@@ -33,17 +33,9 @@ public class Wiesenstueck extends Landschaftsteil {
     }
 
     public void rotate(boolean direction){
-        //TODO REMOVE
-//        String vorher = "Wiese vorher: ";
-//        String nachher = "Wiese nachher: ";
         for(int i = 0; i<offeneHalbKanten.length;i++){
-//            vorher += offeneHalbKanten[i] +" ";
             offeneHalbKanten[i] = direction ? offeneHalbKanten[i].next() : offeneHalbKanten[i].prev();
-//            nachher += offeneHalbKanten[i] + " ";
         }
-
-//        System.out.println(vorher);
-//        System.out.println(nachher);
     }
 
     @Override
@@ -51,6 +43,11 @@ public class Wiesenstueck extends Landschaftsteil {
         super.setBesetzer(besetzer);
         besetzer.setRolle(RolleT.BAUER);
         besetzer.setAusrichtung(AusrichtungT.LIEGEND);
+    }
+
+    @Override
+    public void sammlePoints() {
+        wiese.setPlayerPoints();
     }
 
     @Override

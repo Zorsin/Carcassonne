@@ -154,9 +154,7 @@ public class Stadt {
 
     }
 
-    private void setPlayerPoints(){
-        if(abgeschlossen){
-
+    public void setPlayerPoints(){
             HashMap<Spieler, Integer> gefolgsmannAnzahl = new HashMap<>();
             ArrayList<Gefolgsmann> besetzer = new ArrayList<>();
             int maxCount = 0;
@@ -185,7 +183,6 @@ public class Stadt {
             for (Gefolgsmann g : besetzer){
                 g.setRolle(RolleT.FREI);
             }
-        }
     }
 
     public boolean contains(Stadtteil stadtteil){

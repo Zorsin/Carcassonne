@@ -10,13 +10,10 @@ public class Kloster extends Landschaftsteil {
     int filledFields = 0;
 
     private void setPlayerPoints(){
-        if(filledFields == 8){
-            //TODO berechnung und Punkte anpassen
             if(besetzer != null){
                 besetzer.getSpieler().addPunkte(getWert());
                 besetzer.setRolle(RolleT.FREI);
             }
-        }
     }
 
     public void addFillFreeField(){
@@ -26,10 +23,9 @@ public class Kloster extends Landschaftsteil {
 
     public void checkAbgeschlossen(){
         if(filledFields == 8){
-            if(besetzer != null){
-                besetzer.getSpieler().addPunkte(getWert());
-                besetzer.setRolle(RolleT.FREI);
-            }
+//                besetzer.getSpieler().addPunkte(getWert());
+//                besetzer.setRolle(RolleT.FREI);
+            setPlayerPoints();
         }
     }
 
@@ -47,5 +43,10 @@ public class Kloster extends Landschaftsteil {
     public void setBesetzer(Gefolgsmann besetzer) {
         super.setBesetzer(besetzer);
         besetzer.setRolle(RolleT.MOENCH);
+    }
+
+    @Override
+    public void sammlePoints() {
+        setPlayerPoints();
     }
 }

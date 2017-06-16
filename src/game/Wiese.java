@@ -73,7 +73,7 @@ public class Wiese {
                 }
             }
         }
-        totalWert = staete.size();
+        totalWert = staete.size()*3;
 
 
         return totalWert;
