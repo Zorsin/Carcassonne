@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * @author Micha Heiß
  */
-public class Main extends Application{
+public class Carcassonne extends Application{
 
     private Canvas canvas;
     private Boolean canvasAllowUserInput = false;
@@ -47,7 +47,7 @@ public class Main extends Application{
     private int planHeight = 1000;
 
     private double originX = 0, originY = 0;
-    Main me = this;
+    Carcassonne me = this;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -75,7 +75,7 @@ public class Main extends Application{
                 render();
             }
         });
-
+        //Maximiert bei F11
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.F11) {
                 primaryStage.setFullScreen(true);
@@ -101,7 +101,9 @@ public class Main extends Application{
                 drawCardHover(e);
             }
         });
-
+        /**
+         * Verschiebt die Karten auf der Spielfeld um an einer Seite weiter bauen zu können
+         */
         canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -135,7 +137,10 @@ public class Main extends Application{
                 render();
             }
         });
-
+        /**
+         * Click Event
+         * entweder auf einen der CanvasButtons oder um eine Karte zu plazieren
+         */
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -160,13 +165,7 @@ public class Main extends Application{
                                 alertSurrender.setHeaderText("Möchten Sie das Spiel wirklich beenden?");
                                 Optional<ButtonType> resultSurrender = alertSurrender.showAndWait();
                                 if (resultSurrender.get() == ButtonType.OK){
-                                    machJetztSofortDieEndwertung();
-
-                                    // TODO winning message
-
-                                    WinningController winningController = new WinningController(new AnchorPane(), me, spielers);
-                                    winningController.showAndWait();
-
+                                    finishGame();
                                 }
                                 break;
                             case "ThrowCard":
@@ -187,7 +186,6 @@ public class Main extends Application{
                                     alertThrowCard.setHeaderText("Das Wegwerfen bei dieser Karte ist nicht möglich!");
                                     alertThrowCard.showAndWait();
                                 }
-
                         }
                         render();
                         break;
@@ -205,11 +203,13 @@ public class Main extends Application{
         originX = canvas.getWidth()/2;
         originY = canvas.getHeight()/2;
 
-
-        canvasButtons.add(new CanvasButton(500,20,60,60, "images/rotate-left.png", "Rotate Left", "Nach Links drehen"));
-        canvasButtons.add(new CanvasButton(700,20,60,60, "images/rotate-right.png", "Rotate Right", "Nach Rechts drehen"));
-        canvasButtons.add(new CanvasButton(200,20,60,60, "images/white-flag-symbol.png", "Surrender", "Spiel aufgeben"));
-        canvasButtons.add(new CanvasButton(300,20,60,60, "images/external-link-symbol.png", "ThrowCard", "Karte wegwerfen"));
+        /**
+         * Erzeugt die Steuerelemete des Spiels
+         */
+        canvasButtons.add(new CanvasButton(500,20,60,60, Stapel.rotateLeft, "Rotate Left"));
+        canvasButtons.add(new CanvasButton(700,20,60,60, Stapel.rotateRight, "Rotate Right"));
+        canvasButtons.add(new CanvasButton(200,20,60,60, Stapel.surrender, "Surrender"));
+        canvasButtons.add(new CanvasButton(300,20,60,60, Stapel.throwCard, "ThrowCard"));
 
         /**
          * Start Karte und erster Zug
@@ -230,6 +230,9 @@ public class Main extends Application{
         render();
     }
 
+    /**
+     * Beendet das Spiel und berechnet die Punkte der noch plazierten Gefolgsleute
+     */
     private void machJetztSofortDieEndwertung() {
 
         gameFinished = true;
@@ -248,6 +251,9 @@ public class Main extends Application{
 
     }
 
+    /**
+     * Rendert das Spielfeld neu
+     */
     public void render(){
             // canvas background
             c.setFill(Color.WHEAT);
@@ -281,6 +287,10 @@ public class Main extends Application{
 
     }
 
+    /**
+     * Erzeugt einen Hover-Effekt am Rand der Karten
+     * @param e
+     */
     public void drawCardHover(MouseEvent e){
         Image rotatedImage = currentLKarte.getImage();
         canvasAllowUserInput = false;
@@ -291,6 +301,9 @@ public class Main extends Application{
             double lx = landschaftskarte.getX()*landschaftskarte.getWidth(), ly = landschaftskarte.getY()*landschaftskarte.getHeight(),
                 lw = landschaftskarte.getWidth(), lh = landschaftskarte.getHeight();
 
+            /**
+             * Prüft ob die Karte dort angezeigt werden kann
+             */
             if (x > (lx - lw) && x < (lx + 2 * lw) && y > (ly - lh) && y < (ly + 2 * lh)) {
 
                 boolean showKard = false;
@@ -333,10 +346,25 @@ public class Main extends Application{
         }
     }
 
+    /**
+     * Prüft ob x und y in einem Rechteck aus sx,sy, w und h sind
+     * @param x
+     * @param y
+     * @param sx
+     * @param sy
+     * @param w
+     * @param h
+     * @return
+     */
     private boolean squareContains(double x, double y, double sx, double sy, double w, double h){
         return x>sx && x<(sx+w) && y>sy && y<(sy+h);
     }
 
+    /**
+     * Prüft ob die Karte gelegt werden kann
+     * Plaziert die Karte auf dem Spielfeld (CanvasPane)
+     * Ziegt einen neue Karte und der nächste Spieler ist an der Reihe
+     */
     private void placeLKarte(){
         Landschaftskarte nordKarte = null;
         Landschaftskarte ostKarte = null;
@@ -348,6 +376,9 @@ public class Main extends Application{
         boolean bSued = true;
         boolean bWest = true;
 
+        /**
+         * Sammelt mögliche Nachbar-Karten
+         */
         for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
             if(landschaftskarte.getX() == currentLKartX && landschaftskarte.getY() == currentLKartY-1)
                 nordKarte = landschaftskarte;
@@ -358,12 +389,13 @@ public class Main extends Application{
             if(landschaftskarte.getX() == currentLKartX-1 && landschaftskarte.getY() == currentLKartY)
                 westKarte = landschaftskarte;
         }
+        //Prüft ob Karte gelegt werden kann
         if(nordKarte != null) bNord = currentLKarte.addNeighbor(nordKarte, HimmelsrichtungT.NORD, false);
         if(ostKarte != null) bOst = currentLKarte.addNeighbor(ostKarte, HimmelsrichtungT.OST, false);
         if(suedKarte != null) bSued = currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, false);
         if(westKarte != null) bWest = currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, false);
 
-        if(bNord && bOst && bSued && bWest){
+        if(bNord && bOst && bSued && bWest){ //Wenn ja
             currentLKarte.setX(currentLKartX);
             currentLKarte.setY(currentLKartY);
             gelegteLandschaftskarten.add(currentLKarte);
@@ -373,8 +405,7 @@ public class Main extends Application{
             if(suedKarte != null) currentLKarte.addNeighbor(suedKarte, HimmelsrichtungT.SUED, true);
             if(westKarte != null) currentLKarte.addNeighbor(westKarte, HimmelsrichtungT.WEST, true);
 
-            //Kloster
-
+            //Erhöht den FillField Count wenn Kloster vorhanden
             for(Landschaftskarte landschaftskarte : gelegteLandschaftskarten){
                 //oben links
                 if(landschaftskarte.getX() == currentLKarte.getX() -1 && landschaftskarte.getY() == currentLKarte.getY()-1){
@@ -417,20 +448,25 @@ public class Main extends Application{
                     if(landschaftskarte.hasKloster()) landschaftskarte.getKloster().addFillFreeField();
                 }
             }
-
-
+            //Ermögliche dem Spieler eine Gefolgsmann zusetzen, wenn dieser noch Frei besitzt
             if(currentSpieler.countFreieGefolgsleute() != 0){
                 currentLKarte.setGefolgsmann(currentSpieler.getFreienGeflogsmann());
             }
             //Neue Karte zeihen
             currentLKarte = stapel.drawLandschaftskarte();
+            if(currentLKarte == null){
+                finishGame();
+                return;
+            }
             //nächster Spieler
             int spielerIndex = (++currentSpielerIndex)%spielers.length;
 
             currentSpieler = spielers[spielerIndex];
             currentSpielerIndex = spielerIndex;
+            //Aktuallisiert die Anzige
             playerStatusBar.setPlayer(spielers, currentSpielerIndex);
         }else {
+            //Wenn nicht gelegt werden kann
             currentLKarte.getInformation();
             System.out.println(bNord + " " + bOst + " "+ bSued + " " +bWest);
             if(nordKarte != null){
@@ -455,10 +491,21 @@ public class Main extends Application{
 
     }
 
+    /**
+     * Setzt die Spieler des Spiels
+     * @param spielers
+     */
     public void setSpielers(Spieler[] spielers) {
         this.spielers = spielers;
         currentSpieler = spielers[0];
         currentSpielerIndex = 0;
         playerStatusBar.setPlayer(spielers, currentSpielerIndex);
+    }
+
+    public void finishGame(){
+        machJetztSofortDieEndwertung();
+
+        WinningController winningController = new WinningController(new AnchorPane(), me, spielers);
+        winningController.showAndWait();
     }
 }

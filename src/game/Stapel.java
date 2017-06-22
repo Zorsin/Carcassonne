@@ -7,46 +7,56 @@ import java.util.Random;
 /**
  * 02.06.2017
  *
- * @author SWirries
+ * @author SWirries MHeiß
+ *
+ * Enthält die Bilder aus dem Spiel
+ * Erzeugt eine Stapel vondem der Spieler eine Karte ziehen kann.
+ *
  */
 public class Stapel {
     ArrayList<Landschaftskarte> landschaftskarten = new ArrayList<>();
-    public static final Image imageA = new Image("images/A.png");
-    public static final Image imageB = new Image("images/B.png");
-    public static final Image imageC = new Image("images/C.png");
-    public static final Image imageD = new Image("images/D.png");
-    public static final Image imageE = new Image("images/E.png");
-    public static final Image imageF = new Image("images/F.png");
-    public static final Image imageG = new Image("images/G.png");
-    public static final Image imageH = new Image("images/H.png");
-    public static final Image imageI = new Image("images/I.png");
-    public static final Image imageJ = new Image("images/J.png");
-    public static final Image imageK = new Image("images/K.png");
-    public static final Image imageL = new Image("images/L.png");
-    public static final Image imageM = new Image("images/M.png");
-    public static final Image imageN = new Image("images/N.png");
-    public static final Image imageO = new Image("images/O.png");
-    public static final Image imageP = new Image("images/P.png");
-    public static final Image imageQ = new Image("images/Q.png");
-    public static final Image imageR = new Image("images/R.png");
-    public static final Image imageS = new Image("images/S.png");
-    public static final Image imageT = new Image("images/T.png");
-    public static final Image imageU = new Image("images/U.png");
-    public static final Image imageV = new Image("images/V.png");
-    public static final Image imageW = new Image("images/W.png");
-    public static final Image imageX = new Image("images/X.png");
+    public static final String imagePath = "images/";
+    public static final Image imageA = new Image(imagePath+"A.png");
+    public static final Image imageB = new Image(imagePath +"B.png");
+    public static final Image imageC = new Image(imagePath +"C.png");
+    public static final Image imageD = new Image(imagePath +"D.png");
+    public static final Image imageE = new Image(imagePath +"E.png");
+    public static final Image imageF = new Image(imagePath +"F.png");
+    public static final Image imageG = new Image(imagePath +"G.png");
+    public static final Image imageH = new Image(imagePath +"H.png");
+    public static final Image imageI = new Image(imagePath +"I.png");
+    public static final Image imageJ = new Image(imagePath +"J.png");
+    public static final Image imageK = new Image(imagePath +"K.png");
+    public static final Image imageL = new Image(imagePath +"L.png");
+    public static final Image imageM = new Image(imagePath +"M.png");
+    public static final Image imageN = new Image(imagePath +"N.png");
+    public static final Image imageO = new Image(imagePath +"O.png");
+    public static final Image imageP = new Image(imagePath +"P.png");
+    public static final Image imageQ = new Image(imagePath +"Q.png");
+    public static final Image imageR = new Image(imagePath +"R.png");
+    public static final Image imageS = new Image(imagePath +"S.png");
+    public static final Image imageT = new Image(imagePath +"T.png");
+    public static final Image imageU = new Image(imagePath +"U.png");
+    public static final Image imageV = new Image(imagePath +"V.png");
+    public static final Image imageW = new Image(imagePath +"W.png");
+    public static final Image imageX = new Image(imagePath +"X.png");
 
-    public static final Image mannBlau = new Image("images/Mann_Blau.PNG");
-    public static final Image mannGelb = new Image("images/Mann_Gelb.PNG");
-    public static final Image mannGruen = new Image("images/Mann_Gruen.PNG");
-    public static final Image mannRot = new Image("images/Mann_Rot.PNG");
-    public static final Image mannSchwarz = new Image("images/Mann_Schwarz.PNG");
+    public static final Image mannBlau = new Image(imagePath +"Mann_Blau.PNG");
+    public static final Image mannGelb = new Image(imagePath +"Mann_Gelb.PNG");
+    public static final Image mannGruen = new Image(imagePath +"Mann_Gruen.PNG");
+    public static final Image mannRot = new Image(imagePath +"Mann_Rot.PNG");
+    public static final Image mannSchwarz = new Image(imagePath +"Mann_Schwarz.PNG");
 
-    public static final Image mannBlauHR = new Image("images/Mann_Blau_x150.PNG");
-    public static final Image mannGelbHR = new Image("images/Mann_Gelb_x150.PNG");
-    public static final Image mannGruenHR = new Image("images/Mann_Gruen_x150.PNG");
-    public static final Image mannRotHR = new Image("images/Mann_Rot_x150.PNG");
-    public static final Image mannSchwarzHR = new Image("images/Mann_Schwarz_x150.PNG");
+    public static final Image mannBlauHR = new Image(imagePath +"Mann_Blau_x150.PNG");
+    public static final Image mannGelbHR = new Image(imagePath +"Mann_Gelb_x150.PNG");
+    public static final Image mannGruenHR = new Image(imagePath +"Mann_Gruen_x150.PNG");
+    public static final Image mannRotHR = new Image(imagePath +"Mann_Rot_x150.PNG");
+    public static final Image mannSchwarzHR = new Image(imagePath +"Mann_Schwarz_x150.PNG");
+
+    public static final Image rotateRight = new Image(imagePath + "rotate-right.png");
+    public static final Image rotateLeft = new Image(imagePath + "rotate-left.png");
+    public static final Image surrender = new Image(imagePath + "white-flag-symbol.png");
+    public static final Image throwCard = new Image(imagePath + "external-link-symbol.png");
 
     public Stapel() {
         generateStapel();
@@ -56,17 +66,28 @@ public class Stapel {
         return generateLandschaftD();
     }
 
+    /**
+     * Zieht zufälig eine Karte aus dem Stapel
+     * @return
+     */
     public Landschaftskarte drawLandschaftskarte(){
-        int size = landschaftskarten.size();
-        Random random = new Random();
+        try {
+            int size = landschaftskarten.size();
+            Random random = new Random();
 
-        int randomInt = random.nextInt(size);
-        Landschaftskarte drawedKard = landschaftskarten.get(randomInt);
-        landschaftskarten.remove(drawedKard);
+            int randomInt = random.nextInt(size);
+            Landschaftskarte drawedKard = landschaftskarten.get(randomInt);
+            landschaftskarten.remove(drawedKard);
 
-        return  drawedKard;
+            return  drawedKard;
+        } catch (Exception e) {
+        }
+        return null;
     }
 
+    /**
+     * Erzeugt den Stapel mit allen 71 Karten
+     */
     private void generateStapel(){
         landschaftskarten.add(generateLandschaftA());
         landschaftskarten.add(generateLandschaftA());
@@ -151,6 +172,11 @@ public class Stapel {
         landschaftskarten.add(generateLandschaftX());
 
     }
+
+    /**
+     * Erzuegt die Landschaftskartn nach Vorgabe der Spielanleitung
+     * @return
+     */
 
     public Landschaftskarte generateLandschaftA(){
         Kloster kloster = new Kloster();

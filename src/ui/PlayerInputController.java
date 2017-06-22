@@ -19,7 +19,9 @@ import java.util.ResourceBundle;
 /**
  * 09.06.2017
  *
- * @author SWirries
+ * @author SWirries MHeiß
+ *
+ * Erstellt eine Dialog mit dem die Spieler festgelegt werden
  */
 public class PlayerInputController extends Stage implements Initializable{
     @FXML
@@ -46,14 +48,14 @@ public class PlayerInputController extends Stage implements Initializable{
     @FXML
     private Button buttonStart;
 
-    private Main main;
+    private Carcassonne carcassonne;
 
-    public PlayerInputController(Parent parent, Main main) {
+    public PlayerInputController(Parent parent, Carcassonne carcassonne) {
         setTitle("Spieler festlegen");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/PlayerInput.fxml"));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(parent);
-        this.main = main;
+        this.carcassonne = carcassonne;
         try {
             setScene(new Scene(fxmlLoader.load()));
         } catch (IOException e) {
@@ -61,17 +63,10 @@ public class PlayerInputController extends Stage implements Initializable{
         }
     }
 
-    //    @FXML
-//    void initialize() {
-//        assert textFieldPlayer1 != null : "fx:id=\"textFieldPlayer1\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//        assert textFieldPlayer2 != null : "fx:id=\"textFieldPlayer2\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//        assert textFieldPlayer3 != null : "fx:id=\"textFieldPlayer3\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//        assert textFieldPlayer4 != null : "fx:id=\"textFieldPlayer4\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//        assert textFieldPlayer5 != null : "fx:id=\"textFieldPlayer5\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//        assert buttonStart != null : "fx:id=\"buttonStart\" was not injected: check your FXML file 'PlayerInput.fxml'.";
-//
-//    }
-
+    /**
+     * Liest die Spielernamen aus den Textfeldern und gibt die Spieler an Carcassonne weiter
+     * @return
+     */
     private Spieler[] getAllPlayer(){
         ArrayList<Spieler> spieler = new ArrayList<>();
         if(!textFieldPlayer1.getText().equals("")) spieler.add(new Spieler(textFieldPlayer1.getText(), FarbeT.BLAU));
@@ -95,7 +90,7 @@ public class PlayerInputController extends Stage implements Initializable{
         textFieldPlayer4.setText("");
         textFieldPlayer5.setText("");
         buttonStart.setOnAction(event -> {
-            main.setSpielers(getAllPlayer());
+            carcassonne.setSpielers(getAllPlayer());
             this.close();
         });
     }
