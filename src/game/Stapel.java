@@ -57,6 +57,7 @@ public class Stapel {
     public static final Image rotateLeft = new Image(imagePath + "rotate-left.png");
     public static final Image surrender = new Image(imagePath + "white-flag-symbol.png");
     public static final Image throwCard = new Image(imagePath + "external-link-symbol.png");
+    public static final Image manual = new Image(imagePath + "book.png");
 
     public Stapel() {
         generateStapel();

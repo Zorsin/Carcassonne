@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,7 +50,11 @@ public class PlayerInputController extends Stage implements Initializable{
     @FXML
     private Button buttonStart;
 
+    @FXML
+    private Button btnOpenAnleitung;
+
     private Carcassonne carcassonne;
+
 
     public PlayerInputController(Parent parent, Carcassonne carcassonne) {
         setTitle("Spieler festlegen");
@@ -93,5 +99,8 @@ public class PlayerInputController extends Stage implements Initializable{
             carcassonne.setSpielers(getAllPlayer());
             this.close();
         });
+        btnOpenAnleitung.setOnAction(event -> carcassonne.getHostServices()
+                .showDocument("http://www.brettspiele-report.de/images/carcassonne/Spielanleitung_Carcassonne.pdf")
+        );
     }
 }

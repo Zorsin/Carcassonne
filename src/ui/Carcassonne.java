@@ -64,6 +64,9 @@ public class Carcassonne extends Application{
 
         primaryStage.show();
 
+        //Wenn Fenster geschlossen wird
+        primaryStage.onCloseRequestProperty().set(event -> System.exit(0));
+
 
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
@@ -186,6 +189,10 @@ public class Carcassonne extends Application{
                                     alertThrowCard.setHeaderText("Das Wegwerfen bei dieser Karte ist nicht möglich!");
                                     alertThrowCard.showAndWait();
                                 }
+                            case "Manual":{
+                                getHostServices()
+                                        .showDocument("http://www.brettspiele-report.de/images/carcassonne/Spielanleitung_Carcassonne.pdf");
+                            }
                         }
                         render();
                         break;
@@ -208,6 +215,7 @@ public class Carcassonne extends Application{
          */
         canvasButtons.add(new CanvasButton(500,20,60,60, Stapel.rotateLeft, "Rotate Left"));
         canvasButtons.add(new CanvasButton(700,20,60,60, Stapel.rotateRight, "Rotate Right"));
+        canvasButtons.add(new CanvasButton(100,20,60,60, Stapel.manual, "Manual"));
         canvasButtons.add(new CanvasButton(200,20,60,60, Stapel.surrender, "Surrender"));
         canvasButtons.add(new CanvasButton(300,20,60,60, Stapel.throwCard, "ThrowCard"));
 
@@ -222,9 +230,14 @@ public class Carcassonne extends Application{
         currentLKarte = stapel.drawLandschaftskarte();
 
         PlayerInputController playerInputController = new PlayerInputController(new AnchorPane(), this);
-
+        int countPlayerInput = 0;
         do {
+            if(countPlayerInput > 1){
+                closeCarcassonne();
+            }
             playerInputController.showAndWait();
+            countPlayerInput++;
+
         } while (spielers == null);
 
         render();
@@ -507,5 +520,16 @@ public class Carcassonne extends Application{
 
         WinningController winningController = new WinningController(new AnchorPane(), me, spielers);
         winningController.showAndWait();
+    }
+
+    private void closeCarcassonne(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Spiel beenden");
+        alert.setHeaderText("Möchten Sie das Spiel wirklich beenden?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            System.exit(0);
+        }
+        return;
     }
 }
