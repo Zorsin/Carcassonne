@@ -1,2 +1,2 @@
 # Carcassonne
-Das Spiel Carcassonne von GSE2
+Das Spiel Carcassonne für GSE2
