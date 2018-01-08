@@ -15,31 +15,33 @@ import java.util.Random;
  */
 public class Stapel {
     ArrayList<Landschaftskarte> landschaftskarten = new ArrayList<>();
-    public static final String imagePath = "images/";
-    public static final Image imageA = new Image(imagePath+"A.png");
-    public static final Image imageB = new Image(imagePath +"B.png");
-    public static final Image imageC = new Image(imagePath +"C.png");
-    public static final Image imageD = new Image(imagePath +"D.png");
-    public static final Image imageE = new Image(imagePath +"E.png");
-    public static final Image imageF = new Image(imagePath +"F.png");
-    public static final Image imageG = new Image(imagePath +"G.png");
-    public static final Image imageH = new Image(imagePath +"H.png");
-    public static final Image imageI = new Image(imagePath +"I.png");
-    public static final Image imageJ = new Image(imagePath +"J.png");
-    public static final Image imageK = new Image(imagePath +"K.png");
-    public static final Image imageL = new Image(imagePath +"L.png");
-    public static final Image imageM = new Image(imagePath +"M.png");
-    public static final Image imageN = new Image(imagePath +"N.png");
-    public static final Image imageO = new Image(imagePath +"O.png");
-    public static final Image imageP = new Image(imagePath +"P.png");
-    public static final Image imageQ = new Image(imagePath +"Q.png");
-    public static final Image imageR = new Image(imagePath +"R.png");
-    public static final Image imageS = new Image(imagePath +"S.png");
-    public static final Image imageT = new Image(imagePath +"T.png");
-    public static final Image imageU = new Image(imagePath +"U.png");
-    public static final Image imageV = new Image(imagePath +"V.png");
-    public static final Image imageW = new Image(imagePath +"W.png");
-    public static final Image imageX = new Image(imagePath +"X.png");
+//    public static final String imagePath = "images/";
+    public static final String imagePath = Stapel.class.getResource("/images/").toString();
+//    public static final String imagePath2 = Stapel.class.getResource("images").toString();
+    public static final Image imageA = new Image(imagePath+"A.PNG");
+    public static final Image imageB = new Image(imagePath +"B.PNG");
+    public static final Image imageC = new Image(imagePath +"C.PNG");
+    public static final Image imageD = new Image(imagePath +"D.PNG");
+    public static final Image imageE = new Image(imagePath +"E.PNG");
+    public static final Image imageF = new Image(imagePath +"F.PNG");
+    public static final Image imageG = new Image(imagePath +"G.PNG");
+    public static final Image imageH = new Image(imagePath +"H.PNG");
+    public static final Image imageI = new Image(imagePath +"I.PNG");
+    public static final Image imageJ = new Image(imagePath +"J.PNG");
+    public static final Image imageK = new Image(imagePath +"K.PNG");
+    public static final Image imageL = new Image(imagePath +"L.PNG");
+    public static final Image imageM = new Image(imagePath +"M.PNG");
+    public static final Image imageN = new Image(imagePath +"N.PNG");
+    public static final Image imageO = new Image(imagePath +"O.PNG");
+    public static final Image imageP = new Image(imagePath +"P.PNG");
+    public static final Image imageQ = new Image(imagePath +"Q.PNG");
+    public static final Image imageR = new Image(imagePath +"R.PNG");
+    public static final Image imageS = new Image(imagePath +"S.PNG");
+    public static final Image imageT = new Image(imagePath +"T.PNG");
+    public static final Image imageU = new Image(imagePath +"U.PNG");
+    public static final Image imageV = new Image(imagePath +"V.PNG");
+    public static final Image imageW = new Image(imagePath +"W.PNG");
+    public static final Image imageX = new Image(imagePath +"X.PNG");
 
     public static final Image mannBlau = new Image(imagePath +"Mann_Blau.PNG");
     public static final Image mannGelb = new Image(imagePath +"Mann_Gelb.PNG");
@@ -53,11 +55,11 @@ public class Stapel {
     public static final Image mannRotHR = new Image(imagePath +"Mann_Rot_x150.PNG");
     public static final Image mannSchwarzHR = new Image(imagePath +"Mann_Schwarz_x150.PNG");
 
-    public static final Image rotateRight = new Image(imagePath + "rotate-right.png");
-    public static final Image rotateLeft = new Image(imagePath + "rotate-left.png");
-    public static final Image surrender = new Image(imagePath + "white-flag-symbol.png");
-    public static final Image throwCard = new Image(imagePath + "external-link-symbol.png");
-    public static final Image manual = new Image(imagePath + "book.png");
+    public static final Image rotateRight = new Image(imagePath + "rotate-right.PNG");
+    public static final Image rotateLeft = new Image(imagePath + "rotate-left.PNG");
+    public static final Image surrender = new Image(imagePath + "white-flag-symbol.PNG");
+    public static final Image throwCard = new Image(imagePath + "external-link-symbol.PNG");
+    public static final Image manual = new Image(imagePath + "book.PNG");
 
     public Stapel() {
         generateStapel();

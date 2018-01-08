@@ -49,8 +49,12 @@ public class Carcassonne extends Application{
     private double originX = 0, originY = 0;
     Carcassonne me = this;
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+//        System.out.println(Stapel.imagePath2);
+        System.out.println("test");
+        System.out.println(Carcassonne.class.getResource("/images/").toString());
         primaryStage.setTitle("Carcassonne");
         CanvasPane canvasPane = new CanvasPane(1920, 1080);
         canvas = canvasPane.getCanvas();
@@ -268,6 +272,7 @@ public class Carcassonne extends Application{
      * Rendert das Spielfeld neu
      */
     public void render(){
+
             // canvas background
             c.setFill(Color.WHEAT);
             c.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
