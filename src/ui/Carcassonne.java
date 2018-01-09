@@ -53,8 +53,8 @@ public class Carcassonne extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
 //        System.out.println(Stapel.imagePath2);
-        System.out.println("test");
-        System.out.println(Carcassonne.class.getResource("/images/").toString());
+//        System.out.println("test");
+//        System.out.println(Carcassonne.class.getResource("/images/").toString());
         primaryStage.setTitle("Carcassonne");
         CanvasPane canvasPane = new CanvasPane(1920, 1080);
         canvas = canvasPane.getCanvas();
