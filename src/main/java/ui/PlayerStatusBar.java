@@ -57,7 +57,7 @@ public class PlayerStatusBar implements Initializable {
 
     public PlayerStatusBar(Parent parent) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/PlayerStatusBar.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PlayerStatusBar.fxml"));
         fxmlLoader.setController(this);
         try {
            node = fxmlLoader.load();

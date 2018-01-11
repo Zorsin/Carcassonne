@@ -58,7 +58,7 @@ public class PlayerInputController extends Stage implements Initializable{
 
     public PlayerInputController(Parent parent, Carcassonne carcassonne) {
         setTitle("Spieler festlegen");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/PlayerInput.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PlayerInput.fxml"));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(parent);
         this.carcassonne = carcassonne;

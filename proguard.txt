@@ -1,0 +1,33 @@
+#-libraryjars 'C:\Program Files\Java\jdk1.8.0_102\jre\lib\rt.jar'
+#-libraryjars 'C:\Program Files\Java\jdk1.8.0_102\jre\lib\javaws.jar'
+#-libraryjars 'C:\Program Files\Java\jdk1.8.0_102\jre\lib\ext\jfxrt.jar'
+
+#-keepparameternames
+-dontshrink
+-dontoptimize
+-renamesourcefileattribute SourceFile
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+-keepclassmembernames class * { java.lang.Class class$(java.lang.String); java.lang.Class class$(java.lang.String, boolean); }
+-optimizations !code/allocation/variable
+-keep class ui.Carcassonne {*;}
+-keepnames class **Controller {*;}
+-keep class javax.** { *; }
+-keep class java.** { *; }
+-keep class org.** { *; }
+
+# Keep names of fields marked with @FXML attribute
+-keepclassmembers class * {
+    @javafx.fxml.FXML
+    <fields>;
+    @javafx.fxml.FXML
+    <methods>;
+}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}

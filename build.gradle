@@ -1,0 +1,75 @@
+import proguard.gradle.ProGuardTask
+group 'de.hhn.se.mhsw'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+def javaName = archivesBaseName + '-java'
+def fullJavaName = archivesBaseName + '-full'
+def mainClassName = 'ui.Carcassonne'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+sourceSets {
+    main{
+        java{
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+jar {
+    baseName = javaName
+    manifest {
+        attributes "Implementation-Title": javaName
+        attributes "Implementation-Version": version
+        attributes "Main-Class": mainClassName
+
+    }
+}
+
+task fullJavaJar(type: Jar) {
+    baseName = fullJavaName
+    manifest {
+        attributes "Implementation-Title": baseName
+        attributes "Implementation-Version": version
+        attributes "Main-Class": mainClassName
+    }
+    from sourceSets.main.output
+    artifacts {
+        archives fullJavaJar
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'net.sf.proguard:proguard-gradle:5.2.1'
+    }
+}
+
+
+task proguard(type: ProGuardTask, dependsOn: 'fullJavaJar') {
+    configuration '/proguard.txt'
+
+    injars "$buildDir/libs/${fullJavaName}-${version}.jar"
+    outjars "$buildDir/libs/${javaName}-${version}-done.jar"
+
+    libraryjars "${System.getProperty('java.home')}/lib/rt.jar"
+    libraryjars "${System.getProperty('java.home')}/lib/javaws.jar"
+    libraryjars "${System.getProperty('java.home')}/lib/ext/jfxrt.jar"
+}
+
+task obfuscate(dependsOn: tasks.withType(ProGuardTask)) << {}

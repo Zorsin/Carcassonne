@@ -51,7 +51,7 @@ public class WinningController extends Stage implements Initializable {
     public WinningController(Parent parent, Carcassonne carcassonne, Spieler[] spielers) {
         this.spielers = spielers;
         setTitle("Spiel beendet");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/WinningMessage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WinningMessage.fxml"));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(parent);
         this.carcassonne = carcassonne;
